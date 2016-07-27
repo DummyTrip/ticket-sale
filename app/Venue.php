@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Venue extends Model
 {
+    protected $fillable = ['name', 'city', 'country', 'address'];
 
     public function manager()
     {

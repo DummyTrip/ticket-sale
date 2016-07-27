@@ -9,12 +9,10 @@ use App\Http\Requests;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
 
-class ProfileController extends Controller
+class UserController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * ProfileController constructor.
      */
     public function __construct()
     {
@@ -22,19 +20,38 @@ class ProfileController extends Controller
     }
 
     /**
+     * Show a list of users.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index()
+    {
+        $users = User::all();
+
+        return view('users.index', compact('users'));
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+
+        return view('users.show', compact('user'));
+    }
+
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function update()
     {
         $user = \Auth::user();
 
-        $isAdmin = $user->hasRole('admin');;
-        $isManager = $user->hasRole('manager');;
-        $isOrganizer = $user->hasRole('organizer');;
+        $isAdmin = $user->hasRole('admin');
+        $isManager = $user->hasRole('manager');
+        $isOrganizer = $user->hasRole('organizer');
 
-        return view('profile',
+        return view('users.profile',
             compact('isAdmin',
                 'isManager',
                 'isOrganizer',
@@ -51,15 +68,15 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $user = \Auth::user();
-        $all_requests = $request->all();
+        $input = $request->all();
 
-        $isAdmin = array_key_exists('make-admin', $all_requests) ? 'admin' : '';
-        $isManager = array_key_exists('make-manager', $all_requests) ? 'manager' : '';
-        $isOrganizer = array_key_exists('make-organizer', $all_requests) ? 'organizer' : '';
+        $isAdmin = array_key_exists('make-admin', $input) ? 'admin' : '';
+        $isManager = array_key_exists('make-manager', $input) ? 'manager' : '';
+        $isOrganizer = array_key_exists('make-organizer', $input) ? 'organizer' : '';
 
         $roles = array($isAdmin, $isManager, $isOrganizer);
 
-        $user->addRole($roles, $user);
+        $user->addRole($roles);
 
         return view('profile',
             compact('isAdmin',
