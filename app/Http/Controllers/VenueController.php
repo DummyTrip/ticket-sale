@@ -42,6 +42,12 @@ class VenueController extends Controller
         return view('venues.show', compact('venue'));
     }
 
+    /**
+     * Return edit view for the given venue.
+     *
+     * @param $venue
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($venue)
     {
         return view('venues.edit', compact('venue'));

@@ -24,6 +24,15 @@
                                 <a href="{{ action('UserController@index') }}">Users</a>
                             </li>
 
+                            <li>
+                                <a href="{{ action('EventController@index') }}">Events</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ action('EventController@create') }}">Create Event
+                                </a>
+                            </li>
+
                         </ul>
                     </div>
                 </div>

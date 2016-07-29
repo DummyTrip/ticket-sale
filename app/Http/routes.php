@@ -36,3 +36,10 @@ Route::get('/venues/create', 'VenueController@create');
 Route::get('/venues/{venues}', 'VenueController@show');
 Route::patch('/venues/{venues}', 'VenueController@update');
 Route::get('/venues/{venues}/edit', 'VenueController@edit');
+
+Route::get('/events', 'EventController@index');
+Route::post('/events', 'EventController@store');
+Route::get('/events/create', 'EventController@create');
+Route::get('/events/{events}', 'EventController@show');
+Route::patch('/events/{events}', 'EventController@update');
+Route::get('/events/{events}/edit', 'EventController@edit');

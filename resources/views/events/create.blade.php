@@ -8,9 +8,9 @@
                     <div class="panel-heading">Add Venue</div>
                     <div class="panel-body">
 
-                        {!! Form::open(['action' => 'VenueController@store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['action' => 'EventController@store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
 
-                            @include('venues.form', ['submitButtonText' => '<i class="fa fa-plus-square" aria-hidden="true"></i> Add Event'])
+                            @include('events.form', ['submitButtonText' => '<i class="fa fa-plus-square" aria-hidden="true"></i> Add Event'])
 
                         {!! Form::close() !!}
 

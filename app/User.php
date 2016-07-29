@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->roles->lists('id')->toArray();
     }
+
+    public function getRoleNamesAttribute()
+    {
+        return $this->roles->lists('role')->toArray();
+    }
 }

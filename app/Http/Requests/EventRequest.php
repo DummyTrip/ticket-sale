@@ -3,10 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\Role;
-use Illuminate\Support\Facades\Auth;
 
-class VenueRequest extends Request
+class EventRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +16,7 @@ class VenueRequest extends Request
         $user = \Auth::user();
         $roles = $user->role_names;
 
-        return in_array('admin', $roles) || in_array('manager', $roles);
+        return in_array('admin', $roles) || in_array('organizer', $roles);
     }
 
     /**
@@ -29,10 +27,7 @@ class VenueRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-            'city' => 'required',
-            'country' => 'required',
-            'address' => 'required',
+            //
         ];
     }
 }

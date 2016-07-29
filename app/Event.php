@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+    protected $fillable = ['name', 'date'];
+
     protected $dates = ['date'];
 
     public function venue()
@@ -26,5 +28,10 @@ class Event extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function getTagListAttribute()
+    {
+        return $this->tags->lists('id')->toArray();
     }
 }
