@@ -20,6 +20,11 @@ class Venue extends Model
 
     public function seats()
     {
-        return $this->hasMany('App\Seat');
+        return $this->belongsToMany('App\Seat');
+    }
+
+    public function getBlocksAttribute()
+    {
+        return $this->seats->lists('block')->unique()->values()->all();
     }
 }

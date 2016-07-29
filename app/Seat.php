@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seat extends Model
 {
-    public function venue()
+    public function venues()
     {
-        return $this->belongsTo('App\Venue');
+        return $this->belongsToMany('App\Venue');
     }
 
     public function tickets()
