@@ -27,7 +27,9 @@ class EventRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'venue_id' => 'required',
+            'date' => 'required',
         ];
     }
 }

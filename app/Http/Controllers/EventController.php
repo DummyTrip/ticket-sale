@@ -57,19 +57,7 @@ class EventController extends Controller
 
         $event = new Event();
 
-        $event->organizer_id = \Auth::user()->id;
-        $event->name = $input['name'];
-        $event->venue_id = $input['venue_id'];
-        $event->date = $input['date'];
-
-        $event->save();
-
-        $tags = $input['tag_list'];
-
-        $tags = $tags === null ? [] : $tags;
-
-        $event->tags()->sync($tags);
-
+        $this->saveEvent($input, $event);
 
         return redirect('events');
     }
@@ -107,9 +95,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventRequest $request, Event $event)
     {
-        return true;
+        $input = $request->all();
+
+        $this->saveEvent($input, $event);
+
+        return view('events.show', compact('event'));
     }
 
     /**
@@ -121,5 +113,21 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function saveEvent($input, Event $event)
+    {
+        $event->organizer_id = \Auth::user()->id;
+        $event->name = $input['name'];
+        $event->venue_id = $input['venue_id'];
+        $event->date = $input['date'];
+
+        $event->save();
+
+        $tags = $input['tag_list'];
+
+        $tags = $tags === null ? [] : $tags;
+
+        $event->tags()->sync($tags);
     }
 }
