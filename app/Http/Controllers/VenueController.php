@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateVenueRequest;
+use App\Http\Requests\VenueRequest;
 use App\Venue;
 use Illuminate\Http\Request;
 
@@ -37,18 +37,23 @@ class VenueController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Venue $venue)
     {
-        $venue = Venue::find($id);
-
         return view('venues.show', compact('venue'));
     }
 
-    public function update($id)
+    public function edit($venue)
     {
-        $venue = Venue::find($id);
+        return view('venues.edit', compact('venue'));
+    }
 
-        return $venue;
+    public function update($venue, VenueRequest $request)
+    {
+        $input = $request->all();
+
+        $venue->update($input);
+
+        return view('venues.show', compact('venue'));
     }
 
     /**
@@ -63,7 +68,7 @@ class VenueController extends Controller
      * @param CreateVenueRequest $request
      * @return array
      */
-    public function store(CreateVenueRequest $request)
+    public function store(VenueRequest $request)
     {
         $input = $request->all();
 

@@ -7,7 +7,7 @@
         <p>City: {{ $venue->city }} Country: {{ $venue->country }}</p>
     </div>
     <div class="panel-body">
-        <a href="{{ action("VenueController@update", ['id' => $venue->id]) }}">Edit Venue</a>
+        <a href="{{ action("VenueController@edit", ['id' => $venue->id]) }}">Edit Venue</a>
     </div>
 
 @endsection

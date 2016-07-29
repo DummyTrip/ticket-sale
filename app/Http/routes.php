@@ -21,11 +21,18 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/users', 'UserController@index');
 Route::get('/users/{id}', 'UserController@show');
-Route::get('/profile', 'UserController@update');
-Route::post('/profile', 'UserController@store');
+Route::get('/profile', 'UserController@edit');
+Route::patch('/profile', 'UserController@update');
+
+//Route::resource('venues', 'VenueController');
+
+Route::get('test', function(){
+    return view('test');
+});
 
 Route::get('/venues', 'VenueController@index');
-Route::get('/venues/create', 'VenueController@create');
-Route::get('/venues/{id}', 'VenueController@show');
-Route::get('/venues/{id}/update', 'VenueController@update');
 Route::post('/venues', 'VenueController@store');
+Route::get('/venues/create', 'VenueController@create');
+Route::get('/venues/{venues}', 'VenueController@show');
+Route::patch('/venues/{venues}', 'VenueController@update');
+Route::get('/venues/{venues}/edit', 'VenueController@edit');

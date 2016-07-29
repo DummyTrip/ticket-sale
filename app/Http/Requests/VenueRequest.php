@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CreateVenueRequest extends Request
+class VenueRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,8 +15,9 @@ class CreateVenueRequest extends Request
     public function authorize()
     {
         $user = \Auth::user();
+        $roles = $user->role_list;
 
-        return $user->hasRole('admin') || $user->hasRole('manager');
+        return in_array('admin', $roles) || in_array('admin', $roles);
     }
 
     /**

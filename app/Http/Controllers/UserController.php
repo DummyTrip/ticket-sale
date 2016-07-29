@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 
 use App\Http\Requests;
 use App\Role;
@@ -31,10 +32,8 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function show($id)
+    public function show($user)
     {
-        $user = User::find($id);
-
         return view('users.show', compact('user'));
     }
 
@@ -43,46 +42,34 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update()
+    public function edit()
     {
         $user = \Auth::user();
 
-        $isAdmin = $user->hasRole('admin');
-        $isManager = $user->hasRole('manager');
-        $isOrganizer = $user->hasRole('organizer');
+        $roles = Role::lists('role', 'id');
 
         return view('users.profile',
-            compact('isAdmin',
-                'isManager',
-                'isOrganizer',
-                'user'
+            compact('user',
+                'roles'
             ));
     }
 
     /**
-     * Add selected roles to the user.
+     * Update user information.
      *
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function store(Request $request)
+    public function update(UserRequest $request)
     {
         $user = \Auth::user();
-        $input = $request->all();
+        $input = $request->input('role_list');
 
-        $isAdmin = array_key_exists('make-admin', $input) ? 'admin' : '';
-        $isManager = array_key_exists('make-manager', $input) ? 'manager' : '';
-        $isOrganizer = array_key_exists('make-organizer', $input) ? 'organizer' : '';
+        $input = $input === null ? [] : $input;
 
-        $roles = array($isAdmin, $isManager, $isOrganizer);
+        $user->roles()->sync($input);
 
-        $user->addRole($roles);
-
-        return view('profile',
-            compact('isAdmin',
-                'isManager',
-                'isOrganizer',
-                'user'
-            ));
+        return redirect('profile');
     }
+
 }

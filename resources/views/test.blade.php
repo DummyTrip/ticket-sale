@@ -1,19 +1,7 @@
-admin {{ $isAdmin }} <br>
-manager {{ $isManager }} <br>
-organizer {{ $isOrganizer }} <br>
-<br>
+@extends('layouts.app')
 
-{{ $role }}
+@section('content')
 
+    @
 
-<br>
-
-abe {{ array_key_exists('make-admin', $da) ? 'da' : 'ne' }}
-
-<br>
-<br>
-
-@foreach($da as $r => $o)
-    {{ $r.' '.$o }}<br>
-@endforeach
-
+@endsection

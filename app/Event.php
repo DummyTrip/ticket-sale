@@ -22,4 +22,9 @@ class Event extends Model
     {
         return $this->hasMany('App\Ticket');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag');
+    }
 }
