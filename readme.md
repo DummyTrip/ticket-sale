@@ -6,7 +6,7 @@
 1. https://getcomposer.org/download/
 2. https://www.virtualbox.org/wiki/Downloads
 3. https://www.vagrantup.com/downloads.html
-4. Во windows за полесно да се инсталира се треба и ова: https://git-for-windows.github.io/ 
+4. Во windows за полесно да се инсталира ќе треба и ова: https://git-for-windows.github.io/ 
 
 Откако ќе се инсталираат Composer, VirtualBox, Vagrant и Git, во git bash внеси:
 
@@ -18,18 +18,20 @@
 
 Следно треба да се конфигурира Homestead и hosts фајлот. Секаде каде што пишува Aleksandar смени со името на user-ot на компјутерот.
 
-9. C:\Users\Aleksandar\.homestead\Homestead.yaml кај мене изгледа вака: линк
+9. C:\Users\Aleksandar\.homestead\Homestead.yaml кај мене изгледа вака: [линк](https://drive.google.com/file/d/0B6l1fZCJ7OnGcVI3UklTRnQxRFE/view?usp=sharing)
     - Moже да се смени овој фајл. Повеќе [овде](https://laravel.com/docs/5.2/homestead#configuring-homestead). Ако останува исто вака тогаш во gti bash внеси:
      - cd && mkdir code
-10. C:\Windows\System32\drivers\etc\hosts кај мене изгледа вака: линк.
+10. C:\Windows\System32\drivers\etc\hosts кај мене изгледа вака: [линк](https://drive.google.com/file/d/0B6l1fZCJ7OnGdGFmalBnRGZhV00/view?usp=sharing).
     - Пази на празни места и табови. Може да прави проблеми.
 
-Останува уште ssh да се намести и да се клонира проектот. Во git bash:
+Останува уште ssh да се намести, да се клонира проектот и да се направи update на composer. Во git bash:
+
 11. ssh-keygen -t rsa -b 4096
     - Ќе врати: Enter a file in which to save the key (/Users/you/.ssh/id_rsa): [Press enter] 
     - Стисни enter за да остане default.
     - Потоа може да се внесе passphrase ама не мора. 
 12. cd && cd code && git clone https://github.com/DummyTrip/ticket-sale.git 
+13. cd ticket-sale && composer update
 
 Сега се е спремно. Треба да се пушти Homestead, да се наполни базата и да се пушти во browser timska.dev.
 Во git bash внеси:
