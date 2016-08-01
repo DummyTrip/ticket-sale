@@ -19,7 +19,7 @@ class CreateTicketsTable extends Migration
             $table->integer('event_id')->unsigned();
             $table->integer('price');
             $table->dateTime('reserve_time')->nullable();
-            $table->boolean('sold')->default(false);
+            $table->boolean('sold')->default('0');
             $table->timestamps();
         });
 

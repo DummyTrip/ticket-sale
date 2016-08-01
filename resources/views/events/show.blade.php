@@ -13,7 +13,10 @@
         </ul>
     </div>
     <div class="panel-body">
-        <a href="{{ action("EventController@edit", ['id' => $event->id]) }}">Edit Event</a>
+        <a href="{{ action("EventController@edit", ['event' => $event]) }}">Edit Event</a>
+    </div>
+    <div class="panel-body">
+        <a href="{{ action("TicketController@index", ['event' => $event]) }}">View Tickets</a>
     </div>
 
 @endsection

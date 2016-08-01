@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VenuesTableSeeder::class);
         $this->call(EventsTableSeeder::class);
         $this->call(SeatsTableSeeder::class);
+        $this->call(TicketsTableSeeder::class);
 
         Model::reguard();
     }

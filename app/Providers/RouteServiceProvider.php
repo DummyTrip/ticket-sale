@@ -31,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
         $router->model('id', 'App\User');
         $router->model('venues', 'App\Venue');
         $router->model('events', 'App\Event');
+        $router->model('tickets', 'App\Ticket');
     }
 
     /**

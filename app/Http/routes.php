@@ -43,3 +43,9 @@ Route::get('/events/create', 'EventController@create');
 Route::get('/events/{events}', 'EventController@show');
 Route::patch('/events/{events}', 'EventController@update');
 Route::get('/events/{events}/edit', 'EventController@edit');
+
+Route::get('/events/{events}/tickets', 'TicketController@index');
+//Route::post('/events/{events}/tickets', 'TicketController@store');
+//Route::get('/events/{events}/tickets/create', 'TicketController@create');
+Route::get('/events/{events}/tickets/{tickets}', 'TicketController@show');
+Route::get('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
