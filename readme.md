@@ -9,6 +9,7 @@
 4. Во windows за полесно да се инсталира се треба и ова: https://git-for-windows.github.io/ 
 
 Откако ќе се инсталираат Composer, VirtualBox, Vagrant и Git, во git bash внеси:
+
 5. composer global require "laravel/installer"
 6. vagrant box add laravel/homestead
     - Oтприлика 1 gb ќе спушти
@@ -16,6 +17,7 @@
 8. cd Homestead/ && bash init.sh
 
 Следно треба да се конфигурира Homestead и hosts фајлот. Секаде каде што пишува Aleksandar смени со името на user-ot на компјутерот.
+
 9. C:\Users\Aleksandar\.homestead\Homestead.yaml кај мене изгледа вака: линк
     - Moже да се смени овој фајл. Повеќе [овде](https://laravel.com/docs/5.2/homestead#configuring-homestead). Ако останува исто вака тогаш во gti bash внеси:
      - cd && mkdir code
@@ -31,6 +33,7 @@
 
 Сега се е спремно. Треба да се пушти Homestead, да се наполни базата и да се пушти во browser timska.dev.
 Во git bash внеси:
+
 1. cd && cd code && git clone https://github.com/DummyTrip/ticket-sale.git
 2. cd && cd Homestead
 3. vagrant up
@@ -41,6 +44,7 @@
     - timska.dev
 
 Кога ќе се заврши со работа треба да се исклучи Homestead.
+
 9. exit
 10. vagrant halt
 
