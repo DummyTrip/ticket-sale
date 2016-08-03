@@ -31,7 +31,10 @@
     - Стисни enter за да остане default.
     - Потоа може да се внесе passphrase ама не мора. 
 12. cd && cd code && git clone https://github.com/DummyTrip/ticket-sale.git 
-13. cd ticket-sale && composer update
+13. cd ticket-sale
+14. cp .env-example .env
+15. php artisan key:generate
+16. composer update
 
 Сега се е спремно. Треба да се пушти Homestead, да се наполни базата и да се пушти во browser timska.dev.
 Во git bash внеси:
