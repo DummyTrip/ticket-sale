@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +17,14 @@
 
     <link rel="stylesheet" href="{{ URL::asset('dist/css/select2.min.css') }}" rel="stylesheet" />
 
+
+    <!-- Angular -->
+    <script type="text/javascript" src="{{ URL::asset('dist/angular/angular.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('dist/app.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('dist/services/users.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('dist/controllers/userController.js') }}"></script>
+
+
     <style>
         body {
             font-family: 'Lato';
@@ -27,7 +35,7 @@
         }
     </style>
 </head>
-<body id="app-layout">
+<body id="app-layout" ng-app="saleAndEvent" ng-cloak>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -56,7 +64,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/login') }}">Логирај се</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
@@ -74,7 +82,11 @@
             </div>
         </div>
     </nav>
-
+    <div ng-controller="UserController as userCtrl">
+        <ul>
+            <li ng-repeat="user in userCtrl.users">@{{user.name}}</li>
+        </ul>
+    </div>
     @yield('content')
 
 

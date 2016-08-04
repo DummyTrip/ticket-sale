@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -28,8 +28,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
-        return view('users.index', compact('users'));
+        return $users;
+       // return view('users.index', compact('users'));
     }
 
     public function show($user)
