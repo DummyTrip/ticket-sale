@@ -19,5 +19,27 @@ app.controller('UserController',['$scope', 'UserService' , function($scope, User
                 }
             );
     };
+    self.fetcUserByName = function(user){
+        UserService.fetchUserByName(user)
+            .then(
+                function(d){
+                    self.user = d;
+                },
+                function(errResponse){
+                    console.log('Error while fetching the userByName in controller');
+                }
+            )
+    };
+    self.editUser = function(){
+        UserService.editUser()
+            .then(
+                function(d){
+                    self.user = d;
+                },
+                function(errResponse){
+                    console.log('Error while editing user in controller');
+                }
+            )
+    };
     self.fetchAllUsers();
 }]);

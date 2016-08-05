@@ -17,7 +17,7 @@ class EventController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -28,8 +28,8 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
-
-        return view('events.index', compact('events'));
+        return $events;
+        //return view('events.index', compact('events'));
     }
 
     /**

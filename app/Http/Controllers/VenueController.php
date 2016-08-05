@@ -16,7 +16,7 @@ class VenueController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
 
     /**
@@ -27,8 +27,8 @@ class VenueController extends Controller
     public function index()
     {
         $venues = Venue::all();
-
-        return view('venues.index', compact('venues'));
+        return $venues;
+       // return view('venues.index', compact('venues'));
     }
 
     /**
