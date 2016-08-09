@@ -16,7 +16,7 @@ class TicketController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
 
     public function index(Event $event)
@@ -27,7 +27,8 @@ class TicketController extends Controller
                                     ->orWhereNull('reserve_time')
                                     ->paginate(5);
 
-        return view('tickets.index', compact('tickets', 'event'));
+        //return view('tickets.index', compact('tickets', 'event'));
+        return $tickets;
     }
 
     public function show(Event $event, Ticket $ticket){

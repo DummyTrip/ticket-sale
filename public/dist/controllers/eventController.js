@@ -9,10 +9,10 @@ app.controller('eventController',['$scope', 'EventService' , function($scope, Ev
     self.events = [];
 
     self.fetchAllEvents = function(){
-        EventService.fetchAllVenues()
+        EventService.fetchAllEvents()
             .then(
                 function(d){
-                    self.event = d;
+                    self.events = d;
                 },
                 function (errResponse){
                     console.log('Error while fetching all events in EventController');
@@ -53,4 +53,5 @@ app.controller('eventController',['$scope', 'EventService' , function($scope, Ev
             )
 
     };
+    self.fetchAllEvents();
 }]);

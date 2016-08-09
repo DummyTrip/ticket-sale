@@ -2,7 +2,7 @@
  * Created by Muttley on 8/5/2016.
  */
 'use strict';
-app.factory('EventServices', ['$http', '$q', function($http, $q){
+app.factory('EventService', ['$http', '$q', function($http, $q){
     return{
         fetchAllEvents:function(){
             return $http.get('http://timska.dev/events')
