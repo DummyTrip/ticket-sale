@@ -1,0 +1,72 @@
+<div class="center-3">
+
+
+    <div class="page login-page">
+        <div class="page-title">
+            <h1>Добредојдовте, Ве молиме Пријавете се!</h1>
+        </div>
+
+
+
+
+        <div class="page-body">
+            <div class="customer-blocks">
+                <div class="new-wrapper register-block">
+                    <div class="title">
+                        <strong>Нов корисник</strong>
+                    </div>
+                    <div class="text">
+                        Со креирање на Кориснички профил ќе бидете во можност да купувате побргу и да имате увид во предходните нарачки што ги имате извршено.
+                    </div>
+                    <div class="buttons">
+                        <input type="button" class="button-1 register-button" onclick="location.href='#/register'" value="Регистрирај се" />
+                    </div>
+                </div>
+                <div class="returning-wrapper">
+                    <div class="title">
+                        <strong>Постоечки корисник</strong>
+                    </div>
+                    <div class="form-fields">
+                        <form action="/login" method="post">                        <div class="message-error">
+
+                        </div>
+                            <div class="inputs">
+                                <label for="Email">E-mail Адреса:</label>
+                                <input autofocus="autofocus" class="email" id="Email" name="Email" type="text" value="" />
+                                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="inputs">
+                                <label for="Password">Лозинка:</label>
+                                <input class="password" id="Password" name="Password" type="password" />
+                                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="inputs reversed">
+                                <input id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
+                                <label for="RememberMe">Запомни ме?</label>
+                                <span class="forgot-password">
+                                <a href="/passwordrecovery">Ја заборавивте лозинката?</a>
+                            </span>
+                            </div>
+                            <div class="buttons">
+                                <input class="button-1 login-button" type="submit" value="Најави се" />
+                            </div>
+                        </form>                </div>
+                </div>
+            </div>
+            <div class="external-authentication">
+
+            </div>
+            <div class="topic-html-content">
+                <div class="topic-html-content-title">
+                    <h2 class="topic-html-content-header">
+                        About login / registration</h2>
+                </div>
+                <div class="topic-html-content-body">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -124,9 +124,7 @@ class EventController extends Controller
 
         $event->save();
 
-        $tags = $input['tag_list'];
-
-        $tags = $tags === null ? [] : $tags;
+        $tags = array_key_exists('tag_list', $input) ? $input['tag_list'] : [];
 
         $event->tags()->sync($tags);
     }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <script  type="text/javascript" src="angular/angular.js"></script>
+    <script src="https://code.angularjs.org/1.5.5/angular-route.js"></script>
     <script  type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="services/eventService.js"></script>
     <script type="text/javascript" src="controllers/eventController.js"></script>
@@ -14,188 +15,333 @@
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
     <title>Ticket Sale service</title>
-    <style>
-        .li{
-
-        }
-    </style>
 </head>
 <body ng-controller="eventController as eventCtrl" ng-cloak style="background-color: #666666">
-<div class="header-menu" style="margin-top: 10%; width:70%">
 
 
-    <ul class="top-menu" style="margin-right: 20%;">
 
-        <li><a href="/">Почетна страница</a></li>
-        <li>
-            <a href="/newproducts">Нови Настани</a>
-        </li>
-
-        <li>
-            <a href="/%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D0%B8">Категории
-            </a>
-            <div class="top-menu-triangle"></div>
-            <ul class="sublist firstLevel">
-                <li>
-                    <a href="/19">Музика
-                    </a>
-                    <ul class="sublist ">
-                        <li>
-                            <a href="/23">Фестивали
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="/%D1%81%D0%BE%D0%BB%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%B8">Соло Концерти
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="/24">Друго
-                            </a>
-
-                        </li>
-                    </ul>
-
-                </li>
-                <li>
-                    <a href="/2">Спорт
-                    </a>
-                    <ul class="sublist ">
-                        <li>
-                            <a href="/25">Фудбал
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="/26">Кошарка
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="/27">Ракомет
-                            </a>
-
-                        </li>
-                        <li>
-                            <a href="/28">Друго
-                            </a>
-
-                        </li>
-                    </ul>
-
-                </li>
-                <li>
-                    <a href="/20">Театар
-                    </a>
-
-                </li>
-                <li>
-                    <a href="/21">Друго
-                    </a>
-
-                </li>
-            </ul>
-
-        </li>
-        <li>
-            <a href="/uslugi">УСЛУГИ
-            </a>
-            <div class="top-menu-triangle"></div>
-
-        </li>
-        <li>
-            <a href="#">Информации</a>
-            <div class="top-menu-triangle"></div>
-            <ul class="sublist">
-                <li><a href="/t/shippinginfo">Испорака и Враќање</a></li>
-                <li><a href="/t/privacyinfo">Заштита на личните податоци</a></li>
-                <li><a href="/t/conditionsofUse">Услови за користење</a></li>
-                <li><a href="/t/aboutus">За нас</a></li>
-                <li><a href="/contactus">Контакт</a></li>
-            </ul>
-
-        </li>
-        <li><a href="/t/ProdaznaMreza">Продажна мрежа</a></li>
-    </ul>
-    <script type="text/javascript">
-        $('li', '.top-menu').on('mouseenter', function () {
-            $('a', $(this)).first().addClass('hover');
-            if (!$(this).parent().hasClass('top-menu')) {
-                var width = $(this).innerWidth();
-                $('.sublist', $(this)).first().css('left', width + 15);
-            }
-            $('.sublist', $(this)).first().addClass('active');
-            $('.top-menu-triangle', $(this)).addClass('active');
-        });
-        $('li', '.top-menu').on('mouseleave', function () {
-            $('a', $(this)).first().removeClass('hover');
-            $('.sublist', $(this)).first().removeClass('active');
-            $('.top-menu-triangle', $(this)).removeClass('active');
-        });
-    </script>
+<div id="dialog-notifications-success" title="Нотификација" style="display:none;">
+</div>
+<div id="dialog-notifications-error" title="Грешка" style="display:none;">
+</div>
+<div id="bar-notification" class="bar-notification">
+    <span class="close" title="Затвори">&nbsp;</span>
 </div>
 
-    <div class="main-wrapper" style="background-color: red; width:70%; margin-left:15%">
-        <div class="center-3">
-            <div class="page home-page">
-                <div class="page-body">
-                    <div class="slider-wrapper theme-default">
-                        <div id="slider" class="nivoSlider" style="margin-top: 2%">
-                            <img src="img/Jellyfish.jpg" alt="" />
-                            <a href="http://dev7studios.com"><img src="img/Hydrangeas.jpg" alt="" title="#htmlcaption" /></a>
-                            <img src="img/Desert.jpg" alt="" title="This is an example of a caption" />
-                            <img src="img/Chrysanthemum.jpg" alt="" />
-                        </div>
-                        <div id="htmlcaption" class="nivo-html-caption">
-                            <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
-                        </div>
-                        <div class="product-grid home-page-product-grid">
-                            <div class="title"><strong>Настани</strong></div>
-                            <div class="item-box" ng-repeat="event in eventCtrl.events">
 
-                                <div class="product-item" data-productid="1057" >
-                                    <div class="picture">
-                                        <a href="/dokufest" title="'{{event.name}}'|| '{{event.date}}'">
-                                            <img alt="Слика на DokuFest Edition XV || 05-13.08.2016" src="http://www.mktickets.mk/content/images/thumbs/0000978_dokufest-edition-xv-05-13082016_800.jpeg" title="Прикажи детали за DokuFest Edition XV || 05-13.08.2016" />
-                                        </a>
-                                    </div>
-                                    <div class="details">
-                                        <h2 class="product-title">
-                                            <a href="/dokufest">{{event.name}} || {{event.date}}</a>
-                                        </h2>
-                                        <div class="description">
-                                            05-13 August 2016
 
-                                            Призрен/Prizren
+<div class="master-wrapper-page">
 
-                                            Косово/Kosovo
-                                        </div>
-                                        <div class="add-info">
-                                            <div class="prices">
-                                                <span class="price actual-price">645,00 ден.</span>
-                                            </div>
-                                            <div class="buttons">
-                                                <input type="button" value="Детали" class="button-1 product-box-detail-button" onclick="setLocation('/dokufest')" />
-                                            </div>
+    <div class="master-wrapper-content">
+        <script type="text/javascript">
+            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+        <div class="header">
 
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="header-logo">
+                <a href="/" class="logo">&nbsp; </a>
+            </div>
+            <div class="header-links-wrapper">
+                <div class="header-links">
+                    <ul>
 
-                            </div>
+                        <li><a href="#/register" class="ico-register">Регистрирај се</a></li>
+                        <li><a href="#/login" class="ico-login">Најави се</a></li>
 
-                        </div>
-                    </div>
+
+                        <li><a href="/customer/info" class="account">Мој профил</a></li>
+                        <li><a href="#/contactus">Контакт</a></li>
+
+
+
+
+                    </ul>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('.header').on('mouseenter', '#topcartlink', function () {
+                                $('#flyout-cart').addClass('active');
+                            });
+                            $('.header').on('mouseleave', '#topcartlink', function () {
+                                $('#flyout-cart').removeClass('active');
+                            });
+                            $('.header').on('mouseenter', '#flyout-cart', function () {
+                                $('#flyout-cart').addClass('active');
+                            });
+                            $('.header').on('mouseleave', '#flyout-cart', function () {
+                                $('#flyout-cart').removeClass('active');
+                            });
+                        });
+                    </script>
+                </div>
+
+
+            </div>
+            <div class="search-box">
+                <form action="/search" method="get" onsubmit="return check_small_search_form()">    <input type="text" class="search-box-text" id="small-searchterms"  autocomplete="off"
+                                                                                                           value="Пребарај" name="q"  onfocus="if(this.value=='Пребарај')this.value=''" onblur="if(this.value=='') {this.value = 'Пребарај';}" />
+                    <input type="submit" class="button-1 search-box-button" value="Пребарување" />
+                    <script type="text/javascript">
+
+                        function check_small_search_form() {
+                            var search_terms = $("#small-searchterms");
+                            if (search_terms.val() == "") {
+                                alert('Ве молиме внесете некои клучни зборови за пребарување');
+                                search_terms.focus();
+                                return false;
+                            }
+
+                            return true;
+                        }
+
+                        $(function () {
+                            $('#small-searchterms').autocomplete({
+                                delay: 500,
+                                minLength: 3,
+                                source: '/catalog/searchtermautocomplete',
+                                select: function( event, ui ) {
+                                    $("#small-searchterms").val(ui.item.label);
+                                    setLocation(ui.item.producturl);
+                                    return false;
+                                }
+                            })
+                                    .data("ui-autocomplete")._renderItem = function( ul, item ) {
+                                var t = item.label;
+                                //html encode
+                                t = htmlEncode(t);
+                                return $("<li></li>")
+                                        .data("item.autocomplete", item)
+                                        .append("<a>" + t + "</a>")
+                                        .appendTo(ul);
+                            };
+                        });
+
+                    </script>
+                </form>
+            </div>
+            <div class="header-selectors-wrapper">
+                <div class="tax-display-type-selector">
+
+                </div>
+                <div class="currency-selector">
+
                 </div>
             </div>
         </div>
+
+        <div class="header-menu">
+
+
+            <ul class="top-menu">
+
+                <li><a href="/">Почетна страница</a></li>
+                <li>
+                    <a href="/newproducts">Нови Настани</a>
+                </li>
+
+                <li>
+                    <a href="/%D0%BA%D0%B0%D1%82%D0%B5%D0%B3%D0%BE%D1%80%D0%B8%D0%B8">Категории
+                    </a>
+                    <div class="top-menu-triangle"></div>
+                    <ul class="sublist firstLevel">
+                        <li>
+                            <a href="/19">Музика
+                            </a>
+                            <ul class="sublist ">
+                                <li>
+                                    <a href="/23">Фестивали
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a href="/%D1%81%D0%BE%D0%BB%D0%BE-%D0%BA%D0%BE%D0%BD%D1%86%D0%B5%D1%80%D1%82%D0%B8">Соло Концерти
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a href="/24">Друго
+                                    </a>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="/2">Спорт
+                            </a>
+                            <ul class="sublist ">
+                                <li>
+                                    <a href="/25">Фудбал
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a href="/26">Кошарка
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a href="/27">Ракомет
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a href="/28">Друго
+                                    </a>
+
+                                </li>
+                            </ul>
+
+                        </li>
+                        <li>
+                            <a href="/20">Театар
+                            </a>
+
+                        </li>
+                        <li>
+                            <a href="/21">Друго
+                            </a>
+
+                        </li>
+                    </ul>
+
+                </li>
+                <li>
+                    <a href="/uslugi">УСЛУГИ
+                    </a>
+                    <div class="top-menu-triangle"></div>
+
+                </li>
+                <li>
+                    <a href="#">Информации</a>
+                    <div class="top-menu-triangle"></div>
+                    <ul class="sublist">
+                        <li><a href="/t/shippinginfo">Испорака и Враќање</a></li>
+                        <li><a href="/t/privacyinfo">Заштита на личните податоци</a></li>
+                        <li><a href="/t/conditionsofUse">Услови за користење</a></li>
+                        <li><a href="/t/aboutus">За нас</a></li>
+                        <li><a href="/contactus">Контакт</a></li>
+                    </ul>
+
+                </li>
+                <li><a href="/t/ProdaznaMreza">Продажна мрежа</a></li>
+
+
+            </ul>
+            <script type="text/javascript">
+                $('li', '.top-menu').on('mouseenter', function () {
+                    $('a', $(this)).first().addClass('hover');
+                    if (!$(this).parent().hasClass('top-menu')) {
+                        var width = $(this).innerWidth();
+                        $('.sublist', $(this)).first().css('left', width + 15);
+                    }
+                    $('.sublist', $(this)).first().addClass('active');
+                    $('.top-menu-triangle', $(this)).addClass('active');
+                });
+                $('li', '.top-menu').on('mouseleave', function () {
+                    $('a', $(this)).first().removeClass('hover');
+                    $('.sublist', $(this)).first().removeClass('active');
+                    $('.top-menu-triangle', $(this)).removeClass('active');
+                });
+            </script>
+        </div>
+
+
+        <div class="ajax-loading-block-window" style="display: none">
+            <div class="loading-image">
+            </div>
+        </div>
+        <div class="master-wrapper-main">
+
+            <div ng-view></div>
+
+            <div class="clear"></div>
+
+
+
+        </div>
+
+
     </div>
 
-<script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider();
-    });
-</script>
+    <div class="footer">
+        <div class="footer-menu-wrapper">
+            <div class="column information">
+                <h3>Информации</h3>
+                <ul>
+                    <li><a href="/sitemap">Мапа на сајтот</a></li>
+                    <li><a href="/t/shippinginfo">Испорака и Враќање</a></li>
+                    <li><a href="/t/privacyinfo">Заштита на личните податоци</a></li>
+                    <li><a href="/t/conditionsofUse">Услови за користење</a></li>
+                    <li><a href="/t/aboutus">За нас</a></li>
+                    <li><a href="/contactus">Контакт</a></li>
+                </ul>
+            </div>
+            <div class="column customer-service">
+                <h3>Грижа за корисници</h3>
+                <ul>
+                    <li><a href="/search">Пребарување</a> </li>
+                    <li><a href="/news">Вести</a></li>
+                    <li><a href="/newproducts">Нови Настани</a></li>
+                </ul>
+            </div>
+            <div class="column my-account">
+                <h3>Мој профил</h3>
+                <ul>
+                    <li><a href="/customer/info" class="account">Мој профил</a></li>
+                    <li><a href="/customer/orders">Нарачки</a></li>
+                    <li><a href="/customer/addresses" class="">Адреси</a></li>
+                    <li><a href="/cart" class="ico-cart">Кошничка</a></li>
+                    <li><a href="/wishlist" class="ico-wishlist">Желботека</a></li>
+                </ul>
+            </div>
+            <div class="column follow-us">
+                <h3>Follow us</h3>
+                <ul>
+                    <li class="facebook"><a href="https://www.facebook.com/MkTickets" target="_blank">Facebook</a></li>
+                    <li class="twitter"><a href="https://twitter.com/mktickets" target="_blank">Twitter</a></li>
+                    <li class="rss"><a href="/news/rss/2">RSS</a></li>
+                    <li class="youtube"><a href="http://www.youtube.com/mktickets" target="_blank">YouTube</a></li>
+                    <li class="google-plus"><a href="https://plus.google.com/u/0/b/111234999046826705547/" target="_blank">Google+</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="moj-footer">
+
+
+            <div id="cc_payments_icons">
+                <a target="_blank" href=" http://www.unibank.com.mk/" title="Во соработка со УНИБАНКА АД Скопје">
+                    <img alt="Во соработка со УНИБАНКА АД Скопје" src="/Themes/MKTickets/Content/images/logo_unibanka.jpg" title="Во соработка со УНИБАНКА АД Скопје">
+                </a>
+                <a target="_blank" href="http://www.casys.com.mk" title="CaSys International Картичен Систем">
+                    <img alt="CaSys International Картичен Систем" src="/Themes/MKTickets/Content/images/logo_casys.png" title="CaSys International Картичен Систем">
+                </a>
+                <img alt="Платежни картички Visa и Visa Electron" src="/Themes/MKTickets/Content/images/logo_visa.png" title="Платежни картички Visa и Visa Electron">
+                <a target="_blank" href=" http://www.visaeurope.com/EN/CARDHOLDERS/VERIFIED_BY_VISA.ASPX" title="Обезбедено од Verified by Visa">
+                    <img alt="Обезбедено од Verified by Visa" src="/Themes/MKTickets/Content/images/verified_by_visa.png" title="Обезбедено од Verified by Visa">
+                </a>
+                <img alt="Платежни картички Mastercard" src="/Themes/MKTickets/Content/images/logo_mastercard.png" title="Платежни картички Mastercard">
+                <img alt="Платежни картички Maestro" src="/Themes/MKTickets/Content/images/logo_maestro.png" title="Платежни картички Maestro">
+                <a target="_blank" href=" http://www.mastercard.com/us/business/en/corporate/securecode/sc_popup.html?language=en" title="Обезбедено од Mastercard Securecode">
+                    <img alt="Обезбедено од Mastercard Securecode" src="/Themes/MKTickets/Content/images/mastercard_secure_code.png" title="Обезбедено од Mastercard Securecode">
+                </a>
+            </div>
+
+            <div class="footer-poweredby">
+                Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+                <!--Would you like
+                        to remove the "Powered by nopCommerce" link in the bottom of the footer? Find more
+                        info here http://www.nopcommerce.com/copyrightremoval.aspx -->
+            </div>
+            <div class="footer-disclaimer">
+                MK Tickets © 2012. Сите права задржани.
+            </div>
+            <div class="footer-store-theme">
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
 </body>
 </html>
