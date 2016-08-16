@@ -80,15 +80,13 @@ class VenueController extends Controller
 
         $venue = new Venue;
 
-        $venue->manager_id = \Auth::user()->id;
+        $venue->manager_id = 1;
         $venue->name = $input['name'];
         $venue->city = $input['city'];
         $venue->country = $input['country'];
         $venue->address = $input['address'];
 
         $venue->save();
-
-        return redirect('venues');
     }
 
 }

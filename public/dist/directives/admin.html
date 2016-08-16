@@ -1,0 +1,26 @@
+<form>
+    <div ng-controller="venueController as venueCtrl">
+        Name: <input type="text" ng-model="eventCtrl.event.name"/>
+        Venue: <select ng-model="eventCtrl.tmpevent.venue" ng-change="eventCtrl.getIdVenue()">
+        <option><---Choose one Venue---></option>
+        <option ng-repeat="venue in venueCtrl.venues">{{venue.name}}</option>
+    </select>
+        Date: <input type="date" ng-model="eventCtrl.event.date"/>
+        Tags: <select>
+        <option><--- Choose one ---></option>
+        <option value="1" ng-click="eventCtrl.addValue(1)">Music</option>
+        <option value="2" ng-click="eventCtrl.addValue(2)">Sport</option>
+        <option value="3" ng-click="eventCtrl.addValue(3)">Education</option>
+    </select>
+        <input type="submit" name="Add" ng-click="eventCtrl.createEvent()"/>
+        <div>
+            <input type="text" placeholder="Venue Name" ng-model="venueCtrl.venue.name"/>
+            <input type="text" placeholder="City" ng-model="venueCtrl.venue.city"/>
+            <input type="text" placeholder="Country" ng-model="venueCtrl.venue.country"/>
+            <input type="text" placeholder="Address" ng-model="venueCtrl.venue.address"/>
+            <input type="submit" ng-click="venueCtrl.createVenue()"/>
+        </div>
+
+    </div>
+
+</form>

@@ -27,17 +27,17 @@
                         <strong>Постоечки корисник</strong>
                     </div>
                     <div class="form-fields">
-                        <form action="/login" method="post">                        <div class="message-error">
+                        <form  method="post">                        <div class="message-error">
 
                         </div>
                             <div class="inputs">
                                 <label for="Email">E-mail Адреса:</label>
-                                <input autofocus="autofocus" class="email" id="Email" name="Email" type="text" value="" />
+                                <input autofocus="autofocus" class="email" id="Email" name="Email" ng-model="userCtrl.user.email" type="text" value="" />
                                 <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                             </div>
                             <div class="inputs">
                                 <label for="Password">Лозинка:</label>
-                                <input class="password" id="Password" name="Password" type="password" />
+                                <input class="password" id="Password" name="Password" type="password" ng-model="userCtrl.user.password" />
                                 <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                             </div>
                             <div class="inputs reversed">
@@ -48,7 +48,7 @@
                             </span>
                             </div>
                             <div class="buttons">
-                                <input class="button-1 login-button" type="submit" value="Најави се" />
+                                <input class="button-1 login-button" type="submit" value="Најави се" ng-click="userCtrl.submitLogIn()" />
                             </div>
                         </form>                </div>
                 </div>
@@ -68,5 +68,6 @@
 
         </div>
     </div>
+
 
 </div>

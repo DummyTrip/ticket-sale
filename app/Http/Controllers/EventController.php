@@ -28,8 +28,8 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
+       // return \Auth::user();
         return $events;
-        //return view('events.index', compact('events'));
     }
 
     /**
@@ -41,7 +41,7 @@ class EventController extends Controller
     {
         $venues = Venue::lists('name', 'id')->prepend("");
         $tags = Tag::lists('name', 'id');
-
+        //return true;
         return view('events.create', compact('venues', 'tags'));
     }
 
@@ -59,7 +59,7 @@ class EventController extends Controller
 
         $this->saveEvent($input, $event);
 
-        return redirect('events');
+       // return redirect('events');
     }
 
     /**
@@ -117,15 +117,16 @@ class EventController extends Controller
 
     private function saveEvent($input, Event $event)
     {
-        $event->organizer_id = \Auth::user()->id;
+        $event->organizer_id = 1;
         $event->name = $input['name'];
         $event->venue_id = $input['venue_id'];
-        $event->date = $input['date'];
+        $event->date = \Carbon\Carbon::now();
 
         $event->save();
 
         $tags = array_key_exists('tag_list', $input) ? $input['tag_list'] : [];
 
         $event->tags()->sync($tags);
+
     }
 }

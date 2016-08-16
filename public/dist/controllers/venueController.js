@@ -3,13 +3,14 @@
  */
 'use strict';
 
-app.controller('venueController',['$scope', 'VenueService' , function($scope, VenueService) {
+app.controller('venueController',['$scope', 'VenueServices' , function($scope, VenueServices) {
     var self = this;
-    self.venue = { id:'', name:'', city:'', address:'' , country:''};
+    self.venue = { id:'', name:'', city:'',country:'', address:''};
     self.venues = [];
 
     self.fetchAllVenues = function(){
-        VenueService.fetchAllVenues()
+        console.log("Ovde sum");
+        VenueServices.fetchAllVenues()
             .then(
                 function(d){
                     self.venues = d;
@@ -20,10 +21,11 @@ app.controller('venueController',['$scope', 'VenueService' , function($scope, Ve
             );
     };
     self.createVenue = function(){
-        VenueService.createVenue()
+        console.log("Ova e vo controlerot: "+ self.venue.name+" "+self.venue.city+" "+self.venue.country+" "+self.venue.address);
+        VenueServices.createVenue(self.venue)
             .then(
-                function(d){
-                    self.venue = d;
+                function(){
+                    console.log('Kreirana '+self.venue.name);
                 },
                 function(errResponse){
                     console.log('Error while creating venue in VenueController')
@@ -31,7 +33,7 @@ app.controller('venueController',['$scope', 'VenueService' , function($scope, Ve
             )
     };
     self.showVenue = function(venue){
-        VenueService.showVenue(venue.id)
+        VenueServices.showVenue(venue.id)
             .then(
                 function(d){
                     self.venue = d;
@@ -42,7 +44,7 @@ app.controller('venueController',['$scope', 'VenueService' , function($scope, Ve
             )
     };
     self.editOrUpdate = function(venue){
-        VenueService.editOrUpdate(venue.id)
+        VenueServices.editOrUpdate(venue.id)
             .then(
                 function(d){
                     self.venue = d;
@@ -53,4 +55,5 @@ app.controller('venueController',['$scope', 'VenueService' , function($scope, Ve
             )
 
     };
+    self.fetchAllVenues();
 }]);

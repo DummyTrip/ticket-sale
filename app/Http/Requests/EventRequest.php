@@ -14,9 +14,9 @@ class EventRequest extends Request
     public function authorize()
     {
         $user = \Auth::user();
-        $roles = $user->role_names;
-
-        return in_array('admin', $roles) || in_array('organizer', $roles);
+        //$roles = $user->role_names;
+        return true;
+        //return in_array('admin', $roles) || in_array('organizer', $roles);
     }
 
     /**

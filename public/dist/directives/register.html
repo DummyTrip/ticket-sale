@@ -1,7 +1,7 @@
 <div class="center-3">
 
 
-    <form action="/register" method="post"><input name="__RequestVerificationToken" type="hidden" value="nGejaxxk8a8Ja5gn0B9OQEwYG17Q1ry2E_6oPBqwwcCGsdvBZFgXhpbGzKvTljOmdTHuG7FZfTuI9YSf1cch2ZiHyj6fenoyzXqoAmZz-hQ1" />    <div class="page registration-page">
+    <form method="post"><input name="__RequestVerificationToken" type="hidden" value="nGejaxxk8a8Ja5gn0B9OQEwYG17Q1ry2E_6oPBqwwcCGsdvBZFgXhpbGzKvTljOmdTHuG7FZfTuI9YSf1cch2ZiHyj6fenoyzXqoAmZz-hQ1" />    <div class="page registration-page">
         <div class="page-title">
             <h1>Регистрирај се</h1>
         </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="inputs">
                         <label for="FirstName">Име:</label>
-                        <input class="text-box single-line" data-val="true" data-val-required="Име е задолжително." id="FirstName" name="FirstName" type="text" value="" />
+                        <input class="text-box single-line" ng-model="userCtrl.user.name" data-val="true" data-val-required="Име е задолжително." id="FirstName" name="FirstName" type="text" value="" />
                         <span class="required">*</span>
                         <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
                     </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="inputs">
                         <label for="Email">E-mail Адреса:</label>
-                        <input class="text-box single-line" data-val="true" data-val-email="Погрешен email" data-val-required="Email адресата е задолжителна." id="Email" name="Email" type="text" value="" />
+                        <input class="text-box single-line" data-val="true" ng-model="userCtrl.user.email" data-val-email="Погрешен email" data-val-required="Email адресата е задолжителна." id="Email" name="Email" type="text" value="" />
                         <span class="required">*</span>
                         <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                     </div>
@@ -479,7 +479,7 @@
                 <div class="form-fields">
                     <div class="inputs">
                         <label for="Password">Лозинка:</label>
-                        <input class="text-box single-line password" data-val="true" data-val-length="Лозинка треба да има најмалку 6 карактери." data-val-length-max="999" data-val-length-min="6" data-val-required="Потребна е лозинка." id="Password" name="Password" type="password" value="" />
+                        <input class="text-box single-line password" ng-model="userCtrl.user.password" data-val="true" data-val-length="Лозинка треба да има најмалку 6 карактери." data-val-length-max="999" data-val-length-min="6" data-val-required="Потребна е лозинка." id="Password" name="Password" type="password" value="" />
                         <span class="required">*</span>
                         <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                     </div>
@@ -492,9 +492,14 @@
                 </div>
             </div>
             <div class="buttons">
-                <input type="submit" id="register-button" class="button-1 register-next-step-button" value="Регистрирај се" name="register-button" />
+                <input type="submit" id="register-button" ng-click="userCtrl.createUserSubmit()" class="button-1 register-next-step-button" value="Регистрирај се" name="register-button" />
             </div>
         </div>
     </div>
     </form>
+</div>
+<div>
+    <ul>
+        <li ng-repeat="user in userCtrl.users">{{user.name}}</li>
+    </ul>
 </div>

@@ -39,6 +39,31 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
                 )
+        },
+        createUser:function(user){
+            return $http.post('http://timska.dev/singUp',user)
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errResponse){
+                        console.log('Error while creating user');
+                        return $q.reject(errResponse);
+                    }
+                )
+        },
+        checkLogIn: function (user) {
+            return $http.post('http://timska.dev/logIn',user)
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errResponse){
+                        console.log('Error while logging user ');
+                        return $q.reject(errResponse);
+                    }
+            )
+
         }
 
     };

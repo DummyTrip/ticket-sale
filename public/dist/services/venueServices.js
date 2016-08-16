@@ -16,8 +16,9 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                     }
                 )
         },
-        createVenue:function(){
-            return $http.post('http://timska.dev/venues/create')
+        createVenue:function(venue){
+            console.log(venue.name + " Ova e vo servisot");
+            return $http.post('http://timska.dev/venues/create',venue)
                 .then(
                     function(response){
                         return response.data;

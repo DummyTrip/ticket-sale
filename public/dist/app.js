@@ -12,12 +12,17 @@ app.config(function($routeProvider){
         })
         .when("/register",{
             templateUrl: "directives/register.html"
+
         })
         .when("/login",{
             templateUrl:"directives/login.html"
+
         })
         .when("/contactus",{
             templateUrl:"directives/contact.html"
+        })
+        .when("/admin",{
+            templateUrl:"directives/admin.html"
         })
 });
 
@@ -29,4 +34,9 @@ app.directive("slideit", function() {
         }
     };
 });
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+}
+]);
 

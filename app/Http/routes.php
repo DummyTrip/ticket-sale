@@ -1,4 +1,7 @@
 <?php
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,10 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+//Route::group(['middleware' => 'cors'], function(){
+//
+//});
+Route::get('/users', 'UserController@index');
 Route::get('/users', 'UserController@index');
 Route::get('/users/{id}', 'UserController@show');
 Route::get('/profile', 'UserController@edit');
@@ -32,13 +39,13 @@ Route::get('test', function(){
 
 Route::get('/venues', 'VenueController@index');
 Route::post('/venues', 'VenueController@store');
-Route::get('/venues/create', 'VenueController@create');
+Route::post('/venues/create', 'VenueController@store');
 Route::get('/venues/{venues}', 'VenueController@show');
 Route::patch('/venues/{venues}', 'VenueController@update');
 Route::get('/venues/{venues}/edit', 'VenueController@edit');
 
 Route::get('/events', 'EventController@index');
-Route::post('/events', 'EventController@store');
+Route::post('/event/create', 'EventController@store');
 Route::get('/events/create', 'EventController@create');
 Route::get('/events/{events}', 'EventController@show');
 Route::patch('/events/{events}', 'EventController@update');
@@ -49,3 +56,8 @@ Route::get('/events/{events}/tickets', 'TicketController@index');
 //Route::get('/events/{events}/tickets/create', 'TicketController@create');
 Route::get('/events/{events}/tickets/{tickets}', 'TicketController@show');
 Route::get('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
+//Route::group(['middleware' => 'cors'], function(){
+//
+//});
+Route::post('/singUp','Auth\AuthController@register');
+Route::post('/logIn','Auth\AuthController@login');

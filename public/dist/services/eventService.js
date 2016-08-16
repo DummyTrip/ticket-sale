@@ -16,8 +16,8 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                     }
                 )
         },
-        createEvent:function(){
-            return $http.post('http://timska.dev/event/create')
+        createEvent:function(event){
+            return $http.post('http://timska.dev/event/create',event)
                 .then(
                     function(response){
                         return response.data;
@@ -52,6 +52,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                     }
                 )
         }
+
     }
 }
 

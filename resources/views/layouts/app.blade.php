@@ -20,6 +20,7 @@
 
     <!-- Angular -->
     <script type="text/javascript" src="{{ URL::asset('dist/angular/angular.js') }}"></script>
+    <script type="text/javascript" src="{{URL::asset('dist/angular/angular-route.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('dist/app.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('dist/services/users.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('dist/controllers/userController.js') }}"></script>
