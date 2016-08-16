@@ -5,7 +5,7 @@
 app.factory('EventService', ['$http', '$q', function($http, $q){
     return{
         fetchAllEvents:function(){
-            return $http.get('http://timska.dev/events')
+            return $http.get('http://api.timska.dev/events')
                 .then(
                     function (response) {
                         return response.data;
@@ -17,7 +17,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         createEvent:function(event){
-            return $http.post('http://timska.dev/event/create',event)
+            return $http.post('http://api.timska.dev/event/create',event)
                 .then(
                     function(response){
                         return response.data;
@@ -29,7 +29,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         showEvents:function(event){
-            return $http.get('http://timska.dev/events/'+event)
+            return $http.get('http://api.timska.dev/events/'+event)
                 .then(
                     function(response){
                         return response.data;
@@ -41,7 +41,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         editOrUpdateEvent:function(events){
-            return $http.get('http://timska.dev/events/'+events+'/edit')
+            return $http.get('http://api.timska.dev/events/'+events+'/edit')
                 .then(
                     function(response){
                         return response.data;

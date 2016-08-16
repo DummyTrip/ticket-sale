@@ -59,9 +59,9 @@ app.controller('UserController',['$scope', 'UserService' , function($scope, User
                     self.user=d;
                     console.log(self.user.roles.role+" ova e ulogata");
                     if(self.user.roles[0].role==="admin")
-                        location.href="http://localhost:63342/ticket-sale/public/dist/index.html#/admin";
+                        location.href="http://timska.dev/admin";
                     else
-                        location.href="http://localhost:63342/ticket-sale/public/dist/index.html#/";
+                        location.href="http://timska.dev/";
                 },
                 function(errResponse){
                     console.log('Error while creating user in controller');
@@ -75,9 +75,9 @@ app.controller('UserController',['$scope', 'UserService' , function($scope, User
               function(){
                   console.log(self.user.roles[0].role+" Ova e ulogata");
                   if(self.user.roles[0].role==="admin")
-                      location.href="http://localhost:63342/ticket-sale/public/dist/index.html#/admin";
+                      location.href="http://timska.dev/admin";
                   else
-                      location.href="http://localhost:63342/ticket-sale/public/dist/index.html#/";
+                      location.href="http://timska.dev/";
                   console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
               },
               function (errResponse) {

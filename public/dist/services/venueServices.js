@@ -5,7 +5,7 @@
 app.factory('VenueServices', ['$http', '$q', function($http, $q){
     return{
         fetchAllVenues:function(){
-            return $http.get('http://timska.dev/venues')
+            return $http.get('http://api.timska.dev/venues')
                 .then(
                     function (response) {
                         return response.data;
@@ -18,7 +18,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
         },
         createVenue:function(venue){
             console.log(venue.name + " Ova e vo servisot");
-            return $http.post('http://timska.dev/venues/create',venue)
+            return $http.post('http://api.timska.dev/venues/create',venue)
                 .then(
                     function(response){
                         return response.data;
@@ -30,7 +30,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 )
         },
         showVenue:function(venues){
-            return $http.get('http://timska.dev/venues/'+venues)
+            return $http.get('http://api.timska.dev/venues/'+venues)
                 .then(
                     function(response){
                         return response.data;
@@ -42,7 +42,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 )
         },
         editOrUpdate:function(venues){
-            return $http.get('http://timska.dev/venues/'+venues+'/edit')
+            return $http.get('http://api.timska.dev/venues/'+venues+'/edit')
                 .then(
                     function(response){
                         return response.data;

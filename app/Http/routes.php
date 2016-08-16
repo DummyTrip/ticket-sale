@@ -39,7 +39,7 @@ Route::get('test', function(){
 
 Route::get('/venues', 'VenueController@index');
 Route::post('/venues', 'VenueController@store');
-Route::post('/venues/create', 'VenueController@store');
+Route::post('/venues/create', 'VenueController@create');
 Route::get('/venues/{venues}', 'VenueController@show');
 Route::patch('/venues/{venues}', 'VenueController@update');
 Route::get('/venues/{venues}/edit', 'VenueController@edit');

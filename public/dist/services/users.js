@@ -5,7 +5,7 @@
 app.factory('UserService', ['$http', '$q', function($http, $q){
     return{
         fetchAllUsers: function () {
-            return $http.get('http://timska.dev/users')
+            return $http.get('http://api.timska.dev/users')
                 .then(
                     function (response) {
                         return response.data;
@@ -17,7 +17,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         fetchUserByName: function(user){
-            return $http.get('http://timska.dev/users/'+user)
+            return $http.get('http://api.timska.dev/users/'+user)
                 .then(
                     function(response){
                         return response.data;
@@ -41,7 +41,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         createUser:function(user){
-            return $http.post('http://timska.dev/singUp',user)
+            return $http.post('http://api.timska.dev/singUp',user)
                 .then(
                     function(response){
                         return response.data;
@@ -53,7 +53,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         checkLogIn: function (user) {
-            return $http.post('http://timska.dev/logIn',user)
+            return $http.post('http://api.timska.dev/logIn',user)
                 .then(
                     function(response){
                         return response.data;

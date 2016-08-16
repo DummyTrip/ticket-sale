@@ -5,7 +5,7 @@
 app.factory('TicketService', ['$http', '$q', function($http, $q){
     return{
         fetchAllTicket:function(Event){
-            return $http.get('http://timska.dev/events/'+Event+'/tickets')
+            return $http.get('http://api.timska.dev/events/'+Event+'/tickets')
                 .then(
                     function (response) {
                         return response.data;
@@ -17,7 +17,7 @@ app.factory('TicketService', ['$http', '$q', function($http, $q){
                 )
         },
         reserveTicket:function (Event,ticket) {
-            return $http.post('http://timska.dev/events/'+Event+'/tickets/'+ticket+'/buy')
+            return $http.post('http://api.timska.dev/events/'+Event+'/tickets/'+ticket+'/buy')
                 .then(
                     function (response) {
                         return response.data;
