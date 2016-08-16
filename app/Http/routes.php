@@ -59,5 +59,5 @@ Route::get('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
 //Route::group(['middleware' => 'cors'], function(){
 //
 //});
-Route::post('/singUp','Auth\AuthController@register');
-Route::post('/logIn','Auth\AuthController@login');
+Route::post('/singUp','AuthAndRegisterController@register');
+Route::post('/logIn','AuthAndRegisterController@login');
