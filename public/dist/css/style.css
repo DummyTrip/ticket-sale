@@ -5623,37 +5623,37 @@ a {
     }
 
     .header .ico-register {
-        background: url(images/ico-register1.gif) no-repeat;
+        /*background: url(images/ico-register1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
     .header .ico-login {
-        background: url(images/ico-login1.gif) no-repeat;
+        /*background: url(images/ico-login1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
     .header .ico-logout {
-        background: url(images/ico-logout1.gif) no-repeat;
+        /*background: url(images/ico-logout1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
     .header .ico-inbox {
-        background: url(images/ico-inbox1.gif) no-repeat;
+        /*background: url(images/ico-inbox1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
     .header .ico-cart {
-        background: url(images/ico-cart1.gif) no-repeat;
+        /*background: url(images/ico-cart1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
     .header .ico-wishlist {
-        background: url(images/ico-wishlist1.gif) no-repeat;
+        /*background: url(images/ico-wishlist1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
     .header .ico-admin {
-        background: url(images/ico-admin1.gif) no-repeat;
+        /*background: url(images/ico-admin1.gif) no-repeat;*/
         padding-left: 20px;
     }
 
@@ -5998,7 +5998,7 @@ ul.language-list {
         }
 /* MISC. CLASSES */
 .button-1, .button-2 {
-    background: url(images/grey-button-bg.gif) no-repeat 25% 1% #333;
+    /*background: url(images/grey-button-bg.gif) no-repeat 25% 1% #333;*/
     border: 1px solid #333;
     color: #FFF;
     height: auto;

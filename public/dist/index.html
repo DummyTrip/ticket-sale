@@ -11,9 +11,9 @@
     <script type="text/javascript" src="controllers/venueController.js"></script>
     <script type="text/javascript" src="services/users.js"></script>
     <script type="text/javascript" src="controllers/userController.js"></script>
-    <link rel="stylesheet" type="text/css" href="/ticket-sale/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.css" />
+    <!--<link rel="stylesheet" type="text/css" href="/ticket-sale/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.css" />-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="/ticket-sale/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <!--<script type="text/javascript" src="/ticket-sale/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.js"></script>-->
     <link type="text/css" rel="stylesheet" href="css/nivo-slider.css"/>
     <link rel="stylesheet" type="text/css" href="css/default.css"/>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
@@ -95,27 +95,27 @@
                             return true;
                         }
 
-                        $(function () {
-                            $('#small-searchterms').autocomplete({
-                                delay: 500,
-                                minLength: 3,
-                                source: '/catalog/searchtermautocomplete',
-                                select: function( event, ui ) {
-                                    $("#small-searchterms").val(ui.item.label);
-                                    setLocation(ui.item.producturl);
-                                    return false;
-                                }
-                            })
-                                    .data("ui-autocomplete")._renderItem = function( ul, item ) {
-                                var t = item.label;
-                                //html encode
-                                t = htmlEncode(t);
-                                return $("<li></li>")
-                                        .data("item.autocomplete", item)
-                                        .append("<a>" + t + "</a>")
-                                        .appendTo(ul);
-                            };
-                        });
+//                        $(function () {
+//                            $('#small-searchterms').autocomplete({
+//                                delay: 500,
+//                                minLength: 3,
+//                                source: '/catalog/searchtermautocomplete',
+//                                select: function( event, ui ) {
+//                                    $("#small-searchterms").val(ui.item.label);
+//                                    setLocation(ui.item.producturl);
+//                                    return false;
+//                                }
+//                            })
+//                                    .data("ui-autocomplete")._renderItem = function( ul, item ) {
+//                                var t = item.label;
+//                                //html encode
+//                                t = htmlEncode(t);
+//                                return $("<li></li>")
+//                                        .data("item.autocomplete", item)
+//                                        .append("<a>" + t + "</a>")
+//                                        .appendTo(ul);
+//                            };
+//                        });
 
                     </script>
                 </form>
@@ -312,23 +312,23 @@
         <div class="moj-footer">
 
 
-            <div id="cc_payments_icons">
-                <a target="_blank" href=" http://www.unibank.com.mk/" title="Во соработка со УНИБАНКА АД Скопје">
-                    <img alt="Во соработка со УНИБАНКА АД Скопје" src="/Themes/MKTickets/Content/images/logo_unibanka.jpg" title="Во соработка со УНИБАНКА АД Скопје">
-                </a>
-                <a target="_blank" href="http://www.casys.com.mk" title="CaSys International Картичен Систем">
-                    <img alt="CaSys International Картичен Систем" src="/Themes/MKTickets/Content/images/logo_casys.png" title="CaSys International Картичен Систем">
-                </a>
-                <img alt="Платежни картички Visa и Visa Electron" src="/Themes/MKTickets/Content/images/logo_visa.png" title="Платежни картички Visa и Visa Electron">
-                <a target="_blank" href=" http://www.visaeurope.com/EN/CARDHOLDERS/VERIFIED_BY_VISA.ASPX" title="Обезбедено од Verified by Visa">
-                    <img alt="Обезбедено од Verified by Visa" src="/Themes/MKTickets/Content/images/verified_by_visa.png" title="Обезбедено од Verified by Visa">
-                </a>
-                <img alt="Платежни картички Mastercard" src="/Themes/MKTickets/Content/images/logo_mastercard.png" title="Платежни картички Mastercard">
-                <img alt="Платежни картички Maestro" src="/Themes/MKTickets/Content/images/logo_maestro.png" title="Платежни картички Maestro">
-                <a target="_blank" href=" http://www.mastercard.com/us/business/en/corporate/securecode/sc_popup.html?language=en" title="Обезбедено од Mastercard Securecode">
-                    <img alt="Обезбедено од Mastercard Securecode" src="/Themes/MKTickets/Content/images/mastercard_secure_code.png" title="Обезбедено од Mastercard Securecode">
-                </a>
-            </div>
+            <!--<div id="cc_payments_icons">-->
+                <!--<a target="_blank" href=" http://www.unibank.com.mk/" title="Во соработка со УНИБАНКА АД Скопје">-->
+                    <!--<img alt="Во соработка со УНИБАНКА АД Скопје" src="/Themes/MKTickets/Content/images/logo_unibanka.jpg" title="Во соработка со УНИБАНКА АД Скопје">-->
+                <!--</a>-->
+                <!--<a target="_blank" href="http://www.casys.com.mk" title="CaSys International Картичен Систем">-->
+                    <!--<img alt="CaSys International Картичен Систем" src="/Themes/MKTickets/Content/images/logo_casys.png" title="CaSys International Картичен Систем">-->
+                <!--</a>-->
+                <!--<img alt="Платежни картички Visa и Visa Electron" src="/Themes/MKTickets/Content/images/logo_visa.png" title="Платежни картички Visa и Visa Electron">-->
+                <!--<a target="_blank" href=" http://www.visaeurope.com/EN/CARDHOLDERS/VERIFIED_BY_VISA.ASPX" title="Обезбедено од Verified by Visa">-->
+                    <!--<img alt="Обезбедено од Verified by Visa" src="/Themes/MKTickets/Content/images/verified_by_visa.png" title="Обезбедено од Verified by Visa">-->
+                <!--</a>-->
+                <!--<img alt="Платежни картички Mastercard" src="/Themes/MKTickets/Content/images/logo_mastercard.png" title="Платежни картички Mastercard">-->
+                <!--<img alt="Платежни картички Maestro" src="/Themes/MKTickets/Content/images/logo_maestro.png" title="Платежни картички Maestro">-->
+                <!--<a target="_blank" href=" http://www.mastercard.com/us/business/en/corporate/securecode/sc_popup.html?language=en" title="Обезбедено од Mastercard Securecode">-->
+                    <!--<img alt="Обезбедено од Mastercard Securecode" src="/Themes/MKTickets/Content/images/mastercard_secure_code.png" title="Обезбедено од Mastercard Securecode">-->
+                <!--</a>-->
+            <!--</div>-->
 
             <div class="footer-poweredby">
                 Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>

@@ -1,7 +1,7 @@
 ## Инсталација
 Потребно е да се инсталира Laravel Homestead, виртуелна машина која ги содржи сите потребни алатки за користење на Laravel.
 
-За да се користи Laravel потребно е да се спушти Composer, а Virual Box и Vagrant ќе се користат за Homestead виртуелната машина.
+За да се користи Laravel потребно е да се спушти Composer, а Virtual Box и Vagrant ќе се користат за Homestead виртуелната машина.
 
 1. https://getcomposer.org/download/
 2. https://www.virtualbox.org/wiki/Downloads
@@ -19,7 +19,7 @@
 Следно треба да се конфигурира Homestead и hosts фајлот. Секаде каде што пишува Aleksandar смени со името на user-ot на компјутерот.
 
 9. C:\Users\Aleksandar\.homestead\Homestead.yaml кај мене изгледа вака: [линк](https://drive.google.com/file/d/0B6l1fZCJ7OnGcVI3UklTRnQxRFE/view?usp=sharing)
-    - Moже да се смени овој фајл. Повеќе [овде](https://laravel.com/docs/5.2/homestead#configuring-homestead). Ако останува исто вака тогаш во gti bash внеси:
+    - Moже да се смени овој фајл. Повеќе [овде](https://laravel.com/docs/5.2/homestead#configuring-homestead). Ако останува исто вака тогаш во git bash внеси:
      - cd && mkdir code
 10. C:\Windows\System32\drivers\etc\hosts кај мене изгледа вака: [линк](https://drive.google.com/file/d/0B6l1fZCJ7OnGdGFmalBnRGZhV00/view?usp=sharing).
     - Пази на празни места и табови. Може да прави проблеми.
@@ -45,7 +45,9 @@
 4. vagrant ssh
 5. cd Code/ticket-sale 
 6. php artisan migrate --seed
-7. Во browser внеси: 
+7. php artisan vendor:publish
+8. php artisan jwt:generate
+9. Во browser внеси: 
     - timska.dev
 
 Кога ќе се заврши со работа треба да се исклучи Homestead.

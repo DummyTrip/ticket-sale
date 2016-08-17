@@ -1,8 +1,4 @@
 <?php
-header('Access-Control-Allow-Origin:  *');
-header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
-header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -38,8 +34,8 @@ Route::get('test', function(){
 });
 
 Route::get('/venues', 'VenueController@index');
-Route::post('/venues', 'VenueController@store');
-Route::post('/venues/create', 'VenueController@create');
+Route::post('/venues/create', 'VenueController@store');
+Route::get('/venues/create', 'VenueController@create');
 Route::get('/venues/{venues}', 'VenueController@show');
 Route::patch('/venues/{venues}', 'VenueController@update');
 Route::get('/venues/{venues}/edit', 'VenueController@edit');
