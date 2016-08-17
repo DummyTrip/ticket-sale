@@ -18,10 +18,6 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-//Route::group(['middleware' => 'cors'], function(){
-//
-//});
-Route::get('/users', 'UserController@index');
 Route::get('/users', 'UserController@index');
 Route::get('/users/{id}', 'UserController@show');
 Route::get('/profile', 'UserController@edit');
@@ -52,8 +48,6 @@ Route::get('/events/{events}/tickets', 'TicketController@index');
 //Route::get('/events/{events}/tickets/create', 'TicketController@create');
 Route::get('/events/{events}/tickets/{tickets}', 'TicketController@show');
 Route::get('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
-//Route::group(['middleware' => 'cors'], function(){
-//
-//});
+
 Route::post('/singUp','AuthAndRegisterController@register');
 Route::post('/logIn','AuthAndRegisterController@login');

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-app.controller('UserController',['$scope', 'UserService' , function($scope, UserService){
+app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '$localStorage', 'UserService' , function($http, $rootScope, $scope, $location, $localStorage, UserService){
     var self = this;
     self.user = { id:'', name:'', email:'', password:''};
     self.user.roles=[{id:'', role:''}];
@@ -11,11 +11,21 @@ app.controller('UserController',['$scope', 'UserService' , function($scope, User
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
 
+    // go zapishuva tokenot vo localStorage.
+    // povekje za ova:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
+    function successAuth(res) {
+        $localStorage.token = res.token;
+        window.location = "/";
+    }
+
     self.fetchAllUsers = function(){
         console.log('Fetching all users');
         UserService.fetchAllUsers()
             .then(
                 function(d){
+                    console.log($localStorage.token);
+                    console.log(d);
                     self.users = d;
                 },
                 function (errResponse){
@@ -73,11 +83,23 @@ app.controller('UserController',['$scope', 'UserService' , function($scope, User
       UserService.checkLogIn(user)
           .then(
               function(){
-                  console.log(self.user.roles[0].role+" Ova e ulogata");
-                  if(self.user.roles[0].role==="admin")
-                      location.href="http://timska.dev/admin";
-                  else
-                      location.href="http://timska.dev/";
+                  // Prakja post do api.timska.dev
+                  // api.timska.dev vrakja token i successAuth (gore e definirano) go zapishuva tokenot vo localStorage
+                  $http.post('http://api.timska.dev/logIn', self.user).success(successAuth).error(function () {
+                      $rootScope.error = 'Invalid credentials.';
+                  });
+
+                  // primer za logout. Treba samo da se izbrishe tokenot.
+                  // ovde e napishano zatoa shto testirav dali kje go izbrishe tokenot
+                  // delete $localStorage.token;
+
+                  // go iskomentirav ovoj del.
+                  // ova e stariot kod. go ostaviv za sekoj sluchaj
+                  // console.log(self.user.roles[0].role+" Ova e ulogata");
+                  // if(self.user.roles[0].role==="admin")
+                  //     location.href="http://timska.dev/admin";
+                  // else
+                  //     location.href="http://timska.dev/";
                   console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
               },
               function (errResponse) {

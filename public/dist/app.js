@@ -3,9 +3,9 @@
  */
 //Angular stuff.
 
-var app = angular.module('saleAndEvent', ['ngRoute']); // Creating object app with name saleAndEvent with no dependencies for now ( the empty brackets )
+var app = angular.module('saleAndEvent', ['ngRoute', 'ngStorage']); // Creating object app with name saleAndEvent with no dependencies for now ( the empty brackets )
 
-app.config(function($routeProvider){
+app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
     $routeProvider
         .when("/",{
             templateUrl: "directives/index.html"
@@ -15,16 +15,36 @@ app.config(function($routeProvider){
 
         })
         .when("/login",{
-            templateUrl:"directives/login.html"
-
+            templateUrl:"directives/login.html",
         })
         .when("/contactus",{
             templateUrl:"directives/contact.html"
         })
         .when("/admin",{
             templateUrl:"directives/admin.html"
-        })
-});
+        });
+
+    // dodava Authorization header na sekoj http request
+    // izgleda vaka: Bearer: tokenot-zapishan-vo-localStorage
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function ($q, $location, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($localStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function (response) {
+                if (response.status === 401 || response.status === 403) {
+                    delete $localStorage.token;
+                    $location.path('/login');
+                }
+                return $q.reject(response);
+            }
+        };
+    }]);
+}]);
 
 app.directive("slideit", function() {
     return {

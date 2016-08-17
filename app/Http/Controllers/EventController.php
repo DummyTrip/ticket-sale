@@ -18,6 +18,7 @@ class EventController extends Controller
     public function __construct()
     {
         //$this->middleware('auth');
+        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
     }
 
     /**

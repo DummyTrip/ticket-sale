@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Auth\AuthController;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use JWTAuth;
 
 class AuthAndRegisterController extends Controller
 {
@@ -40,9 +43,20 @@ class AuthAndRegisterController extends Controller
 
         $credentials = $this->getCredentials($request);
 
-        if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
+        try {
+            // attempt to verify the credentials and create a token for the user
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'invalid_credentials'], 401);
+            }
+            elseif (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
+                return $this->handleUserWasAuthenticated($request, $throttles, $token);
+            }
+        } catch (JWTException $e) {
+            // something went wrong whilst attempting to encode the token
+            return response()->json(['error' => 'could_not_create_token'], 500);
         }
+
+
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
@@ -54,15 +68,17 @@ class AuthAndRegisterController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    protected function handleUserWasAuthenticated(Request $request, $throttles)
+    protected function handleUserWasAuthenticated(Request $request, $throttles, $token)
     {
         if ($throttles) {
             $this->clearLoginAttempts($request);
         }
+//
+//        if (method_exists($this, 'authenticated')) {
+//            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
+//        }
 
-        if (method_exists($this, 'authenticated')) {
-            return $this->authenticated($request, Auth::guard($this->getGuard())->user());
-        }
+        return response()->json(compact('token'));
     }
 
 
@@ -85,6 +101,11 @@ class AuthAndRegisterController extends Controller
         }
 
         Auth::guard($this->getGuard())->login($auth->create($request->all()));
+
+        $user = User::where('email', $request->input('email'))->first();
+        $token = JWTAuth::fromUser($user);
+
+        return response()->json(compact('token'));
     }
 
 }
