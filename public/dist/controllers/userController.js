@@ -1,8 +1,3 @@
-/**
- * Created by Muttley on 8/4/2016.
- */
-'use strict';
-
 app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '$localStorage', 'UserService' , function($http, $rootScope, $scope, $location, $localStorage, UserService){
     var self = this;
     self.user = { id:'', name:'', email:'', password:''};
@@ -79,36 +74,72 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
             )
     };
 
+    // Prati post do api.timska.dev/auth i vidi dali sum logiran.
+    // Ako sum logiran togash vo ovoj kontroler vnesi gi soodvetnite polinja
+    // vo self.user
+    self.auth = function () {
+        UserService.authUser()
+            .then(
+                function (response) {
+                    var user = JSON.stringify(response.user);
+                    $rootScope.user = user;
+                    self.user.id = user.id;
+                    self.user.name = user.name;
+                    self.user.email = user.email;
+                },
+                function (errResponse) {
+                    console.log('Auth error. You are not logged in.');
+                }
+            )
+    };
+
+    // Napravi logout. Slednite chekori go pravi:
+    // Izbrishi token od local storage.
+    // Izbrishi user od rootscope
+    // Izbrishi self.user
+    // Prenasochi do index.
+    self.logout = function () {
+        delete $localStorage.token;
+        $rootScope.user = null;
+        self.user = { id:'', name:'', email:'', password:''};
+        window.location = "/";
+    };
+
     self.logIn = function(user){
-      UserService.checkLogIn(user)
-          .then(
-              function(){
-                  // Prakja post do api.timska.dev
-                  // api.timska.dev vrakja token i successAuth (gore e definirano) go zapishuva tokenot vo localStorage
-                  $http.post('http://api.timska.dev/logIn', self.user).success(successAuth).error(function () {
-                      $rootScope.error = 'Invalid credentials.';
-                  });
+        UserService.checkLogIn(user)
+            .then(
+                function(){
+                    // Prakja post do api.timska.dev
+                    // api.timska.dev vrakja token i successAuth (gore e definirano) go zapishuva tokenot vo localStorage
+                    $http.post('http://api.timska.dev/logIn', self.user).success(successAuth).error(function () {
+                        $rootScope.error = 'Invalid credentials.';
+                    });
 
-                  // primer za logout. Treba samo da se izbrishe tokenot.
-                  // ovde e napishano zatoa shto testirav dali kje go izbrishe tokenot
-                  // delete $localStorage.token;
-
-                  // go iskomentirav ovoj del.
-                  // ova e stariot kod. go ostaviv za sekoj sluchaj
-                  // console.log(self.user.roles[0].role+" Ova e ulogata");
-                  // if(self.user.roles[0].role==="admin")
-                  //     location.href="http://timska.dev/admin";
-                  // else
-                  //     location.href="http://timska.dev/";
-                  console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
-              },
-              function (errResponse) {
-                  console.log('Error while logging user in controller');
-              }
-          )
+                    // go iskomentirav ovoj del.
+                    // ova e stariot kod. go ostaviv za sekoj sluchaj
+                    // console.log(self.user.roles[0].role+" Ova e ulogata");
+                    // if(self.user.roles[0].role==="admin")
+                    //     location.href="http://timska.dev/admin";
+                    // else
+                    //     location.href="http://timska.dev/";
+                    console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
+                },
+                function (errResponse) {
+                    console.log('Error while logging user in controller');
+                }
+            )
     };
     self.submitLogIn= function(){
         self.logIn(self.user)
     };
     self.fetchAllUsers();
+
+    // pri sekoe palenje na ovoj kontroler proveri dali user-ot e logiran.
+    // Ne znam dali e ova pametno. Treba da se proveri.
+    self.auth();
 }]);
+
+/**
+ * Created by Muttley on 8/4/2016.
+ */
+'use strict';

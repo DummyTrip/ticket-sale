@@ -50,7 +50,7 @@
                         <li ng-if="userCtrl.user.email===''"><a href="#/register" class="ico-register">Регистрирај се</a></li>
                         <li ng-if="userCtrl.user.email===''"><a href="#/login" class="ico-login">Најави се</a></li>
                         <li ng-if="userCtrl.user.email!=''"><a href="#/profile" class="ico-register">{{userCtrl.user.email}}{{userCtrl.user.id}}</a></li>
-                        <li ng-if="userCtrl.user.email!=''"><a href="#/logout" class="ico-login">Log Out</a></li>
+                        <li ng-if="userCtrl.user.email!=''" ng-click="userCtrl.logout()"><a href="#/logout" class="ico-login">Log Out</a></li>
 
                         <li><a href="/customer/info" class="account">Мој профил</a></li>
                         <li><a href="#/contactus">Контакт</a></li>

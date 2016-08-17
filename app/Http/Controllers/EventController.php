@@ -9,6 +9,7 @@ use App\Event;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use JWTAuth;
 
 class EventController extends Controller
 {
@@ -71,7 +72,8 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('events.show', compact('event'));
+//        return view('events.show', compact('event'));
+        return $event;
     }
 
     /**
@@ -102,7 +104,7 @@ class EventController extends Controller
 
         $this->saveEvent($input, $event);
 
-        return view('events.show', compact('event'));
+//        return view('events.show', compact('event'));
     }
 
     /**
@@ -118,7 +120,8 @@ class EventController extends Controller
 
     private function saveEvent($input, Event $event)
     {
-        $event->organizer_id = 1;
+        $user = JWTAuth::parseToken()->authenticate();
+        $event->organizer_id = $user->id;
         $event->name = $input['name'];
         $event->venue_id = $input['venue_id'];
         $event->date = \Carbon\Carbon::now();

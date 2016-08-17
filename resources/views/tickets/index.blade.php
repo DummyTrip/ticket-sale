@@ -10,5 +10,5 @@
         </div>
     @endforeach
 
-    {{ $tickets->links() }}
+{{--    {{ $tickets->links() }}--}}
 @endsection

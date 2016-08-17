@@ -64,6 +64,18 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                     }
             )
 
+        },
+        authUser: function () {
+            return $http.get('http://api.timska.dev/auth')
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errResponse){
+                        console.log('Error while logging user ');
+                        return $q.reject(errResponse);
+                    }
+            )
         }
 
     };

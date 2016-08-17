@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
+use JWTAuth;
 
 class UserController extends Controller
 {
@@ -64,14 +65,26 @@ class UserController extends Controller
      */
     public function update(UserRequest $request)
     {
-        $user = \Auth::user();
-        $input = $request->input('role_list');
+        $user = JWTAuth::parseToken()->authenticate();
+//        $user = \Auth::user();
+        $roles = $request->input('role_list');
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = $request->input('password');
 
-        $input = $input === null ? [] : $input;
+        $roles = $roles === null ? [] : $roles;
 
-        $user->roles()->sync($input);
+        $user->roles()->sync($roles);
 
-        return redirect('profile');
+        $user->name = $name;
+        $user->email = $email;
+        if ($password){
+            $user->password = bcrypt($password);
+        }
+
+        $user->save();
+
+//        return redirect('profile');
     }
 
 }

@@ -51,3 +51,4 @@ Route::get('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
 
 Route::post('/singUp','AuthAndRegisterController@register');
 Route::post('/logIn','AuthAndRegisterController@login');
+Route::get('/auth', 'AuthAndRegisterController@getAuthenticatedUser');

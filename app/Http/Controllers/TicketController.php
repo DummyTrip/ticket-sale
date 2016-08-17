@@ -6,6 +6,8 @@ use App\Event;
 use App\Ticket;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use JWTAuth;
 
 use App\Http\Requests;
 
@@ -16,7 +18,7 @@ class TicketController extends Controller
      */
     public function __construct()
     {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
         $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
     }
 
@@ -24,18 +26,21 @@ class TicketController extends Controller
     {
         $reserve_time = Carbon::now()->subMinute(15);
         $tickets = $event->tickets()->where('sold', false)
-                                    ->where('reserve_time', '<', $reserve_time)
-                                    ->orWhereNull('reserve_time')
-                                    ->paginate(5);
+            ->where('reserve_time', '<', $reserve_time)
+            ->orWhereNull('reserve_time')
+            ->get();
+//            ->paginate(5);
 
-        //return view('tickets.index', compact('tickets', 'event'));
+//        return view('tickets.index', compact('tickets', 'event'));
         return $tickets;
     }
 
-    public function show(Event $event, Ticket $ticket){
+    public function show(Event $event, Ticket $ticket)
+    {
         $seat = $ticket->seat()->first();
 
-        return view('tickets.show', compact('ticket', 'event', 'seat'));
+//        return view('tickets.show', compact('ticket', 'event', 'seat'));
+        return [$ticket, $seat];
     }
 
     public function reserve(Event $event, Ticket $ticket)
@@ -44,18 +49,19 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return view('tickets.buy', compact('event', 'ticket'));
+//        return view('tickets.buy', compact('event', 'ticket'));
     }
 
     public function buy(Event $event, Ticket $ticket)
     {
-        $ticket->user_id = \Auth::user()->id;
+        $user = JWTAuth::parseToken()->authenticate();
+        $ticket->user_id = $user->id;
         $ticket->reserve_time = Carbon::now();
         $ticket->sold = true;
 
         $ticket->save();
 
-        return redirect('events/'.$event->id);
+//        return redirect('events/' . $event->id);
     }
 
 

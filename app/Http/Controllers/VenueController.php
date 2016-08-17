@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use JWTAuth;
 
 class VenueController extends Controller
 {
@@ -40,7 +41,8 @@ class VenueController extends Controller
      */
     public function show(Venue $venue)
     {
-        return view('venues.show', compact('venue'));
+//        return view('venues.show', compact('venue'));
+        return $venue;
     }
 
     /**
@@ -60,7 +62,7 @@ class VenueController extends Controller
 
         $venue->update($input);
 
-        return view('venues.show', compact('venue'));
+//        return view('venues.show', compact('venue'));
     }
 
     /**
@@ -77,11 +79,12 @@ class VenueController extends Controller
      */
     public function store(VenueRequest $request)
     {
+        $user = JWTAuth::parseToken()->authenticate();
         $input = $request->all();
 
         $venue = new Venue;
 
-        $venue->manager_id = 1;
+        $venue->manager_id = $user->id;
         $venue->name = $input['name'];
         $venue->city = $input['city'];
         $venue->country = $input['country'];
