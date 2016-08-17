@@ -18,12 +18,13 @@
     <link rel="stylesheet" href="{{ URL::asset('dist/css/select2.min.css') }}" rel="stylesheet" />
 
 
-    <!-- Angular -->
-    <script type="text/javascript" src="{{ URL::asset('dist/angular/angular.js') }}"></script>
-    <script type="text/javascript" src="{{URL::asset('dist/angular/angular-route.js')}}"></script>
-    <script type="text/javascript" src="{{ URL::asset('dist/app.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('dist/services/users.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('dist/controllers/userController.js') }}"></script>
+    {{--<!-- Angular -->--}}
+    {{--<script type="text/javascript" src="{{ URL::asset('dist/angular/angular.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{URL::asset('dist/angular/angular-route.js')}}"></script>--}}
+    {{--<script type="text/javascript" src="{{URL::asset('dist/angular/angular-route.js')}}"></script>--}}
+    {{--<script type="text/javascript" src="{{ URL::asset('dist/app.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ URL::asset('dist/services/users.js') }}"></script>--}}
+    {{--<script type="text/javascript" src="{{ URL::asset('dist/controllers/userController.js') }}"></script>--}}
 
 
     <style>
@@ -83,11 +84,6 @@
             </div>
         </div>
     </nav>
-    <div ng-controller="UserController as userCtrl">
-        <ul>
-            <li ng-repeat="user in userCtrl.users">@{{user.name}}</li>
-        </ul>
-    </div>
     @yield('content')
 
 
