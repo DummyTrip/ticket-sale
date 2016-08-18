@@ -32,6 +32,12 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
         .when('/admin',{
             templateUrl:"directives/admin.html"
         })
+        .when('/addVenue',{
+            templateUrl:"directives/addVenue.html"
+        })
+        .when('/addEvent',{
+            templateUrl:"directives/addEvent.html"
+        })
         .when("/users",{
             templateUrl:"directives/users.html"
         });

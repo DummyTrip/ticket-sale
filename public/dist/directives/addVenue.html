@@ -1,0 +1,28 @@
+<form>
+    <div ng-controller="venueController as venueCtrl">
+        <table id="table" class="table"  style="width: 80%; margin-left: 10%">
+            <tr>
+                <td>Name:</td>
+                <td> <input type="text" ng-model="venueCtrl.venue.name" value="venue.name"/></td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td> <input type="text" ng-model="venueCtrl.venue.country"/></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td> <input type="text" ng-model="venueCtrl.venue.city"/></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><input type="text" ng-model="venueCtrl.venue.address"/></td>
+            </tr>
+                <td><button href="#/addVenue" type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.createVenue()">
+                    <span class="glyphicon glyphicon-plus"></span></button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</form>
