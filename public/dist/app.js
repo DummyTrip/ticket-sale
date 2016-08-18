@@ -15,13 +15,25 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
 
         })
         .when("/login",{
-            templateUrl:"directives/login.html",
+            templateUrl:"directives/login.html"
         })
         .when("/contactus",{
             templateUrl:"directives/contact.html"
         })
-        .when("/admin",{
+        .when('/profile',{
+            templateUrl:"directives/profile.html"
+            })
+        .when('/venues',{
+            templateUrl:"directives/venues.html"
+        })
+        .when('/events',{
+            templateUrl:"directives/events.html"
+        })
+        .when('/admin',{
             templateUrl:"directives/admin.html"
+        })
+        .when("/users",{
+            templateUrl:"directives/users.html"
         });
 
     // dodava Authorization header na sekoj http request

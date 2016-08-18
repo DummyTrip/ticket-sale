@@ -20,8 +20,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/users', 'UserController@index');
 Route::get('/users/{id}', 'UserController@show');
-Route::get('/profile', 'UserController@edit');
-Route::patch('/profile', 'UserController@update');
+//Route::get('/profile', 'UserController@edit');
+Route::post('/profile', 'UserController@update');
 
 //Route::resource('venues', 'VenueController');
 

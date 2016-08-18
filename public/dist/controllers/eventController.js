@@ -5,11 +5,29 @@
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
-    self.event = { name:'', venue_id:'', tag_list:[1,2], date:''};
+    self.event = { name:'', venue_id:'', tag_list:[1,2], date:'',venue:'',editing:''};
     self.tmpevent={name:'',date:'',venue:''};
     self.events = [];
     self.venue = { name:'', id:''};
     self.venues=[];
+    self.getIdVenue = function(){
+        for(var i = 0; i < self.venues.length; i++){
+            console.log('Venue name: '+self.venues[i].name);
+            if(self.tmpevent.venue===self.venues[i].name){
+                console.log('Entered '+self.venues[i].id);
+                self.event.venue_id=self.venues[i].id;
+                break;
+            }
+        }
+    };
+    self.getVenueByID = function(){
+        for(var i = 0; i < self.venues.length; i++){
+            if(self.event.venue_id === self.venues[i].id){
+                self.event.venue = self.venues[i].name;
+                break;
+            }
+        }
+    };
     self.fetchAllVenues=function(){
         VenueServices.fetchAllVenues()
             .then(
@@ -24,8 +42,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.addValue = function(value){
         alert('Yes');
         var flag = false;
-        for(var i = 0; i < self.event.tags.length; i++){
-            if(self.event.tags[i]===value){
+        for(var i = 0; i < self.event.tag_list.length; i++){
+            if(self.event.tag_list[i]===value){
                 flag = true;
                 break;
             }
@@ -35,22 +53,22 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             self.event.tags.push(value);
         }
     };
-    self.fetchAllVenues();
-    self.getIdVenue = function(){
-        for(var i = 0; i < self.venues.length; i++){
-            console.log('Venue name: '+self.venues[i].name);
-            if(self.tmpevent.venue===self.venues[i].name){
-                console.log('Entered '+self.venues[i].id);
-                self.event.venue_id=self.venues[i].id;
-                break;
-            }
-        }
-    };
+
+
+
+
+
     self.fetchAllEvents = function(){
         EventService.fetchAllEvents()
             .then(
                 function(d){
                     self.events = d;
+                    for(var i = 0; i < self.events.length; i++){
+                        self.event = self.events[i];
+                        self.event.editing="false";
+                        self.getVenueByID();
+                    }
+
                 },
                 function (errResponse){
                     console.log('Error while fetching all events in EventController');
@@ -61,7 +79,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         console.log(id);
         var tmp = ['da', 'ne'];
         self.getIdVenue(self.event);
-        console.log(self.event.name+" "+self.event.venue_id+" "+self.event.date+" "+self.event.tags+" "+self.events+tmp);
+        console.log(self.event.name+" "+self.event.venue_id+" "+self.event.date+" "+self.event.tag_list+" "+self.events+tmp);
         EventService.createEvent(self.event)
             .then(
                 function(d){
@@ -96,4 +114,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
 
     };
     self.fetchAllEvents();
+
+
+    self.fetchAllVenues();
 }]);

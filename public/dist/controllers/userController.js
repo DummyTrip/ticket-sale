@@ -2,6 +2,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     var self = this;
     self.user = { id:'', name:'', email:'', password:''};
     self.user.roles=[{id:'', role:''}];
+    self.userPass ={oldPass:'',newPass:'',confirmPass:''};
     self.user.roles.pivot = [{id:'', role_id:''}];
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
@@ -40,15 +41,25 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
             )
     };
     self.editUser = function(){
-        UserService.editUser()
-            .then(
-                function(d){
-                    self.user = d;
-                },
-                function(errResponse){
-                    console.log('Error while editing user in controller');
-                }
-            )
+        console.log(self.user.password);
+
+            if (self.userPass.newPass === self.userPass.confirmPass) {
+                self.user.password = self.userPass.confirmPass;
+            if(self.user.password != null){
+                UserService.editUser(self.userPass)
+                    .then(
+                        function (d) {
+                            self.user = d;
+                        },
+                        function (errResponse) {
+                            console.log('Error while editing user in controller');
+                        }
+                    )
+            }else{
+                console.log('Vnesenite passwordi ne se poklopuvaat');
+            }
+        }
+
     };
     self.createUserSubmit = function(){
         console.log(self.user.name+' '+self.user.email+' '+self.user.password);
@@ -81,11 +92,9 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         UserService.authUser()
             .then(
                 function (response) {
-                    var user = JSON.stringify(response.user);
-                    $rootScope.user = user;
-                    self.user.id = user.id;
-                    self.user.name = user.name;
-                    self.user.email = user.email;
+                    self.user = response.user;
+                    self.tempUsr = self.user;
+                    console.log(response.user);
                 },
                 function (errResponse) {
                     console.log('Auth error. You are not logged in.');
@@ -114,7 +123,8 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                     $http.post('http://api.timska.dev/logIn', self.user).success(successAuth).error(function () {
                         $rootScope.error = 'Invalid credentials.';
                     });
-
+                    sessionStorage.setItem('user', JSON.stringify(self.user));
+                    console.log(self.user.roles[0].role);
                     // go iskomentirav ovoj del.
                     // ova e stariot kod. go ostaviv za sekoj sluchaj
                     // console.log(self.user.roles[0].role+" Ova e ulogata");
@@ -132,11 +142,24 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.submitLogIn= function(){
         self.logIn(self.user)
     };
+    self.check = function(){
+        console.log(self.user);
+        var tmp = sessionStorage.getItem('user');
+        if(self.user.name===null || self.user.name===''){
+            self.auth();
+            console.log(self.user + " posle auth()");
+        }else{
+            sessionStorage.getItem('user');
+            console.log(tmp);
+            self.user = sessionStorage.getItem('user');
+        }
+    };
+
     self.fetchAllUsers();
 
     // pri sekoe palenje na ovoj kontroler proveri dali user-ot e logiran.
     // Ne znam dali e ova pametno. Treba da se proveri.
-    self.auth();
+    self.check();
 }]);
 
 /**

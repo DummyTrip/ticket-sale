@@ -27,18 +27,19 @@
                         <strong>Постоечки корисник</strong>
                     </div>
                     <div class="form-fields">
-                        <form  method="post">                        <div class="message-error">
+                        <form name="myForm"  method="post" novalidate>                        <div class="message-error">
 
                         </div>
                             <div class="inputs">
                                 <label for="Email">E-mail Адреса:</label>
-                                <input autofocus="autofocus" class="email" id="Email" name="Email" ng-model="userCtrl.user.email" type="text" value="" />
+                                <input autofocus="autofocus" class="email" id="Email" name="Email" ng-model="userCtrl.user.email" type="text" value="" required/>
                                 <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
                             </div>
                             <div class="inputs">
                                 <label for="Password">Лозинка:</label>
-                                <input class="password" id="Password" name="Password" type="password" ng-model="userCtrl.user.password" />
-                                <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                                <input class="password" id="Password" name="Password" type="password" ng-model="userCtrl.user.password" required/>
+                                <span style="color:red" ng-show="myForm.Password.$dirty && myForm.Password.$invalid">
+                                <span ng-show="myForm.user.email.$error.required">Username is required.</span></span>
                             </div>
                             <div class="inputs reversed">
                                 <input id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />

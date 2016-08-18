@@ -5,6 +5,8 @@
     <script  type="text/javascript" src="angular/angular.js"></script>
     <script src="https://code.angularjs.org/1.5.5/angular-route.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
     <script  type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="services/eventService.js"></script>
     <script type="text/javascript" src="controllers/eventController.js"></script>
@@ -15,10 +17,17 @@
     <!--<link rel="stylesheet" type="text/css" href="/ticket-sale/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.css" />-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
     <!--<script type="text/javascript" src="/ticket-sale/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <link type="text/css" rel="stylesheet" href="css/nivo-slider.css"/>
     <link rel="stylesheet" type="text/css" href="css/default.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+
     <script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+    <style type="text/css">
+
+        .tg td{font-family:Arial, sans-serif;font-size:20px;padding:10px 5px; overflow:hidden;word-break:normal;}
+        .tg th{font-family:Arial, sans-serif;font-size:20px;font-weight:normal;padding:10px 5px; overflow:hidden;word-break:normal;}
+        .tg .tg-yw4l{vertical-align:top}
+    </style>
     <title>Ticket Sale service</title>
 </head>
 <body ng-controller="UserController as userCtrl"ng-cloak style="background-color: #666666">
@@ -47,12 +56,12 @@
                 <div class="header-links">
                     <ul>
 
-                        <li ng-if="userCtrl.user.email===''"><a href="#/register" class="ico-register">Регистрирај се</a></li>
-                        <li ng-if="userCtrl.user.email===''"><a href="#/login" class="ico-login">Најави се</a></li>
-                        <li ng-if="userCtrl.user.email!=''"><a href="#/profile" class="ico-register">{{userCtrl.user.email}}{{userCtrl.user.id}}</a></li>
-                        <li ng-if="userCtrl.user.email!=''" ng-click="userCtrl.logout()"><a href="#/logout" class="ico-login">Log Out</a></li>
+                        <li ng-if="userCtrl.tempUsr.email===''"><a href="#/register" class="ico-register">Регистрирај се</a></li>
+                        <li ng-if="userCtrl.tempUsr.email===''"><a href="#/login" class="ico-login">Најави се</a></li>
+                        <li ng-if="userCtrl.tempUsr.email!=''"><a href="#/profile" class="ico-register">{{userCtrl.tempUsr.email}}</a></li>
+                        <li ng-if="userCtrl.tempUsr.email!=''" ng-click="userCtrl.logout()"><a href="#/logout" class="ico-login">Log Out</a></li>
 
-                        <li><a href="/customer/info" class="account">Мој профил</a></li>
+                        <li><a href="/#profile" class="account">Мој профил</a></li>
                         <li><a href="#/contactus">Контакт</a></li>
 
 

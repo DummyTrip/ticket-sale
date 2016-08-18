@@ -28,8 +28,8 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                     }
                 )
         },
-        editUser:function(){ // same function for update
-            return $http.post('http:timska.dev/profile')
+        editUser:function(user){ // same function for update
+            return $http.post('http://api.timska.dev/profile',user)
                 .then(
                     function(response){
                         return response.data;

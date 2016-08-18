@@ -1,0 +1,48 @@
+<div class="center-3">
+
+
+    <form method="post"><div class="page registration-page">
+        <div class="page-title">
+            <h1>Лични Податоци</h1>
+        </div>
+        <div class="page-body">
+            <div class="message-error">
+
+            </div>
+
+
+            <div class="fieldset">
+                <div class="title">
+                    <strong>Вашите лични податоци</strong>
+                </div>
+                <table style="margin-left: 20% "class="tg">
+                    <tr>
+                        <td class="tg-031e">Име:</td>
+                        <td class="tg-031e"><input type="text" ng-model="userCtrl.user.name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tg-031e">Емаил: </td>
+                        <td class="tg-031e"><input type="text" ng-model="userCtrl.user.email"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tg-031e">Стара лозинка</td>
+                        <td class="tg-031e"><input type="text" ng-model="userCtrl.userPass.oldPass"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">Нова лозинка</td>
+                        <td class="tg-yw4l"><input type="text" ng-model="userCtrl.userPass.newPass"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l">Потврди лозинка</td>
+                        <td class="tg-yw4l"><input type="text" ng-model="userCtrl.userPass.confirmPass"/></td>
+                    </tr>
+                    <tr>
+                        <td class="tg-yw4l" colspan="2"><input class="btn submit" type="submit" ng-click="userCtrl.editUser()" value="Промени"/> </td>
+                    </tr>
+                </table>
+            </div>
+
+         </div>
+        </div>
+        </form>
+    </div>
