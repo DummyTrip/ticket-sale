@@ -78,7 +78,7 @@ class UserController extends Controller
 
         $user->name = $name;
         $user->email = $email;
-        if ($password){
+        if ($password !== ""){
             $user->password = bcrypt($password);
         }
 

@@ -8,6 +8,8 @@ class Event extends Model
 {
     protected $fillable = ['name', 'date'];
 
+    protected $appends = ['tag_list'];
+
     protected $dates = ['date'];
 
     public function venue()

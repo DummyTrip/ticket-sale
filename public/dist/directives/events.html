@@ -1,10 +1,11 @@
 <div class="span14">
-    <div class="row">
+    <div class="row" ng-controller="eventController as eventCtrl">
         <table class="table table-condensed" style="width: 80%; margin-left: 10%">
             <tr>
                 <th>Име на настан</th>
                 <th>Датум</th>
                 <th>Сала</th>
+                <th>Тип</th>
                 <th>Промени</th>
                 <th>Избриши</th>
             </tr>
@@ -12,8 +13,19 @@
             <tr ng-repeat="event in eventCtrl.events">
                 <td><input class="change" type="text" value="event.name" ng-model="event.name" ng-readonly="checked" /></td>
                 <td><input class="change" type="datetime" ng-model="event.date" value="event.date" ng-readonly="checked" /></td>
-                <td><input class="change" type="text" ng-model="event.venue" value="event.venue" ng-readonly="checked" />{{event.getVenueByID(event.venue_id)}}</td>
-                <td><button  id="button_${count}" type="button" ng-model="checked" class="btn btn-default btn-sm">
+                <td ng-controller="venueController as venueCtrl">
+                    <select ng-model="event.venue" ng-change="eventCtrl.getIdVenues()">
+                        <option ng-repeat="venue in venueCtrl.venues" ng-selected="event.venue===venue.name">{{venue.name}}</option>
+                    </select>
+                </td>
+                <td>
+                    <select ng-model="event.tag_list" multiple>
+                        <option value="1" ng-selected="true">Спорт</option>
+                        <option value="2" ng-selected="event.tag_list.indexOf(2) != -1">Музика</option>
+                        <option value="3" ng-selected="event.tag_list.indexOf(3) != -1">Образовни</option>
+                    </select>
+                </td>
+                <td><button class="btn btn-default btn-sm" type="button" ng-click="eventCtrl.editOrUpdate(event)">
                     <span class="glyphicon glyphicon-wrench"></span></button></td>
                 <td><button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>

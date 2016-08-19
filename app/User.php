@@ -25,7 +25,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    protected $appends = ['role_names'];
+    protected $appends = ['role_names', 'role_list'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

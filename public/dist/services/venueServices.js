@@ -42,9 +42,10 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 )
         },
         editOrUpdate:function(venues){
-            return $http.get('http://api.timska.dev/venues/'+venues+'/edit')
+            return $http.patch('http://api.timska.dev/venues/'+venues.id,venues)
                 .then(
                     function(response){
+                        console.log('Da ushesno e update vo venue');
                         return response.data;
                     },
                     function(errResponse){

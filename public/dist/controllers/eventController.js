@@ -5,15 +5,27 @@
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
-    self.event = { name:'', venue_id:'', tag_list:[1,2], date:'',venue:'',editing:''};
+    self.event = { name:'', venue_id:'', tag_list:[], date:'',venue:'',editing:''};
     self.tmpevent={name:'',date:'',venue:''};
     self.events = [];
     self.venue = { name:'', id:''};
     self.venues=[];
-    self.getIdVenue = function(){
+    self.getIdVenue = function(){ // Ovaa pri create
+        alert(self.event.venue);
         for(var i = 0; i < self.venues.length; i++){
             console.log('Venue name: '+self.venues[i].name);
             if(self.tmpevent.venue===self.venues[i].name){
+                console.log('Entered '+self.venues[i].id);
+                self.event.venue_id=self.venues[i].id;
+                break;
+            }
+        }
+    };
+    self.getIdVenues = function(){  //// Ovaa e pri update
+        alert(self.event.venue);
+        for(var i = 0; i < self.venues.length; i++){
+            console.log('Venue name: '+self.venues[i].name);
+            if(self.event.venue===self.venues[i].name){
                 console.log('Entered '+self.venues[i].id);
                 self.event.venue_id=self.venues[i].id;
                 break;
@@ -66,7 +78,9 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                     for(var i = 0; i < self.events.length; i++){
                         self.event = self.events[i];
                         self.event.editing="false";
+
                         self.getVenueByID();
+                        console.log(JSON.stringify(self.event.tag_list)+" pri fetching");
                     }
 
                 },
@@ -101,8 +115,19 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                 }
             )
     };
+    self.findId = function(){
+      for(var i = 0; i < self.events.length; i++){
+          if(self.event.name === self.events[i].name){
+              self.event.id = self.events[i].id;
+              self.event.tag_list = self.events[i].tag_list;
+              break;
+          }
+      }
+    };
     self.editOrUpdate = function(event){
-        EventService.editOrUpdate(event.id)
+        self.findId();
+        console.log(self.event);
+        EventService.editOrUpdateEvent(self.event)
             .then(
                 function(d){
                     self.event = d;

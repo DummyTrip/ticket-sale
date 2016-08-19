@@ -44,7 +44,9 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
             )
     };
     self.editOrUpdate = function(venue){
-        VenueServices.editOrUpdate(venue.id)
+        self.venue = venue;
+        console.log(self.venue+" OVa e venue "+JSON.stringify(self.venue));
+        VenueServices.editOrUpdate(self.venue)
             .then(
                 function(d){
                     self.venue = d;

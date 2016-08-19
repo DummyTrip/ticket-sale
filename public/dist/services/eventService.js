@@ -41,7 +41,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         editOrUpdateEvent:function(events){
-            return $http.get('http://api.timska.dev/events/'+events+'/edit')
+            return $http.patch('http://api.timska.dev/events/'+events.id,events)
                 .then(
                     function(response){
                         return response.data;

@@ -1,9 +1,8 @@
 app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '$localStorage', 'UserService' , function($http, $rootScope, $scope, $location, $localStorage, UserService){
     var self = this;
     self.user = { id:'', name:'', email:'', password:''};
-    self.user.roles=[{id:'', role:''}];
+    self.user.role_list=[];
     self.userPass ={oldPass:'',newPass:'',confirmPass:''};
-    self.user.roles.pivot = [{id:'', role_id:''}];
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
 
@@ -42,11 +41,12 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     };
     self.editUser = function(){
         console.log(self.user.password);
-
-            if (self.userPass.newPass === self.userPass.confirmPass) {
-                self.user.password = self.userPass.confirmPass;
+        console.log(self.user.role_list);
+        if (self.userPass.newPass === self.userPass.confirmPass) {
+            self.user.password = self.userPass.confirmPass;
+            console.log(JSON.stringify(self.user)+" Ova e userto vo edit");
             if(self.user.password != null){
-                UserService.editUser(self.userPass)
+                UserService.editUser(self.user)
                     .then(
                         function (d) {
                             self.user = d;
@@ -73,8 +73,8 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
             .then(
                 function(d){
                     self.user=d;
-                    console.log(self.user.roles.role+" ova e ulogata");
-                    if(self.user.roles[0].role==="admin")
+                    console.log(self.user.role_list[0]+" ova e ulogata");
+                    if(self.user.role_list[0]==="admin")
                         location.href="http://timska.dev/admin";
                     else
                         location.href="http://timska.dev/";
@@ -92,9 +92,12 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         UserService.authUser()
             .then(
                 function (response) {
-                    self.user = response.user;
+                    self.user.name = response.user.name;
+                    self.user.email = response.user.email;
+                    self.user.role_list = response.user.role_list;
+                    console.log(self.user.role_list+" Lista na ulogi");
                     self.tempUsr = self.user;
-                    console.log(response.user);
+                    console.log(response.user + "Ova se ulogite");
                 },
                 function (errResponse) {
                     console.log('Auth error. You are not logged in.');
@@ -124,7 +127,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                         $rootScope.error = 'Invalid credentials.';
                     });
                     sessionStorage.setItem('user', JSON.stringify(self.user));
-                    console.log(self.user.roles[0].role);
+                    console.log(self.user.role_list[0]);
                     // go iskomentirav ovoj del.
                     // ova e stariot kod. go ostaviv za sekoj sluchaj
                     // console.log(self.user.roles[0].role+" Ova e ulogata");
