@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VenueRequest;
+use App\Seat;
+use App\User;
 use App\Venue;
 use Illuminate\Http\Request;
 
@@ -18,7 +20,7 @@ class VenueController extends Controller
     public function __construct()
     {
        // $this->middleware('auth');
-//        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
+        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -60,7 +62,7 @@ class VenueController extends Controller
     {
         $input = $request->all();
 
-        $venue->update($input);
+        $this->saveVenue($venue, $input);
 
 //        return view('venues.show', compact('venue'));
     }
@@ -79,10 +81,17 @@ class VenueController extends Controller
      */
     public function store(VenueRequest $request)
     {
-        $user = JWTAuth::parseToken()->authenticate();
         $input = $request->all();
 
         $venue = new Venue;
+
+        $this->saveVenue($venue, $input);
+    }
+
+    private function saveVenue($venue, $input){
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
 
         $venue->manager_id = $user->id;
         $venue->name = $input['name'];
@@ -91,6 +100,31 @@ class VenueController extends Controller
         $venue->address = $input['address'];
 
         $venue->save();
+
+        $seats = $this->getSeatIds($input);
+        $venue->seats()->sync($seats);
+    }
+
+    private function getSeatIds($input){
+        $seats = [];
+        $blocks = [];
+
+        foreach ($input as $key => $value){
+            if (str_contains($key, "-")){
+                $split = explode("-", $key);
+                $index = $split[1];
+                $column = $split[0];
+
+                $blocks = array_add($blocks, $index, []);
+                $blocks[$index][$column] = $value;
+            }
+        }
+
+        foreach ($blocks as $block){
+            $seats[] = Seat::firstOrNew($block)->id;
+        }
+
+        return $seats;
     }
 
 }

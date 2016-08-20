@@ -10,6 +10,8 @@
 |
 */
 
+use App\Seat;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -26,7 +28,7 @@ Route::post('/profile', 'UserController@update');
 //Route::resource('venues', 'VenueController');
 
 Route::get('test', function(){
-    return view('test');
+    return "test";
 });
 
 Route::get('/venues', 'VenueController@index');
