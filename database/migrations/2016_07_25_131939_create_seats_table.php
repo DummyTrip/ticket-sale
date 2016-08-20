@@ -18,7 +18,7 @@ class CreateSeatsTable extends Migration
             $table->integer('row');
             $table->integer('column');
             $table->integer('block');
-            $table->string('name');
+            $table->string('block_name');
         });
     }
 

@@ -26,9 +26,12 @@ Route::get('/users/{id}', 'UserController@show');
 Route::post('/profile', 'UserController@update');
 
 //Route::resource('venues', 'VenueController');
-
 Route::get('test', function(){
     return "test";
+});
+Route::post('test', function(Illuminate\Http\Request $request){
+    $input = $request->all()
+    return $input;
 });
 
 Route::get('/venues', 'VenueController@index');

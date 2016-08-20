@@ -77,6 +77,23 @@ class VenueController extends Controller
 
     /**
      * @param CreateVenueRequest $request
+     *
+     * example $input:
+     * {
+     *      "block-1": "1",
+     *      "block_name-1": "a",
+     *      "rows-1": "1",
+     *      "columns-1": "1",
+     *      "block-2": "2",
+     *      "block_name-2": "b"
+     *      "rows-2": "2",
+     *      "columns-2": "2",
+     *      "name": "TestVenue",
+     *      "city": "test",
+     *      "country": "test",
+     *      "address": "test",
+     * }
+     *
      * @return array
      */
     public function store(VenueRequest $request)
@@ -105,6 +122,11 @@ class VenueController extends Controller
         $venue->seats()->sync($seats);
     }
 
+    /**
+     * @param $input
+     *
+     * @return array
+     */
     private function getSeatIds($input){
         $seats = [];
         $blocks = [];
@@ -121,7 +143,12 @@ class VenueController extends Controller
         }
 
         foreach ($blocks as $block){
-            $seats[] = Seat::firstOrNew($block)->id;
+            foreach(range(1,$block["rows"]) as $row) {
+                foreach(range(1,$block["columns"]) as $column) {
+                    $seat = ['block' => $block["block"], 'row' => $row, 'column' => $column, 'block_name' => $block["block_name"]];
+                    $seats[] = Seat::firstOrCreate($seat)->id;
+                }
+            }
         }
 
         return $seats;

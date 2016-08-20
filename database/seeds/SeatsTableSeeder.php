@@ -16,7 +16,7 @@ class SeatsTableSeeder extends Seeder
 
         foreach(range(1,2) as $row) {
             foreach(range(1,10) as $column) {
-                $seats[] = ['row' => $row, 'column' => $column, 'block' => $row, 'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
+                $seats[] = ['row' => $row, 'column' => $column, 'block' => $row,'block_name' => 'row' ,'created_at' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()];
             }
         }
 

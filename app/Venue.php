@@ -8,6 +8,8 @@ class Venue extends Model
 {
     protected $fillable = ['name', 'description','city', 'country', 'address'];
 
+    protected $appends = ['blocks', 'block_names'];
+
     public function manager()
     {
         return $this->belongsTo('App\User');
@@ -25,6 +27,16 @@ class Venue extends Model
 
     public function getBlocksAttribute()
     {
-        return $this->seats->lists('block')->unique()->values()->all();
+        return $this->seats()->get()->lists('block')->unique()->values()->all();
+    }
+
+    public function getBlockNamesAttribute()
+    {
+        return $this->seats()->get()->lists('block_name')->unique()->values()->all();
+    }
+
+    public function getSeatsAttribute()
+    {
+        return $this->seats()->get()->lists('id')->toArray();
     }
 }
