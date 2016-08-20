@@ -16,6 +16,7 @@ class CreateVenuesTable extends Migration
             $table->increments('id');
             $table->integer('manager_id')->unsigned();
             $table->string('name');
+            $table->string('description');
             $table->string('city');
             $table->string('country');
             $table->string('address');
