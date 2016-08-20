@@ -30,7 +30,7 @@ Route::get('test', function(){
     return "test";
 });
 Route::post('test', function(Illuminate\Http\Request $request){
-    $input = $request->all()
+    $input = $request->all();
     return $input;
 });
 
