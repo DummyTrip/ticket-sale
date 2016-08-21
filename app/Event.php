@@ -8,7 +8,7 @@ class Event extends Model
 {
     protected $fillable = ['name', 'date', 'description'];
 
-    protected $appends = ['tag_list'];
+    protected $appends = ['tag_list', 'venue'];
 
     protected $dates = ['date'];
 
@@ -35,5 +35,10 @@ class Event extends Model
     public function getTagListAttribute()
     {
         return $this->tags->lists('id')->toArray();
+    }
+
+    public function getVenueAttribute()
+    {
+        return $this->venue()->get() ;
     }
 }
