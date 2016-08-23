@@ -38,6 +38,9 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
         .when('/addEvent',{
             templateUrl:"directives/addEvent.html"
         })
+        .when('/productDetails',{
+            templateUrl:"directives/productDetails.html"
+        })
         .when("/users",{
             templateUrl:"directives/users.html"
         });

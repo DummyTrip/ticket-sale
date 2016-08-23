@@ -1,0 +1,5 @@
+<form ng-controller="venueController as venueCtrl">
+    <select ng-model="venue.blocks">
+        <option ng-repeat="venue.blocks in venueCtrl.blocks">{{venue.blocks.name}}</option>
+    </select>
+</form>

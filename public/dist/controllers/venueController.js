@@ -5,9 +5,24 @@
 
 app.controller('venueController',['$scope', 'VenueServices' , function($scope, VenueServices) {
     var self = this;
-    self.venue = { id:'', name:'', city:'',country:'', address:''};
+    self.venue = { id:'', name:'', city:'',country:'', address:'',blocks:[], block:[
+        {
+            name: '',
+            rows: '',
+            columns: ''
+        }
+        ]};
+    self.number = Number(0);
+    self.tmp =[{name:'',row:'',columns:''}];
     self.venues = [];
 
+    self.addNewBlock = function () {
+        self.venue.block.push({
+            name: '',
+            rows: '',
+            columns: ''
+        });
+    };
     self.fetchAllVenues = function(){
         console.log("Ovde sum");
         VenueServices.fetchAllVenues()
@@ -21,7 +36,14 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
             );
     };
     self.createVenue = function(){
-        console.log("Ova e vo controlerot: "+ self.venue.name+" "+self.venue.city+" "+self.venue.country+" "+self.venue.address);
+        var p = 0;
+        for(var i = 0; i < self.venue.block.length; i++){
+            self.venue.blocks[p++] = self.venue.block[i].name;
+            self.venue.blocks[p++] = self.venue.block[i].rows;
+            self.venue.blocks[p++] = self.venue.block[i].columns;
+        }
+        console.log('Venue: ', self.venue);
+        console.log("Ova e vo controlerot: "+self.venue.blocks+" "+self.venue.name+" "+self.venue.city+" "+self.venue.country+" "+self.venue.address);
         VenueServices.createVenue(self.venue)
             .then(
                 function(){

@@ -359,4 +359,9 @@
 </div>
 
 </body>
+<script>
+    function primer () {
+        $("#table").find('tr:last').prev().prev().after("<tr><td>Име на блок: <input ng-bind='venueCtrl.blocks[venueCtrl.number]' type='text'/></td><td>Редови: <input ng-bind='venueCtrl.blocks[venueCtrl.number+1]' type='number' /></td><td>Колони: <input ng-bind='venueCtrl.blocks[venueCtrl.number+2]' type='number'/></td></tr>");
+    }
+</script>
 </html>

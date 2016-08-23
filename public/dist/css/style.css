@@ -1,4 +1,3 @@
-/* RESET STYLESHEET (html5doctor.com) v1.6.1 */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
@@ -582,91 +581,6 @@ td {
         border-bottom: 1px dotted #ADACAC;
         list-style: none;
     }
-
-
-/* EU COOKIE LAW */
-.eu-cookie-law {
-    text-align: left;
-}
-
-a.eu-cookie-privacyinfo-tag {
-    color: #B80709 !important;
-    text-decoration: underline;
-}
-
-
-/* PAGER */
-.pager {
-    zoom: 1;
-}
-
-    .pager:after {
-        content: ".";
-        display: block;
-        clear: both;
-        height: 0;
-        font-size: 0;
-        line-height: 0;
-        visibility: hidden;
-    }
-
-    .pager ul {
-        float: right;
-        margin: 2px 0;
-    }
-
-    .pager li {
-        float: left;
-        line-height: 20px;
-        list-style: none outside none;
-        margin-left: 5px;
-    }
-
-    .pager a, .pager span {
-        display: inline-block;
-        min-width: 10px;
-        text-align: center;
-        color: #555;
-        font-size: 11px;
-        font-weight: 700;
-        padding: 0px 8px;
-        -webkit-border-radius: 2px;
-        -moz-border-radius: 2px;
-        border-radius: 2px;
-        -webkit-transition: all 0.218s;
-        -moz-transition: all 0.218s;
-        -ms-transition: all 0.218s;
-        -o-transition: all 0.218s;
-        transition: all 0.218s;
-        border: 1px solid gainsboro;
-        border: 1px solid rgba(0,0,0,0.1);
-        background-color: whiteSmoke;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-        .pager span, .pager a:active {
-            background-color: #F9F9F9;
-            cursor: default;
-        }
-
-        .pager a:hover {
-            border: 1px solid #C6C6C6;
-            color: #333;
-            -webkit-transition: all 0.0s;
-            -moz-transition: all 0.0s;
-            -ms-transition: all 0.0s;
-            -o-transition: all 0.0s;
-            transition: all 0.0s;
-            background-color: #F8F8F8;
-            -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-            -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-            text-decoration: none;
-        }
 
 
 /* NAVIGATIONS */
@@ -3964,7 +3878,6 @@ a.eu-cookie-privacyinfo-tag {
     .rating div {
         float: left;
         height: 16px;
-        background: url(images/star-x-active.png) 0 0 repeat-x;
     }
 
 .product-details-page .product-reviews-overview .product-review-links .separator {
@@ -4045,8 +3958,6 @@ a.eu-cookie-privacyinfo-tag {
 }
 
     .product-details-page .download-sample .download-sample-button {
-        -x-system-font: none !important;
-        background: #F1F1F1 url(images/download-sample-bg.gif) repeat-x scroll 0 100%;
         border: 1px solid #B5B5B5;
         color: #444;
         cursor: pointer;
@@ -6213,8 +6124,6 @@ ul.language-list {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7DB72F',endColorstr='#4E7D0E');
     color: #fff;
     text-shadow: none;
-    border-color: #999;
-    border: 0 none;
     font-weight: 700;
     font-size: 1.3em;
     margin-top: -5px;
@@ -6256,7 +6165,6 @@ ul.language-list {
 }
 
 #banner-dole {
-    background: url(images/dole-baner.jpg) top left no-repeat;
     width: 960px;
     height: 163px;
     clear: both;
@@ -6264,7 +6172,6 @@ ul.language-list {
 }
 
 #footer-slika {
-    background: url(images/footer-bg.jpg) top left no-repeat transparent;
     width: 960px;
     height: 40px;
     clear: both;

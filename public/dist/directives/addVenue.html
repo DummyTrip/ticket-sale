@@ -17,10 +17,35 @@
                 <td>Address:</td>
                 <td><input type="text" ng-model="venueCtrl.venue.address"/></td>
             </tr>
-                <td><button href="#/addVenue" type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.createVenue()">
-                    <span class="glyphicon glyphicon-plus"></span></button>
+            <tr ng-repeat="block in venueCtrl.venue.block">
+                <td>
+                    Име на блок:
+                    <input
+                            name="ime"
+                            ng-model="block.name"
+                            class="primer"
+                            type="text"/>
                 </td>
+                <td>Редови:
+                    <input
+                            name="redovi"
+                            ng-model="block.rows"
+                            class="primer"
+                            type="number"/>
+                </td>
+                <td>
+                    Колони:
+                    <input
+                            class="primer"
+                            ng-model="block.columns"
+                            type="number"/>
+                </td>
+                <td><button id="add" ng-click="venueCtrl.addNewBlock()" type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span></button></td>
             </tr>
+                <td><button href="#/addVenue" type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.createVenue()">Зачувај</button>
+                </td>
+            {{venueCtrl.block}}
         </table>
 
     </div>

@@ -20,7 +20,7 @@ class VenueController extends Controller
     public function __construct()
     {
        // $this->middleware('auth');
-        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
+       // $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
     }
 
     /**
@@ -131,21 +131,17 @@ class VenueController extends Controller
         $seats = [];
         $blocks = [];
 
-        foreach ($input as $key => $value){
-            if (str_contains($key, "-")){
-                $split = explode("-", $key);
-                $index = $split[1];
-                $column = $split[0];
-
-                $blocks = array_add($blocks, $index, []);
-                $blocks[$index][$column] = $value;
-            }
+        $blocks_input = $input['blocks'];
+        foreach (range(0, count($blocks) / 3) as $index) {
+            $blocks[$index] = ['block_name' => $blocks_input[$index * 3],
+                'rows' => $blocks_input[$index * 3 + 1],
+                'columns' => $blocks_input[$index * 3 + 2]];
         }
 
         foreach ($blocks as $block){
             foreach(range(1,$block["rows"]) as $row) {
                 foreach(range(1,$block["columns"]) as $column) {
-                    $seat = ['block' => $block["block"], 'row' => $row, 'column' => $column, 'block_name' => $block["block_name"]];
+                    $seat = ['row' => $row, 'column' => $column, 'block_name' => $block["block_name"]];
                     $seats[] = Seat::firstOrCreate($seat)->id;
                 }
             }

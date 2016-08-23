@@ -14,6 +14,7 @@
                 <td><input class="change" type="text" value="event.name" ng-model="event.name" ng-readonly="checked" /></td>
                 <td><input class="change" type="datetime" ng-model="event.date" value="event.date" ng-readonly="checked" /></td>
                 <td ng-controller="venueController as venueCtrl">
+                    {{event.venue.id}}
                     <select ng-model="event.venue" ng-change="eventCtrl.getIdVenues()">
                         <option ng-repeat="venue in venueCtrl.venues" ng-selected="event.venue===venue.name">{{venue.name}}</option>
                     </select>
