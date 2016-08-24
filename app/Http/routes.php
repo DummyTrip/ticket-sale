@@ -73,7 +73,7 @@ Route::patch('/venues/{venues}', 'VenueController@update');
 Route::get('/venues/{venues}/edit', 'VenueController@edit');
 
 Route::get('/events', 'EventController@index');
-Route::post('/event/create', 'EventController@store');
+Route::post('/events/create', 'EventController@store');
 Route::get('/events/create', 'EventController@create');
 Route::get('/events/{events}', 'EventController@show');
 Route::patch('/events/{events}', 'EventController@update');

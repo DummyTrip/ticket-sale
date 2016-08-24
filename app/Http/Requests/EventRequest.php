@@ -29,7 +29,6 @@ class EventRequest extends Request
         return [
             'name' => 'required',
             'venue_id' => 'required',
-            'date' => 'required',
         ];
     }
 }

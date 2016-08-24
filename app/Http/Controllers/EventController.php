@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EventRequest;
+use App\Seat;
 use App\Tag;
 use App\Venue;
 use App\Event;
@@ -30,7 +31,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::all();
-       // return \Auth::user();
+        // return \Auth::user();
         return $events;
     }
 
@@ -50,8 +51,19 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     *
+     * example $input
+     *
+     * 'name' => 'test',
+     * 'venue_id' => '1',
+     * 'tag_list' => ['1', '2'],
+     * 'blocks' => ['1',            // block_name
+     *              '100',          // price
+     *              '2',            // block_name
+     *              '200'           // price
+     *             ]
      */
     public function store(EventRequest $request)
     {
@@ -61,13 +73,13 @@ class EventController extends Controller
 
         $this->saveEvent($input, $event);
 
-       // return redirect('events');
+        // return redirect('events');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Event $event)
@@ -94,8 +106,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(EventRequest $request, Event $event)
@@ -110,7 +122,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -118,6 +130,13 @@ class EventController extends Controller
         //
     }
 
+    /**
+     * Saves an event along with the tags and tickets.
+     *
+     * @param $input = ['name' => string, 'venue_id' => int, 'tag_list' => [int, int, ...],
+     *                  'blocks' => ['block_name1', 'price1', 'block_name1', 'price1', ..], ]
+     * @param Event $event
+     */
     private function saveEvent($input, Event $event)
     {
         $user = JWTAuth::parseToken()->authenticate();
@@ -130,7 +149,42 @@ class EventController extends Controller
 
         $tags = array_key_exists('tag_list', $input) ? $input['tag_list'] : [];
 
+        //add tickets
+        $tickets_input = $this->getTicketSeatsAndPrice($input, $input['venue_id']);
+        $ticketController = new TicketController();
+        $ticketController->saveTickets($event, $tickets_input);
+
+        //add tags
         $event->tags()->sync($tags);
 
+    }
+
+    /**
+     * Parse the input and get seat_id and price for each ticket.
+     *
+     * @param $input = ['blocks' => ['block_name' => string, 'price' => int], ...]
+     * @param $venue_id
+     * @return array('seat_id' => App\Seat->id, 'price' => int)
+     */
+    private function getTicketSeatsAndPrice($input, $venue_id)
+    {
+        $tickets_input = [];
+        $blocks = [];
+        $venue = Venue::find($venue_id)->first();
+
+        $blocks_input = $input['blocks'];
+        foreach (range(0, count($blocks) / 2) as $index) {
+            $blocks[$index] = ['block_name' => $blocks_input[$index * 2],
+                'price' => $blocks_input[$index * 2 + 1]];
+        }
+
+        foreach ($blocks as $block) {
+            $seats = $venue->seats()->where('block_name', $block['block_name'])->get();
+            foreach ($seats as $seat) {
+                $tickets_input[] = ['seat_id' => $seat->id, 'price' => $block['price']];
+            }
+        }
+
+        return $tickets_input;
     }
 }

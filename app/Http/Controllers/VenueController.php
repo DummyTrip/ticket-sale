@@ -75,36 +75,29 @@ class VenueController extends Controller
         return view('venues.create');
     }
 
+
     /**
-     * @param CreateVenueRequest $request
+     * Store a venue in db.
      *
-     * example $input:
-     * {
-     *      "block-1": "1",
-     *      "block_name-1": "a",
-     *      "rows-1": "1",
-     *      "columns-1": "1",
-     *      "block-2": "2",
-     *      "block_name-2": "b"
-     *      "rows-2": "2",
-     *      "columns-2": "2",
-     *      "name": "TestVenue",
-     *      "city": "test",
-     *      "country": "test",
-     *      "address": "test",
-     * }
-     *
-     * @return array
+     * @param VenueRequest $request
      */
     public function store(VenueRequest $request)
     {
         $input = $request->all();
 
-        $venue = new Venue;
+        $venue = new Venue();
 
         $this->saveVenue($venue, $input);
     }
 
+    /**
+     * Saves a venue to db.
+     *
+     * @param $venue
+     * @param $input = ['name' => string, 'city' => string, 'country' => string, 'address' => string,
+     *                  'blocks' => ['block_name' => string, 'rows' => int, 'columns' => int], ...]]
+     * @return \Illuminate\Http\JsonResponse
+     */
     private function saveVenue($venue, $input){
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
@@ -123,9 +116,11 @@ class VenueController extends Controller
     }
 
     /**
-     * @param $input
+     * Gets or creates the ids of seats that belong to a block.
      *
-     * @return array
+     * @param $input = ['blocks' => ['block_name' => string, 'rows' => int, 'columns' => int], ...]]
+     *
+     * @return array(App\Seat->id, App\Seat->id, ....)
      */
     private function getSeatIds($input){
         $seats = [];
