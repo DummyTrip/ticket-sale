@@ -29,6 +29,7 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
             .then(
                 function(d){
                     self.venues = d;
+                    console.log(d);
                 },
                 function (errResponse){
                     console.log('Error while fetching all venues in VenueController');

@@ -8,15 +8,31 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.event = { name:'', venue_id:'', tag_list:[], date:'',venue:'',editing:''};
     self.tmpevent={name:'',date:'',venue:''};
     self.events = [];
+    self.event.block=[];
+    self.venue1 =[
+    ];
     self.venue = { name:'', id:''};
     self.venues=[];
     self.getIdVenue = function(){ // Ovaa pri create
         alert(self.event.venue);
         for(var i = 0; i < self.venues.length; i++){
-            console.log('Venue name: '+self.venues[i].name);
+            console.log('Venue name: '+self.venues[i].name+" a jas ja odbrav "+self.tmpevent.venue);
             if(self.tmpevent.venue===self.venues[i].name){
                 console.log('Entered '+self.venues[i].id);
                 self.event.venue_id=self.venues[i].id;
+                self.venue1 = self.venues[i];
+                self.venue1.block = [];
+                var tmp = self.venue1.block_names.length;
+                for(var p = 0; p < tmp; p++){
+                    self.venue1.block.push({name:'',price:''});
+                }
+                console.log(self.venue1.block);
+                for(var k = 0; k < tmp;k++){
+                    console.log(self.venue1.block_names[k]);
+                    self.venue1.block[k].name = self.venue1.block_names[k];
+                    self.venue1.block[k].price = '';
+                }
+                console.log(self.venue1);
                 break;
             }
         }
@@ -92,8 +108,15 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.createEvent = function(id){
         console.log(id);
         var tmp = ['da', 'ne'];
+        self.event.blocks = [];
+        for(var q = 0; q < self.venue1.blocks.length; q++){
+            console.log(JSON.stringify(self.venue1.block[q].name));
+            self.event.blocks.push(JSON.stringify(self.venue1.blocks[q].name));
+            self.event.blocks.push(JSON.stringify(self.venue1.blocks[q].price));
+        }
+
         self.getIdVenue(self.event);
-        console.log(self.event.name+" "+self.event.venue_id+" "+self.event.date+" "+self.event.tag_list+" "+self.events+tmp);
+        console.log(self.event.name+" ova se prakja");
         EventService.createEvent(self.event)
             .then(
                 function(d){

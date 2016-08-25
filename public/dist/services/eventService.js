@@ -17,7 +17,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         createEvent:function(event){
-            return $http.post('http://api.timska.dev/event/create',event)
+            return $http.post('http://api.timska.dev/events/create',event)
                 .then(
                     function(response){
                         return response.data;
