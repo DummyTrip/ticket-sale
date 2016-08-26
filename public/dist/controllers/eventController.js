@@ -5,14 +5,31 @@
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
-    self.event = { name:'', venue_id:'', tag_list:[], date:'',venue:'',editing:''};
+    self.event = { name:'', venue_id:'', tag_list:[], date:'',venue:'',editing:'',cards:[]};
+    self.event.choosenblock='';
+    self.event.choosenblock_rows=[];
+    self.event.chosencard='';
     self.tmpevent={name:'',date:'',venue:''};
     self.events = [];
     self.event.block=[];
     self.venue1 =[
     ];
+    self.pr="1";
     self.venue = { name:'', id:''};
     self.venues=[];
+    self.tmp=[];
+    self.setEvent = function(event){
+        self.event = event;
+    };
+    self.check= function (){
+        var k = 0;
+        for(var p = 0; p < self.event.cards.length; p++){
+            if(self.event.cards[i].block===self.event.choosenblock){
+                k++;
+                self.event.choosenblock_rows.push(k);
+            }
+        }
+    };
     self.getIdVenue = function(){ // Ovaa pri create
         alert(self.event.venue);
         for(var i = 0; i < self.venues.length; i++){
@@ -36,6 +53,14 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                 break;
             }
         }
+    };
+    self.promeni = function(){
+        alert('Yes');
+         console.log(self.event.venue[0].block_names);
+        // for(var i = 0; i < self.event.venue.block_names.length; i++){
+        //     self.tmp.push({name:self.event.venue.block_names[i]});
+        // }
+        // console.log(self.tmp+" da ovde");
     };
     self.getIdVenues = function(){  //// Ovaa e pri update
         alert(self.event.venue);
@@ -93,8 +118,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                     self.events = d;
                     for(var i = 0; i < self.events.length; i++){
                         self.event = self.events[i];
-                        self.event.editing="false";
-
+                        self.getAllCards();
                         self.getVenueByID();
                         console.log(JSON.stringify(self.event.tag_list)+" pri fetching");
                     }
@@ -135,6 +159,32 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                 },
                 function(errResponse){
                     console.log('Error while showing events in EventController')
+                }
+            )
+    };
+    self.getAllCards = function(){
+        EventService.getAllCards(self.event)
+            .then(
+                function(d){
+                    console.log(d);
+                    self.event.cards = d;
+                },
+                function(errResponse){
+                    console.log('Error while showing events in EventController')
+                }
+            )
+    };
+    self.buyCards = function(id){
+        self.event.cards.id = id;
+        console.log(self.event.cards);
+        EventService.buyCards(self.event)
+            .then(
+                function(d){
+                    console.log(d);
+                    self.event.cards = d;
+                },
+                function(errResponse){
+                    console.log('Error while buying cards in EventController')
                 }
             )
     };

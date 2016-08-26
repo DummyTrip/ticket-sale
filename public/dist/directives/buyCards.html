@@ -1,0 +1,19 @@
+<form>
+    <select ng-model="eventCtrl.event.choosenblock">
+        <option ng-repeat="tmp in eventCtrl.event.venue[0].block_names">{{tmp}}</option>
+    </select>
+    {{eventCtrl.event.cards}}
+    <table style="border: dotted">
+        <tr>
+            <th>Row</th>
+            <th>Column</th>
+            <th>Price</th>
+        </tr>
+        <tr ng-repeat="tmp in eventCtrl.event.cards track by $index" ng-if="eventCtrl.event.choosenblock===tmp.block_name && tmp.sold===0">
+            <td>{{tmp.row}}</td>
+            <td>{{tmp.column}}</td>
+            <td>{{tmp.price}}</td>
+            <td><input type="button" class="submit" ng-click="eventCtrl.buyCards(tmp.id)" value="Купу"/></td>
+        </tr>
+    </table>
+</form>

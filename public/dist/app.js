@@ -41,6 +41,9 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
         .when('/productDetails',{
             templateUrl:"directives/productDetails.html"
         })
+        .when('/buyCards',{
+            templateUrl:"directives/buyCards.html"
+        })
         .when("/users",{
             templateUrl:"directives/users.html"
         });
