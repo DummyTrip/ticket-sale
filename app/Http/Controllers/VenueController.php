@@ -102,7 +102,6 @@ class VenueController extends Controller
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-
         $venue->manager_id = $user->id;
         $venue->name = $input['name'];
         $venue->city = $input['city'];
@@ -127,7 +126,7 @@ class VenueController extends Controller
         $blocks = [];
 
         $blocks_input = $input['blocks'];
-        foreach (range(0, count($blocks) / 3) as $index) {
+        foreach (range(0, (count($blocks_input) / 3) - 1) as $index) {
             $blocks[$index] = ['block_name' => $blocks_input[$index * 3],
                 'rows' => $blocks_input[$index * 3 + 1],
                 'columns' => $blocks_input[$index * 3 + 2]];

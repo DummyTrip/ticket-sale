@@ -17,10 +17,11 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 )
         },
         createVenue:function(venue){
-            console.log(venue.name + " Ova e vo servisot");
+            console.log(venue);
             return $http.post('http://api.timska.dev/venues/create',venue)
                 .then(
                     function(response){
+                        console.log(response.data);
                         return response.data;
                     },
                     function(errResponse){

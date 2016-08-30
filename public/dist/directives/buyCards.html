@@ -1,15 +1,19 @@
 <form>
-    <select ng-model="eventCtrl.event.choosenblock">
-        <option ng-repeat="tmp in eventCtrl.event.venue[0].block_names">{{tmp}}</option>
-    </select>
-    {{eventCtrl.event.cards}}
-    <table style="border: dotted">
+    {{eventCtrl.event.venue}}
+    <div style="align-items: center;">
+        <select ng-model="eventCtrl.event.choosenblock" class="selectpicker" >
+            <option ng-repeat="tmp in eventCtrl.event.venue[0].block_names">{{tmp}}</option>
+        </select>
+        <h1>{{eventCtrl.event.choosenblock}}</h1>
+    </div>
+       <table class="table table-bordered">
         <tr>
-            <th>Row</th>
-            <th>Column</th>
-            <th>Price</th>
+            <th>Ред</th>
+            <th>Седиште</th>
+            <th>Цена</th>
+            <th>#</th>
         </tr>
-        <tr ng-repeat="tmp in eventCtrl.event.cards track by $index" ng-if="eventCtrl.event.choosenblock===tmp.block_name && tmp.sold===0">
+        <tr ng-repeat="tmp in eventCtrl.event.cards track by $index" ng-if="tmp.sold===0 && tmp.block_name === eventCtrl.event.choosenblock">
             <td>{{tmp.row}}</td>
             <td>{{tmp.column}}</td>
             <td>{{tmp.price}}</td>

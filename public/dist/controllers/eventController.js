@@ -14,6 +14,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.event.block=[];
     self.venue1 =[
     ];
+    self.bolock=[];
     self.pr="1";
     self.venue = { name:'', id:''};
     self.venues=[];
@@ -22,6 +23,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         self.event = event;
     };
     self.check= function (){
+        alert('da');
         var k = 0;
         for(var p = 0; p < self.event.cards.length; p++){
             if(self.event.cards[i].block===self.event.choosenblock){
@@ -31,7 +33,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         }
     };
     self.getIdVenue = function(){ // Ovaa pri create
-        alert(self.event.venue);
+        alert(self.event.venue.name);
         for(var i = 0; i < self.venues.length; i++){
             console.log('Venue name: '+self.venues[i].name+" a jas ja odbrav "+self.tmpevent.venue);
             if(self.tmpevent.venue===self.venues[i].name){
@@ -106,11 +108,6 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             self.event.tags.push(value);
         }
     };
-
-
-
-
-
     self.fetchAllEvents = function(){
         EventService.fetchAllEvents()
             .then(

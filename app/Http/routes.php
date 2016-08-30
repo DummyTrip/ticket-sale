@@ -88,3 +88,25 @@ Route::post('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
 Route::post('/singUp','AuthAndRegisterController@register');
 Route::post('/logIn','AuthAndRegisterController@login');
 Route::get('/auth', 'AuthAndRegisterController@getAuthenticatedUser');
+Route::get('test1', function(){
+    $seats = [];
+    $blocks = [];
+
+    $blocks_input = ['a', '1', '1', 'b', '1', '1'];
+    foreach (range(0, (count($blocks_input) / 3) - 1) as $index) {
+        $blocks[$index] = ['block_name' => $blocks_input[$index * 3],
+            'rows' => $blocks_input[$index * 3 + 1],
+            'columns' => $blocks_input[$index * 3 + 2]];
+    }
+    return $blocks;
+    foreach ($blocks as $block){
+        foreach(range(1, $block["rows"]) as $row) {
+            foreach(range(1, $block["columns"]) as $column) {
+                $seat = ['row' => $row, 'column' => $column, 'block_name' => $block["block_name"]];
+                $seats[] = Seat::firstOrCreate($seat)->id;
+            }
+        }
+    }
+
+    return $seats;
+});

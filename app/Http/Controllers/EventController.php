@@ -173,7 +173,7 @@ class EventController extends Controller
         $venue = Venue::find($venue_id)->first();
 
         $blocks_input = $input['blocks'];
-        foreach (range(0, count($blocks) / 2) as $index) {
+        foreach (range(0, (count($blocks_input) / 2)-1) as $index) {
             $blocks[$index] = ['block_name' => $blocks_input[$index * 2],
                 'price' => $blocks_input[$index * 2 + 1]];
         }
