@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use JWTAuth;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests;
 
@@ -20,15 +21,15 @@ class TicketController extends Controller
     public function __construct()
     {
         // $this->middleware('auth');
-        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
+        $this->middleware('jwt.auth', ['except' => ['index', 'show', 'blockTickets']]);
     }
 
     public function index(Event $event)
     {
         $reserve_time = Carbon::now()->subMinute(15);
         $tickets = $event->tickets()->where('sold', false)
-            ->where('reserve_time', '<', $reserve_time)
-            ->orWhereNull('reserve_time')
+            ->where('reserve_time', '=', null)
+            ->orWhere('reserve_time', '<', $reserve_time)
             ->get();
 //            ->paginate(5);
 
@@ -109,5 +110,13 @@ class TicketController extends Controller
 //        return redirect('events/' . $event->id);
     }
 
+    public function blockTickets(Event $event){
+        return DB::table('tickets')
+            ->join('seats', 'seats.id', '=', 'tickets.seat_id')
+            ->where('event_id', $event->id)
+            ->select('block_name', 'price', DB::raw("count(distinct(seats.column)) as columns"), DB::raw('count(distinct(row)) as rows'))
+            ->groupBy('block_name', 'price')
+            ->get();
+    }
 
 }

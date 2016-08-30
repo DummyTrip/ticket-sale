@@ -16,6 +16,7 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
     self.tmp =[{name:'',row:'',columns:''}];
     self.venues = [];
 
+
     self.addNewBlock = function () {
         self.venue.block.push({
             name: '',
@@ -29,7 +30,8 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
             .then(
                 function(d){
                     self.venues = d;
-                    console.log(d);
+
+                    //console.log(d);
                 },
                 function (errResponse){
                     console.log('Error while fetching all venues in VenueController');

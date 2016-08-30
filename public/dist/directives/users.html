@@ -1,14 +1,22 @@
 <div class="span14">
     <div class="row" ng-controller="UserController  as userCtrl">
-        <table class="table table-condensed" style="border:solid">
+        <table id="table" class="table table-condensed" class="table table-condensed" style="width: 80%; margin-left: 10%">
             <tr>
                 <th>Наме</th>
+                <th>Емаил</th>
+                <th>Улога</th>
                 <th>Промени</th>
                 <th>Избриши</th>
             </tr>
 
             <tr ng-repeat="user in userCtrl.users">
-                <td><a>{{user.name}}</a></td>
+                <h1>{{user}}</h1>
+                <td><input type="text" ng-model="user.name" style="text-align: center"/></td>
+                <td><input type="email" ng-model="user.email" style="text-align: center"/></td>
+                <td><!--<input type="text" ng-model="user.role_names[0]" style="text-align: center"/>!-->
+                    <select ng-model="user.role_names[0]" ng-options="tmp for tmp in userCtrl.roles">
+                    </select>
+                </td>
                 <td><button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-wrench"></span></button></td>
                 <td><button type="button" class="btn btn-default btn-sm">

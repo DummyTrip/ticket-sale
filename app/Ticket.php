@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     protected $fillable = ['user_id', 'seat_id', 'event_id', 'price'];
-    protected $appends = ['row', 'column', 'block', 'block_name'];
+    protected $appends = ['row', 'column', 'block', 'block_name', 'venue'];
 
     public function getBlockNameAttribute() {
         return $this->seat()->get()->first()->block_name;
+    }
+    public function getVenueAttribute(){
+        return $this->event()->first()->venue()->first();
     }
     public function getBlockAttribute() {
         return $this->seat()->get()->first()->block;

@@ -3,7 +3,7 @@
  */
 //Angular stuff.
 
-var app = angular.module('saleAndEvent', ['ngRoute', 'ngStorage']); // Creating object app with name saleAndEvent with no dependencies for now ( the empty brackets )
+var app = angular.module('saleAndEvent', ['ngRoute', 'ngStorage','angular.filter']); // Creating object app with name saleAndEvent with no dependencies for now ( the empty brackets )
 
 app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
     $routeProvider
@@ -37,6 +37,9 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
         })
         .when('/addEvent',{
             templateUrl:"directives/addEvent.html"
+        })
+        .when('/editEvent',{
+            templateUrl:"directives/editEvent.html"
         })
         .when('/productDetails',{
             templateUrl:"directives/productDetails.html"

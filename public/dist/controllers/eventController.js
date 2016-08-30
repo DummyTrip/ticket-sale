@@ -14,6 +14,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.event.block=[];
     self.venue1 =[
     ];
+    self.event.block1=[];
+    self.tmp_venues=[];
     self.bolock=[];
     self.pr="1";
     self.venue = { name:'', id:''};
@@ -35,7 +37,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.getIdVenue = function(){ // Ovaa pri create
         alert(self.event.venue.name);
         for(var i = 0; i < self.venues.length; i++){
-            console.log('Venue name: '+self.venues[i].name+" a jas ja odbrav "+self.tmpevent.venue);
+            console.log('Venue name: '+self.venues[i].name+"so Id"+self.venues[i].id+" a jas ja odbrav "+self.tmpevent.venue);
             if(self.tmpevent.venue===self.venues[i].name){
                 console.log('Entered '+self.venues[i].id);
                 self.event.venue_id=self.venues[i].id;
@@ -56,13 +58,10 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             }
         }
     };
-    self.promeni = function(){
-        alert('Yes');
-         console.log(self.event.venue[0].block_names);
-        // for(var i = 0; i < self.event.venue.block_names.length; i++){
-        //     self.tmp.push({name:self.event.venue.block_names[i]});
-        // }
-        // console.log(self.tmp+" da ovde");
+    self.promeni = function(event){
+        console.log(event);
+        self.event = event;
+        self.editUpdate();
     };
     self.getIdVenues = function(){  //// Ovaa e pri update
         alert(self.event.venue);
@@ -88,6 +87,10 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             .then(
                 function (d) {
                     self.venues = d;
+                    for(var i = 0; i < self.venues.length; i++){
+                        self.tmp_venues.push(self.venues[i].name);
+                    }
+                    //  console.log(self.tmp_venues);
                 },
                 function(errResponse){
                     console.log('Error while fetching all venues in eventController');
@@ -109,6 +112,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         }
     };
     self.fetchAllEvents = function(){
+        console.log("Yes");
         EventService.fetchAllEvents()
             .then(
                 function(d){
@@ -117,7 +121,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                         self.event = self.events[i];
                         self.getAllCards();
                         self.getVenueByID();
-                        console.log(JSON.stringify(self.event.tag_list)+" pri fetching");
+                        self.getBlockaAndRow();
+                        //console.log(JSON.stringify(self.event.tag_list)+" pri fetching");
                     }
 
                 },
@@ -137,7 +142,9 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         }
 
         self.getIdVenue(self.event);
-        console.log(self.event.name+" ova se prakja");
+        self.venue_id = self.event.id;
+        console.log(self.event.venue_id +" "+self.event.id);
+        console.log(self.event);
         EventService.createEvent(self.event)
             .then(
                 function(d){
@@ -159,11 +166,22 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                 }
             )
     };
+    self.getBlockaAndRow = function(){
+        EventService.getBlockaAndRow(self.event)
+            .then(
+                function(d){
+                    self.event.block1 = d;
+                },
+                function(errResponse){
+                    console.log('Error while getting blocks and rows in EventController')
+                }
+            )
+    };
     self.getAllCards = function(){
         EventService.getAllCards(self.event)
             .then(
                 function(d){
-                    console.log(d);
+                    //console.log(d);
                     self.event.cards = d;
                 },
                 function(errResponse){
@@ -194,9 +212,9 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
           }
       }
     };
-    self.editOrUpdate = function(event){
+    self.editUpdate = function(){
         self.findId();
-        console.log(self.event);
+
         EventService.editOrUpdateEvent(self.event)
             .then(
                 function(d){

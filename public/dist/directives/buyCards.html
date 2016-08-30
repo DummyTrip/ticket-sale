@@ -1,9 +1,8 @@
 <form>
-    {{eventCtrl.event.venue}}
     <div style="align-items: center;">
-        <select ng-model="eventCtrl.event.choosenblock" class="selectpicker" >
-            <option ng-repeat="tmp in eventCtrl.event.venue[0].block_names">{{tmp}}</option>
+        <select ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue[0].block_names" class="selectpicker" >
         </select>
+        <select ng-model="eventCtrl.event.selectedRow" ng-options="tmp.row for tmp in eventCtrl.event.cards | filter:tmp.block=eventCtrl.event.choosenblock"></select>
         <h1>{{eventCtrl.event.choosenblock}}</h1>
     </div>
        <table class="table table-bordered">
@@ -13,7 +12,8 @@
             <th>Цена</th>
             <th>#</th>
         </tr>
-        <tr ng-repeat="tmp in eventCtrl.event.cards track by $index" ng-if="tmp.sold===0 && tmp.block_name === eventCtrl.event.choosenblock">
+           {{eventCtrl.event.block1}}
+        <tr ng-repeat="tmp in eventCtrl.event.cards.row track by $index">
             <td>{{tmp.row}}</td>
             <td>{{tmp.column}}</td>
             <td>{{tmp.price}}</td>

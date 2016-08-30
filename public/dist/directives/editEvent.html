@@ -1,0 +1,25 @@
+<div class="span14">
+    <div class="row">
+        <table>
+            <tr>
+                <td>Име на настанот:</td>
+                <td><input type="text" ng-model="eventCtrl.event.name"/></td>
+            </tr>
+            <tr>
+                <td>Датум:</td>
+                <td><input type="text" ng-model="eventCtrl.event.date"/></td>
+            </tr>
+            <tr>
+                <td>Сала:</td>
+                <td><input type="text" ng-model="eventCtrl.event.venue[0].name"/></td>
+            </tr>
+            <tr ng-repeat="tmp in eventCtrl.event.venue[0].block_names" ng-switch on="">
+                <td>{{tmp}}</td>
+                <td><input type="text" ng-model="eventCtrl.event.cards[0].price"></td>
+            </tr>
+            {{eventCtrl.event.cards}}
+
+
+        </table>
+    </div>
+</div>

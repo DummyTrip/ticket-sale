@@ -75,6 +75,17 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
                 )
+        },
+        getBlockaAndRow: function(event){
+            return $http.get('http://api.timska.dev/events/'+event.id+'/blocktickets',event)
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errRespose){
+                        console.log('Error while getting blocks and rows');
+                    }
+                )
         }
 
     }

@@ -5,22 +5,23 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.userPass ={oldPass:'',newPass:'',confirmPass:''};
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
-
+    self.tmp ='';
+    self.roles=['admin','organizator','menadzer','kupuvac'];
     // go zapishuva tokenot vo localStorage.
     // povekje za ova:
     // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
     function successAuth(res) {
         $localStorage.token = res.token;
         window.location = "/";
-    }
+    };
 
     self.fetchAllUsers = function(){
-        console.log('Fetching all users');
+        //console.log('Fetching all users');
         UserService.fetchAllUsers()
             .then(
                 function(d){
-                    console.log($localStorage.token);
-                    console.log(d);
+      //              console.log($localStorage.token);
+        //            console.log(d);
                     self.users = d;
                 },
                 function (errResponse){
@@ -95,9 +96,9 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                     self.user.name = response.user.name;
                     self.user.email = response.user.email;
                     self.user.role_list = response.user.role_list;
-                    console.log(self.user.role_list+" Lista na ulogi");
+                   // console.log(self.user.role_list+" Lista na ulogi");
                     self.tempUsr = self.user;
-                    console.log(response.user + "Ova se ulogite");
+                   // console.log(response.user + "Ova se ulogite");
                 },
                 function (errResponse) {
                     console.log('Auth error. You are not logged in.');
@@ -146,16 +147,20 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         self.logIn(self.user)
     };
     self.check = function(){
-        console.log(self.user);
+    //    console.log(self.user);
         var tmp = sessionStorage.getItem('user');
         if(self.user.name===null || self.user.name===''){
             self.auth();
-            console.log(self.user + " posle auth()");
+          //  console.log(self.user + " posle auth()");
         }else{
             sessionStorage.getItem('user');
             console.log(tmp);
             self.user = sessionStorage.getItem('user');
         }
+    };
+    self.checkIt=function(tmp){
+        alert(tmp);
+        self.user.role_list[0]  = tmp;
     };
 
     self.fetchAllUsers();
