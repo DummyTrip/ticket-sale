@@ -152,11 +152,10 @@ class EventController extends Controller
         //add tickets
         $tickets_input = $this->getTicketSeatsAndPrice($input, $input['venue_id']);
         $ticketController = new TicketController();
-        $ticketController->saveTickets($event, $tickets_input);
+        return $ticketController->saveTickets($event, $tickets_input);
 
         //add tags
         $event->tags()->sync($tags);
-
     }
 
     /**
@@ -170,7 +169,7 @@ class EventController extends Controller
     {
         $tickets_input = [];
         $blocks = [];
-        $venue = Venue::find($venue_id)->first();
+        $venue = Venue::find($venue_id);
 
         $blocks_input = $input['blocks'];
         foreach (range(0, (count($blocks_input) / 2)-1) as $index) {

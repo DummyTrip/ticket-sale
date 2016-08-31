@@ -74,7 +74,7 @@ class TicketController extends Controller
     public function saveTickets($event, $tickets_input){
         foreach ($tickets_input as $ticket_input){
             $ticket = new Ticket();
-            $ticket->seat_id = $tickets_input['seat_id'];
+            $ticket->seat_id = $ticket_input['seat_id'];
             $ticket->event_id = $event->id;
             $ticket->price = $ticket_input['price'];
             $ticket->save();
