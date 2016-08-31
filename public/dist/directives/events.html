@@ -14,7 +14,7 @@
                 <td><input class="change" type="text" value="event.name" ng-model="event.name" ng-readonly="checked" /></td>
                 <td><input class="change" type="datetime" ng-model="event.date" value="event.date" ng-readonly="checked" /></td>
                 <td>
-                    <select ng-model="event.venue[0].name" ng-options="venue for venue in eventCtrl.tmp_venues">
+                    <select ng-model="event.venue.name" ng-options="venue for venue in eventCtrl.tmp_venues">
                     </select>
                 </td>
                 <td>
@@ -24,7 +24,7 @@
                         <option value="3" ng-selected="event.tag_list.indexOf(3) != -1">Образовни</option>
                     </select>
                 </td>
-                <td><a class="btn btn-default btn-sm" type="button" href="#/editEvent">
+                <td><a class="btn btn-default btn-sm" type="button" ng-href="#/editEvent" ng-click="eventCtrl.getBlockaAndRow()">
                     <span class="glyphicon glyphicon-wrench"></span></a></td>
                 <td><button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>

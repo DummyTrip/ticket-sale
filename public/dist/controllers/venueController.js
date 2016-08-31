@@ -16,6 +16,9 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
     self.tmp =[{name:'',row:'',columns:''}];
     self.venues = [];
 
+    self.set = function(venue){
+        self.venue = venue;
+    };
 
     self.addNewBlock = function () {
         self.venue.block.push({
@@ -30,8 +33,8 @@ app.controller('venueController',['$scope', 'VenueServices' , function($scope, V
             .then(
                 function(d){
                     self.venues = d;
-
-                    //console.log(d);
+                    console.log('Site Sali:');
+                    console.log(d);
                 },
                 function (errResponse){
                     console.log('Error while fetching all venues in VenueController');

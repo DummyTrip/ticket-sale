@@ -53,10 +53,10 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         buyCards:function(event){
-            console.log(event);
             return $http.post('http://api.timska.dev/events/'+event.id+'/tickets/'+event.cards.id+'/buy',event)
                 .then(
                     function (response) {
+                        console.log(response.data);
                         return response.data;
                     },
                     function(errResponse){
@@ -77,9 +77,11 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         getBlockaAndRow: function(event){
-            return $http.get('http://api.timska.dev/events/'+event.id+'/blocktickets',event)
+            console.log(event);
+            return $http.get('http://api.timska.dev/events/'+event.id+'/blocktickets/',event.id)
                 .then(
                     function(response){
+                        console.log(response.data);
                         return response.data;
                     },
                     function(errRespose){

@@ -1,9 +1,9 @@
 <form>
     <div style="align-items: center;">
-        <select ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue[0].block_names" class="selectpicker" >
+        {{eventCtrl.event}}
+        <h1>{{eventCtrl.event.name}}</h1>
+        <select ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue.block_names" class="selectpicker" >
         </select>
-        <select ng-model="eventCtrl.event.selectedRow" ng-options="tmp.row for tmp in eventCtrl.event.cards | filter:tmp.block=eventCtrl.event.choosenblock"></select>
-        <h1>{{eventCtrl.event.choosenblock}}</h1>
     </div>
        <table class="table table-bordered">
         <tr>
@@ -12,12 +12,11 @@
             <th>Цена</th>
             <th>#</th>
         </tr>
-           {{eventCtrl.event.block1}}
-        <tr ng-repeat="tmp in eventCtrl.event.cards.row track by $index">
-            <td>{{tmp.row}}</td>
-            <td>{{tmp.column}}</td>
-            <td>{{tmp.price}}</td>
-            <td><input type="button" class="submit" ng-click="eventCtrl.buyCards(tmp.id)" value="Купу"/></td>
+        <tr ng-repeat="tmp in eventCtrl.event.cards">
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0">{{tmp.row}}</td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0">{{tmp.column}}</td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0">{{tmp.price}}</td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0"><input type="button" class="submit" ng-click="eventCtrl.buyCards(tmp.id)" value="Купу"/></td>
         </tr>
     </table>
 </form>

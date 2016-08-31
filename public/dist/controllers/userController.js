@@ -144,6 +144,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
             )
     };
     self.submitLogIn= function(){
+        alert('Yes');
         self.logIn(self.user)
     };
     self.check = function(){

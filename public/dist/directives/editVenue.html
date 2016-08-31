@@ -1,0 +1,30 @@
+<div class="span14">
+    <div class="row">
+        <h1>{{venueCtrl.venue}} Ova e </h1>
+        <form>
+            <table class="table table-condensed" style="width: 80%; margin-left: 10%">
+                <tr>
+                    <td>Име:</td>
+                    <td><input ng-model="venueCtrl.venue.name" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>Држава:</td>
+                    <td><input ng-model="venueCtrl.venue.country" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>Град:</td>
+                    <td><input ng-model="venueCtrl.venue.city" type="text"/></td>
+                </tr>
+                <tr>
+                    <td>Адреса:</td>
+                    <td><input ng-model="venueCtrl.venue.address" type="text"/></td>
+                </tr>
+                <tr ng-repeat="block in venueCtrl.venue.block">
+                    <td>Блок: <input type="text" ng-model="block.name"/></td>
+                    <td>Редови: <input type="text" ng-model="block.rows"/></td>
+                    <td>Колони: <input type="text" ng-model="block.columns"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

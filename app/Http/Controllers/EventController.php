@@ -71,7 +71,7 @@ class EventController extends Controller
 
         $event = new Event();
 
-        $this->saveEvent($input, $event);
+        return $this->saveEvent($input, $event);
 
         // return redirect('events');
     }
@@ -152,9 +152,11 @@ class EventController extends Controller
         //add tickets
         $tickets_input = $this->getTicketSeatsAndPrice($input, $input['venue_id']);
         $ticketController = new TicketController();
-        return $ticketController->saveTickets($event, $tickets_input);
+        //return $tickets_input;
+        $ticketController->saveTickets($event, $tickets_input);
 
         //add tags
+
         $event->tags()->sync($tags);
     }
 
@@ -183,7 +185,7 @@ class EventController extends Controller
                 $tickets_input[] = ['seat_id' => $seat->id, 'price' => $block['price']];
             }
         }
-
-        return $tickets_input;
+            return $tickets_input;
+//        return [$tickets_input, $blocks, $blocks_input, $venue_id];
     }
 }

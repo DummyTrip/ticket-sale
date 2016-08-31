@@ -28,8 +28,6 @@ class TicketController extends Controller
     {
         $reserve_time = Carbon::now()->subMinute(15);
         $tickets = $event->tickets()->where('sold', false)
-            ->where('reserve_time', '=', null)
-            ->orWhere('reserve_time', '<', $reserve_time)
             ->get();
 //            ->paginate(5);
 
@@ -73,7 +71,7 @@ class TicketController extends Controller
      */
     public function saveTickets($event, $tickets_input){
         foreach ($tickets_input as $ticket_input){
-            $ticket = new Ticket();
+            $ticket = Ticket::firstOrNew(['event_id' => $event->id, 'seat_id' => $ticket_input['seat_id']]);
             $ticket->seat_id = $ticket_input['seat_id'];
             $ticket->event_id = $event->id;
             $ticket->price = $ticket_input['price'];

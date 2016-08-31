@@ -84,7 +84,7 @@ Route::get('/events/{events}/tickets', 'TicketController@index');
 //Route::get('/events/{events}/tickets/create', 'TicketController@create');
 Route::get('/events/{events}/tickets/{tickets}', 'TicketController@show');
 Route::post('/events/{events}/tickets/{tickets}/buy', 'TicketController@buy');
-Route::get('/events/{events}/blocktickets/', 'TicketController@blockTickets');
+Route::get('/events/{events}/blocktickets', 'TicketController@blockTickets');
 
 Route::post('/singUp','AuthAndRegisterController@register');
 Route::post('/logIn','AuthAndRegisterController@login');

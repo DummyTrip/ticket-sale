@@ -1,4 +1,4 @@
-<div class="span14" ng-controller="venueController as venueCtrl">
+<div class="span14">
     <div class="row">
         <table id="table" class="table table-condensed" class="table table-condensed" style="width: 80%; margin-left: 10%">
             <tr>
@@ -12,12 +12,12 @@
             </tr>
 
             <tr ng-repeat="venue in venueCtrl.venues">
-                <td><input type="text" ng-model="venue.name" value="venue.name"/></td>
+                <td><input type="text" ng-model="venue.name"/></td>
                 <td><input type="text" ng-model="venue.country"/></td>
                 <td><input type="text" ng-model="venue.city"/></td>
                 <td><input type="text" ng-model="venue.address"/></td>
-                <td><button type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.editOrUpdate(venue)">
-                    <span class="glyphicon glyphicon-wrench"></span></button></td>
+                <td><a type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.set(venue)" ng-href="#/editVenue">
+                    <span class="glyphicon glyphicon-wrench"></span></a></td>
                 <td><button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button></td>

@@ -1,6 +1,7 @@
 <div class="span14">
     <div class="row">
-        <table>
+        {{eventCtrl.event}}
+        <table class="table table-condensed" style="width: 80%; margin-left: 10%">
             <tr>
                 <td>Име на настанот:</td>
                 <td><input type="text" ng-model="eventCtrl.event.name"/></td>
@@ -11,15 +12,16 @@
             </tr>
             <tr>
                 <td>Сала:</td>
-                <td><input type="text" ng-model="eventCtrl.event.venue[0].name"/></td>
+                <td><input type="text" ng-model="eventCtrl.event.venue.name"/></td>
             </tr>
-            <tr ng-repeat="tmp in eventCtrl.event.venue[0].block_names" ng-switch on="">
-                <td>{{tmp}}</td>
-                <td><input type="text" ng-model="eventCtrl.event.cards[0].price"></td>
+            <tr ng-repeat="tmp in eventCtrl.event.block1">
+                <td>{{tmp.block_name}}</td>
+                <td><input type="text" ng-model="tmp.price"></td>
             </tr>
-            {{eventCtrl.event.cards}}
-
-
+            <tr>
+                <td colspan="2"><input type="button" class="btn btn-sumbit" value="Зачувај"/></td>
+            </tr>
         </table>
     </div>
+
 </div>
