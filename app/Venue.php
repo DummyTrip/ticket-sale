@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Venue extends Model
 {
     protected $fillable = ['name', 'description','city', 'country', 'address'];
 
-    protected $appends = ['blocks', 'block_names'];
+    protected $appends = ['block_names', 'blockInfo'];
 
     public function manager()
     {
@@ -25,11 +26,6 @@ class Venue extends Model
         return $this->belongsToMany('App\Seat');
     }
 
-    public function getBlocksAttribute()
-    {
-        return $this->seats()->get()->lists('block')->unique()->values()->all();
-    }
-
     public function getBlockNamesAttribute()
     {
         return $this->seats()->get()->lists('block_name')->unique()->values()->all();
@@ -38,5 +34,15 @@ class Venue extends Model
     public function getSeatsAttribute()
     {
         return $this->seats()->get()->lists('id')->toArray();
+    }
+
+    public function getBlockInfoAttribute()
+    {
+        return DB::table('venues')
+            ->join('seat_venue', 'seat_venue.venue_id', '=', 'venues.id')
+            ->join('seats', 'seat_venue.seat_id', '=', 'seats.id')
+            ->select('block_name', DB::raw("count(distinct(seats.column)) as columns"), DB::raw('count(distinct(row)) as rows'))
+            ->groupBy('block_name')
+            ->get();
     }
 }
