@@ -10,8 +10,15 @@ use App\Event;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 
+/**
+ * Class EventController
+ * @package App\Http\Controllers
+ */
 class EventController extends Controller
 {
     /**
@@ -25,13 +32,12 @@ class EventController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function index()
     {
         $events = Event::all();
-        // return \Auth::user();
+
         return $events;
     }
 
@@ -44,47 +50,41 @@ class EventController extends Controller
     {
         $venues = Venue::lists('name', 'id')->prepend("");
         $tags = Tag::lists('name', 'id');
-        //return true;
+
         return view('events.create', compact('venues', 'tags'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     *
-     * example $input
-     *
+     * @param EventRequest $request
+     * [
      * 'name' => 'test',
      * 'venue_id' => '1',
      * 'tag_list' => ['1', '2'],
      * 'blocks' => ['1',            // block_name
      *              '100',          // price
      *              '2',            // block_name
-     *              '200'           // price
-     *             ]
+     *              '200'],         // price
+     * 'description' = > 'Description of event'
+     * ]
+     * @return \Illuminate\Http\Response 'name' => 'test',
      */
     public function store(EventRequest $request)
     {
-        $input = $request->all();
-
         $event = new Event();
 
-        return $this->saveEvent($input, $event);
-
-        // return redirect('events');
+        return $this->saveEvent($event, $request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Event $event
+     * @return Event
      */
     public function show(Event $event)
     {
-//        return view('events.show', compact('event'));
         return $event;
     }
 
@@ -93,7 +93,6 @@ class EventController extends Controller
      *
      * @param Event $event
      * @return \Illuminate\Http\Response
-     * @internal param int $id
      */
     public function edit(Event $event)
     {
@@ -106,17 +105,15 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param EventRequest|Request $request
+     * @param Event $event
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update(EventRequest $request, Event $event)
     {
         $input = $request->all();
 
-        $this->saveEvent($input, $event);
-
-//        return view('events.show', compact('event'));
+        return $this->saveEvent($event, $request);
     }
 
     /**
@@ -133,17 +130,34 @@ class EventController extends Controller
     /**
      * Saves an event along with the tags and tickets.
      *
-     * @param $input = ['name' => string, 'venue_id' => int, 'tag_list' => [int, int, ...],
-     *                  'blocks' => ['block_name1', 'price1', 'block_name1', 'price1', ..], ]
      * @param Event $event
+     * @param EventRequest $request
+     *  ['name' => string, 'venue_id' => int, 'tag_list' => [int, int, ...],
+     *  'blocks' => ['block_name1', 'price1', 'block_name2', 'price2', ..],
+     *  'description' => string]
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    private function saveEvent($input, Event $event)
+    private function saveEvent(Event $event, EventRequest $request)
     {
+        $input = $request->all();
+
         $user = JWTAuth::parseToken()->authenticate();
         $event->organizer_id = $user->id;
         $event->name = $input['name'];
         $event->venue_id = $input['venue_id'];
         $event->date = \Carbon\Carbon::now();
+
+        if ($request->has('description')) {
+            $event->description = $input['description'];
+        }
+
+        if ($request->has('image')) {
+            $response = $this->uploadImage($event);
+
+            if ($response->getStatusCode() !== 200){
+                return $response;
+            }
+        }
 
         $event->save();
 
@@ -156,8 +170,9 @@ class EventController extends Controller
         $ticketController->saveTickets($event, $tickets_input);
 
         //add tags
-
         $event->tags()->sync($tags);
+
+        return response('Event saved.', 200);
     }
 
     /**
@@ -188,4 +203,42 @@ class EventController extends Controller
             return $tickets_input;
 //        return [$tickets_input, $blocks, $blocks_input, $venue_id];
     }
+
+
+    /**
+     * Upload an image.
+     *
+     * @param Event $event
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    private function uploadImage(Event $event)
+    {
+        $imageInputFieldName = "image";
+        // getting all of the post data
+        $file = array($imageInputFieldName => Input::file($imageInputFieldName));
+        // setting up rules
+        $rules = array($imageInputFieldName => 'image',); //mimes:jpeg,bmp,png and for max size max:10000
+        // doing the validation, passing post data, rules and the messages
+        $validator = Validator::make($file, $rules);
+        if ($validator->fails()) {
+            // send back to the page with the input data and errors
+            return response("The file you selected is not an image.", 415);
+        }
+        else {
+            // checking file is valid.
+            if (Input::file($imageInputFieldName)->isValid()) {
+                $extension = Input::file($imageInputFieldName)->getClientOriginalExtension(); // getting image extension
+                $fileName = rand(11111,99999).'.'.$extension; // renaming image
+                Storage::disk('images')->put($fileName, File::get($file[$imageInputFieldName]));
+                // add image name to venue
+                $event->image = $fileName;
+                return response('File uploaded', 200);
+            }
+            else {
+                // sending back with error message.
+                return response("The uploaded file is not valid.", 422);
+            }
+        }
+    }
+
 }

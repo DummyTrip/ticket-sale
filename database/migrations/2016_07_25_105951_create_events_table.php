@@ -19,7 +19,9 @@ class CreateEventsTable extends Migration
             $table->integer('venue_id')->unsigned();
             $table->integer('organizer_id')->unsigned();
             $table->dateTime('date');
+            $table->string('image');
             $table->timestamps();
+            $table->date('deleted_at');
         });
 
         Schema::table('events', function (Blueprint $table) {
