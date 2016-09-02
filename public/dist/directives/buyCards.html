@@ -1,7 +1,6 @@
 <form>
     <div style="align-items: center;">
-        {{eventCtrl.event}}
-        <h1>{{eventCtrl.event.name}}</h1>
+        <h1><strong>Карти за евентот {{eventCtrl.event.name}}</strong></h1>
         <select ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue.block_names" class="selectpicker" >
         </select>
     </div>
@@ -13,10 +12,10 @@
             <th>#</th>
         </tr>
         <tr ng-repeat="tmp in eventCtrl.event.cards">
-            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0">{{tmp.row}}</td>
-            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0">{{tmp.column}}</td>
-            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0">{{tmp.price}}</td>
-            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock && tmp.sold===0"><input type="button" class="submit" ng-click="eventCtrl.buyCards(tmp.id)" value="Купу"/></td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock">{{tmp.row}}</td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock">{{tmp.column}}</td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock">{{tmp.price}}</td>
+            <td ng-if="tmp.block_name===eventCtrl.event.choosenblock"><input type="button" class="submit" ng-click="eventCtrl.buyCards(tmp.id)" value="Купу"/></td>
         </tr>
     </table>
 </form>

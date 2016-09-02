@@ -1,7 +1,7 @@
 /**
  * Created by Muttley on 8/5/2016.
- */
-'use strict';
+
+'use strict';*/
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
@@ -22,6 +22,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.venue = { name:'', id:''};
     self.venues=[];
     self.tmp=[];
+    self.venueDet = [];
     self.setEvent = function(event){
         self.event = event;
     };
@@ -32,6 +33,14 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             if(self.event.cards[i].block===self.event.choosenblock){
                 k++;
                 self.event.choosenblock_rows.push(k);
+            }
+        }
+    };
+    self.getVenueDetails  = function(venue){
+        for(var i = 0 ;i < self.events.length; i++){
+            if(self.events[i].venue.name===venue.name){
+                self.venueDet = self.getBlockaAndRow();
+                break;
             }
         }
     };
@@ -124,6 +133,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                         self.event = self.events[i];
                         self.getAllCards();
                         self.getVenueByID();
+                        self.getBlockaAndRow();
                         //console.log(JSON.stringify(self.event.tag_list)+" pri fetching");
                     }
 
@@ -221,6 +231,13 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.editUpdate = function(){
         self.findId();
 
+        console.log(self.event.block1);
+        self.event.blocks = [];
+        for(var i = 0; i < self.event.block1.length; i++){
+            self.event.blocks.push(self.event.block1[i].block_name);
+            self.event.blocks.push(self.event.block1[i].price);
+        }
+        console.log(self.event);
         EventService.editOrUpdateEvent(self.event)
             .then(
                 function(d){

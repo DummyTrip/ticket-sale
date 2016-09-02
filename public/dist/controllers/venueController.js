@@ -3,7 +3,7 @@
  */
 'use strict';
 
-app.controller('venueController',['$scope', 'VenueServices' , function($scope, VenueServices) {
+app.controller('venueController',['$scope', 'VenueServices', function($scope, VenueServices) {
     var self = this;
     self.venue = { id:'', name:'', city:'',country:'', address:'',blocks:[], block:[
         {
