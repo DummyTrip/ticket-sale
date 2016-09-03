@@ -19,10 +19,17 @@
                     <td>Адреса:</td>
                     <td><input ng-model="venueCtrl.venue.address" type="text"/></td>
                 </tr>
-                <tr ng-repeat="block in venueCtrl.venue.block">
-                    <td>Блок: <input type="text" ng-model="block.name"/></td>
+                <tr ng-repeat="block in venueCtrl.venue.blockInfo">
+                    <td>Име на Блок: <input type="text" ng-model="block.block_name"/></td>
                     <td>Редови: <input type="text" ng-model="block.rows"/></td>
                     <td>Колони: <input type="text" ng-model="block.columns"/></td>
+                    <td><button ng-click="venueCtrl.addNewBlock1()" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-plus"></span></button></td>
+                    <td><button ng-click="venueCtrl.removeBlock()" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-remove"></span></button></td>
+                </tr>
+                <tr>
+                    <td colspan="4"><input type="submit" value="Зачувај" ng-click="venueCtrl.editOrUpdate()"/></td>
                 </tr>
             </table>
         </form>

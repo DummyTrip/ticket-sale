@@ -18,14 +18,25 @@ app.controller('venueController',['$scope', 'VenueServices', function($scope, Ve
 
     self.set = function(venue){
         self.venue = venue;
+        self.showVenue(venue);
     };
 
-    self.addNewBlock = function () {
+    self.addNewBlock = function () { // za vo create
         self.venue.block.push({
             name: '',
             rows: '',
             columns: ''
         });
+    };
+    self.addNewBlock1 = function () { // za vo edit
+        self.venue.blockInfo.push({
+            block_name: '',
+            rows: '',
+            columns: ''
+        });
+    };
+    self.removeBlock = function(){
+        self.venue.blockInfo.splice(self.venue.blockInfo.length-1,1);
     };
     self.fetchAllVenues = function(){
         console.log("Ovde sum");
@@ -71,9 +82,15 @@ app.controller('venueController',['$scope', 'VenueServices', function($scope, Ve
                 }
             )
     };
-    self.editOrUpdate = function(venue){
-        self.venue = venue;
-        console.log(self.venue+" OVa e venue "+JSON.stringify(self.venue));
+    self.editOrUpdate = function(){
+
+        console.log(self.venue);
+        self.venue.blocks = [];
+        for(var i = 0; i < self.venue.blockInfo.length; i++){
+            self.venue.blocks.push(self.venue.blockInfo[i].block_name);
+            self.venue.blocks.push(self.venue.blockInfo[i].rows);
+            self.venue.blocks.push(self.venue.blockInfo[i].columns);
+        }
         VenueServices.editOrUpdate(self.venue)
             .then(
                 function(d){
