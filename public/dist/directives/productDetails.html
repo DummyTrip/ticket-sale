@@ -5,7 +5,8 @@
     <div class="page product-details-page">
         <div class="page-body">
 
-            <form action="/fk_shkendija-fk_gent" id="product-details-form" method="post">            <div itemscope itemtype="http://schema.org/Product" data-productid="1105">
+            <form action="/fk_shkendija-fk_gent" id="product-details-form" method="post">
+                <div itemscope itemtype="http://schema.org/Product" data-productid="1105">
                 <div class="product-essential">
 
                     <!--product pictures-->
@@ -20,22 +21,24 @@
                     <div class="overview">
                         <div class="product-name">
                             <h1 itemprop="name">
-                                Ф.К. ШКЕНДИЈА - Ф.К. ГЕНТ || Квалификации за Лига Европа
+                                {{eventCtrl.event.name}}
                             </h1>
                         </div>
                         <div class="short-description">
                             <P style="text-align: center;"></p>
-                            <p><span style="font-size: small;">Квалификации за УЕФА Лига Европа Play-off &nbsp;</span></p>
+                            <p><span style="font-size: small;">{{eventCtrl.event.description}}</span></p>
                             <p style="text-align: center;"></p>
-                            <p><span style="font-size: small;">22.08.2016</span></p>
+                            <p><span style="font-size: small;">{{eventCtrl.event.date.substring(0,10)}}</span></p>
 
-                            Почеток: 20:00 ч.
+                            Почеток: {{eventCtrl.event.date.substring(11,16)}} ч.
 
 
-                            Национална Арена Филип II
+                            {{eventCtrl.event.venue.name}}
+
+
 
                         </div>
-                        <div class="prices" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <div class="prices" itemprop="offers">
                             <div class="product-price">
 
             <span  itemprop="price"  >
@@ -43,12 +46,8 @@
                             </div>
                             <meta itemprop="priceCurrency" content="MKD" />
                         </div>
-                        <div class="add-to-cart">
-
-                        </div>
-
                         <div class="email-a-friend">
-                            <input type="button" value="Купи карта" class="button submit" ng-click="eventCtrl.promeni()" />
+                            <a type="button" class="btn btn-success" href="#/buyCards">Купи Карта</a>
                         </div>
 
 

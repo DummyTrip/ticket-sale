@@ -12,7 +12,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
     function successAuth(res) {
         $localStorage.token = res.token;
-        window.location = "/";
+        window.location="/";
     };
 
     self.fetchAllUsers = function(){
@@ -95,7 +95,10 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                 function (response) {
                     self.user.name = response.user.name;
                     self.user.email = response.user.email;
+                    self.user.role = response.user.role;
                     self.user.role_list = response.user.role_list;
+                    console.log(self.user);
+                    sessionStorage.setItem('user',JSON.stringify(self.user));
                    // console.log(self.user.role_list+" Lista na ulogi");
                     self.tempUsr = self.user;
                    // console.log(response.user + "Ova se ulogite");
@@ -113,6 +116,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     // Prenasochi do index.
     self.logout = function () {
         delete $localStorage.token;
+        sessionStorage.clear();
         $rootScope.user = null;
         self.user = { id:'', name:'', email:'', password:''};
         window.location = "/";
@@ -127,16 +131,18 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                     $http.post('http://api.timska.dev/logIn', self.user).success(successAuth).error(function () {
                         $rootScope.error = 'Invalid credentials.';
                     });
-                    sessionStorage.setItem('user', JSON.stringify(self.user));
-                    console.log(self.user.role_list[0]);
-                    // go iskomentirav ovoj del.
-                    // ova e stariot kod. go ostaviv za sekoj sluchaj
-                    // console.log(self.user.roles[0].role+" Ova e ulogata");
-                    // if(self.user.roles[0].role==="admin")
-                    //     location.href="http://timska.dev/admin";
-                    // else
-                    //     location.href="http://timska.dev/";
-                    console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
+
+                       // sessionStorage.setItem('user', JSON.stringify(self.user));
+                        console.log(self.user);
+                        // go iskomentirav ovoj del.
+                        // ova e stariot kod. go ostaviv za sekoj sluchaj
+                        //console.log(self.user.roles[0].role + " Ova e ulogata");
+                        /*if (self.user.roles[0].role === "admin")
+                            location.href = "http://timska.dev/admin";
+                        else
+                            location.href = "http://timska.dev/";*/
+                        console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
+
                 },
                 function (errResponse) {
                     console.log('Error while logging user in controller');
@@ -149,14 +155,31 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     };
     self.check = function(){
     //    console.log(self.user);
+        console.log('Yes');
         var tmp = sessionStorage.getItem('user');
-        if(self.user.name===null || self.user.name===''){
+        var temp = $.parseJSON(tmp);
+
+        if(temp === null){
             self.auth();
           //  console.log(self.user + " posle auth()");
         }else{
-            sessionStorage.getItem('user');
-            console.log(tmp);
-            self.user = sessionStorage.getItem('user');
+            self.user = temp;
+            self.tempUsr = self.user;
+        }
+        var tmp =location.href;
+        console.log(tmp+" "+self.user.role_list[0]);
+        console.log((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/editEvent" || tmp==="http://timska.dev/#/createEvent") &&(self.user.role_list[0]!=1 ||self.user.role_list[0]!=3));
+
+        if(tmp === "http://timska.dev/#/users" && self.user.role_list[0]!=1){
+            location.href="/";
+        }
+        if((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/addEvent" ||tmp==="http://timska.dev/#/editEvent" ) && (self.user.role_list[0]!=1 && self.user.role_list[i]!=3)){
+            console.log(self.user.role_list[0]);
+            console.log((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/editEvent" || tmp==="http://timska.dev/#/createEvent") && self.user.role_list[0]!=1);
+            location.href="/";
+        }
+        if((tmp==="http://timska.dev/#/venues" || tmp==="http://timska.dev/#/editVenue" || tmp==="http://timska.dev/#/createVenue") &&(self.user.role_list[0]!=1 && self.user.role_list[0]!=2)){
+            location.href="/";
         }
     };
     self.checkIt=function(tmp){

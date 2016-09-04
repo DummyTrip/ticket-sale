@@ -5,7 +5,7 @@
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
-    self.event = { name:'', venue_id:'', tag_list:[], date:'',venue:'',editing:'',cards:[]};
+    self.event = { name:'', venue_id:'',description:'',img:'',tag_list:[], date:'',venue:'',editing:'',cards:[]};
     self.event.choosenblock='';
     self.event.choosenblock_rows=[];
     self.event.chosencard='';
@@ -47,40 +47,31 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.getIdVenue = function(){ // Ovaa pri create
         alert(self.event.venue.name);
         for(var i = 0; i < self.venues.length; i++){
-            console.log('Venue name: '+self.venues[i].name+"so Id"+self.venues[i].id+" a jas ja odbrav "+self.tmpevent.venue);
             if(self.tmpevent.venue===self.venues[i].name){
-                console.log('Entered '+self.venues[i].id);
                 self.event.venue_id=self.venues[i].id;
                 self.venue1 = self.venues[i];
                 self.venue1.block = [];
                 var tmp = self.venue1.block_names.length;
-                console.log('Ova e vrednosta na tmp: '+tmp);
                 for(var p = 0; p < tmp; p++){
                     self.venue1.block.push({name:'',price:''});
                 }
-                console.log(self.venue1.block);
                 for(var k = 0; k < tmp;k++){
                     console.log(self.venue1.block_names[k]);
                     self.venue1.block[k].name = self.venue1.block_names[k];
                     self.venue1.block[k].price = '';
                 }
-                console.log(self.venue1);
 
                 break;
             }
         }
     };
     self.promeni = function(event){
-        console.log(event);
         self.event = event;
-        self.editUpdate();
     };
     self.getIdVenues = function(){  //// Ovaa e pri update
         alert(self.event.venue);
         for(var i = 0; i < self.venues.length; i++){
-            console.log('Venue name: '+self.venues[i].name);
             if(self.event.venue===self.venues[i].name){
-                console.log('Entered '+self.venues[i].id);
                 self.event.venue_id=self.venues[i].id;
                 break;
             }
@@ -124,7 +115,6 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         }
     };
     self.fetchAllEvents = function(){
-        console.log("Yes");
         EventService.fetchAllEvents()
             .then(
                 function(d){
@@ -144,14 +134,11 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             );
     };
     self.createEvent = function(id){
-        console.log(id);
         var tmp = ['da', 'ne'];
         self.event.blocks = [];
 
-        console.log(self.venue1.block);
 
         for(var q = 0; q < self.venue1.block.length; q++){
-            console.log('Yes');
             console.log(JSON.stringify(self.venue1.block[q].name)+" "+JSON.stringify(self.venue1.block[q].price));
             self.event.blocks.push(self.venue1.block[q].name);
             self.event.blocks.push(self.venue1.block[q].price);
@@ -159,8 +146,6 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
 
         self.getIdVenue(self.event);
         self.venue_id = self.event.id;
-        console.log(self.event.venue_id +" "+self.event.id);
-        console.log(self.event);
         EventService.createEvent(self.event)
             .then(
                 function(d){
@@ -186,7 +171,6 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         EventService.getBlockaAndRow(self.event)
             .then(
                 function(d){
-                    console.log(d+" da ide");
                     self.event.block1=d;
                 },
                 function(errResponse){
@@ -231,13 +215,11 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.editUpdate = function(){
         self.findId();
 
-        console.log(self.event.block1);
         self.event.blocks = [];
         for(var i = 0; i < self.event.block1.length; i++){
             self.event.blocks.push(self.event.block1[i].block_name);
             self.event.blocks.push(self.event.block1[i].price);
         }
-        console.log(self.event);
         EventService.editOrUpdateEvent(self.event)
             .then(
                 function(d){

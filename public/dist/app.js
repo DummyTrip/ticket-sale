@@ -8,50 +8,65 @@ var app = angular.module('saleAndEvent', ['ngRoute', 'ngStorage','angular.filter
 app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
     $routeProvider
         .when("/",{
-            templateUrl: "directives/index.html"
+            templateUrl: "directives/index.html",
+            controller: "UserController as userCtrl"
         })
         .when("/register",{
-            templateUrl: "directives/register.html"
+            templateUrl: "directives/register.html",
+            controller: "UserController as userCtrl"
 
         })
         .when("/login",{
-            templateUrl:"directives/login.html"
+            templateUrl:"directives/login.html",
+            controller: "UserController as userCtrl"
         })
         .when("/contactus",{
-            templateUrl:"directives/contact.html"
+            templateUrl:"directives/contact.html",
+            controller: "UserController as userCtrl"
         })
         .when('/profile',{
-            templateUrl:"directives/profile.html"
+            templateUrl:"directives/profile.html",
+            controller: "UserController as userCtrl"
             })
         .when('/venues',{
-            templateUrl:"directives/venues.html"
+            templateUrl:"directives/venues.html",
+            controller: "UserController as userCtrl"
         })
         .when('/events',{
-            templateUrl:"directives/events.html"
+            templateUrl:"directives/events.html",
+            controller: "UserController as userCtrl"
         })
         .when('/admin',{
-            templateUrl:"directives/admin.html"
+            templateUrl:"directives/admin.html",
+            controller: "UserController as userCtrl"
         })
         .when('/addVenue',{
-            templateUrl:"directives/addVenue.html"
+            templateUrl:"directives/addVenue.html",
+            controller: "UserController as userCtrl"
         })
         .when('/editVenue',{
-            templateUrl:"directives/editVenue.html"
+            templateUrl:"directives/editVenue.html",
+            controller: "UserController as userCtrl"
         })
         .when('/addEvent',{
-            templateUrl:"directives/addEvent.html"
+            templateUrl:"directives/addEvent.html",
+            controller: "UserController as userCtrl"
         })
         .when('/editEvent',{
-            templateUrl:"directives/editEvent.html"
+            templateUrl:"directives/editEvent.html",
+            controller: "UserController as userCtrl"
         })
         .when('/productDetails',{
-            templateUrl:"directives/productDetails.html"
+            templateUrl:"directives/productDetails.html",
+            controller: "UserController as userCtrl"
         })
         .when('/buyCards',{
-            templateUrl:"directives/buyCards.html"
+            templateUrl:"directives/buyCards.html",
+            controller: "UserController as userCtrl"
         })
         .when("/users",{
-            templateUrl:"directives/users.html"
+            templateUrl:"directives/users.html",
+            controller: "UserController as userCtrl"
         });
 
     // dodava Authorization header na sekoj http request

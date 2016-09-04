@@ -2,20 +2,28 @@
     <div ng-controller="venueController as venueCtrl">
         <table id="table" class="table"  style="width: 80%; margin-left: 10%">
             <tr>
-                <td>Name:</td>
+                <td>Име:</td>
                 <td> <input type="text" ng-model="venueCtrl.venue.name" value="venue.name"/></td>
             </tr>
             <tr>
-                <td>Country:</td>
+                <td>Држава:</td>
                 <td> <input type="text" ng-model="venueCtrl.venue.country"/></td>
             </tr>
             <tr>
-                <td>City:</td>
+                <td>Град:</td>
                 <td> <input type="text" ng-model="venueCtrl.venue.city"/></td>
             </tr>
             <tr>
-                <td>Address:</td>
+                <td>Адреса:</td>
                 <td><input type="text" ng-model="venueCtrl.venue.address"/></td>
+            </tr>
+            <tr>
+                <td>Опис: </td>
+                <td><input type="text" ng-model="venueCtrl.venue.description"/></td>
+            </tr>
+            <tr>
+                <td>Слика: </td>
+                <td><input id="file" type="file" name="img"/></td>
             </tr>
             <tr ng-repeat="block in venueCtrl.venue.block">
                 <td>
