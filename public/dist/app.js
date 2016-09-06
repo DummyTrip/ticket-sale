@@ -64,6 +64,10 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
             templateUrl:"directives/buyCards.html",
             controller: "UserController as userCtrl"
         })
+        .when('/listAllVenues',{
+            templateUrl:"directives/listAllVenues.html",
+            controller:"UserController as userCtrl"
+        })
         .when("/users",{
             templateUrl:"directives/users.html",
             controller: "UserController as userCtrl"

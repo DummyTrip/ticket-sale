@@ -11,22 +11,22 @@
             </tr>
 
             <tr ng-repeat="event in eventCtrl.events">
-                <td><input class="change" type="text" value="event.name" ng-model="event.name" ng-readonly="checked" /></td>
-                <td><input class="change" type="datetime" ng-model="event.date" value="event.date" ng-readonly="checked" /></td>
-                <td>
+                <td><input ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" class="change" type="text" value="event.name" ng-model="event.name" ng-readonly="checked" /></td>
+                <td><input ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" class="change" type="datetime" ng-model="event.date" value="event.date" ng-readonly="checked" /></td>
+                <td ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" >
                     <select ng-model="event.venue.name" ng-options="venue for venue in eventCtrl.tmp_venues">
                     </select>
                 </td>
-                <td>
+                <td ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" >
                     <select ng-model="event.tag_list" multiple>
                         <option value="1" ng-selected="true">Спорт</option>
                         <option value="2" ng-selected="event.tag_list.indexOf(2) != -1">Музика</option>
                         <option value="3" ng-selected="event.tag_list.indexOf(3) != -1">Образовни</option>
                     </select>
                 </td>
-                <td><a class="btn btn-default btn-sm" type="button" ng-href="#/editEvent">
+                <td><a ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" class="btn btn-default btn-sm" type="button" ng-href="#/editEvent">
                     <span class="glyphicon glyphicon-wrench"></span></a></td>
-                <td><button type="button" class="btn btn-default btn-sm">
+                <td><button ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button></td>
                 <td><a href="#/addEvent" type="button" class="btn btn-default btn-sm">

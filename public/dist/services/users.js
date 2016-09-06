@@ -32,6 +32,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
             return $http.post('http://api.timska.dev/profile',user)
                 .then(
                     function(response){
+                        console.log(response.data);
                         return response.data;
                     },
                     function(errResponse){

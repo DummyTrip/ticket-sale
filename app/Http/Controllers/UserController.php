@@ -67,6 +67,9 @@ class UserController extends Controller
     {
         $user = JWTAuth::parseToken()->authenticate();
 //        $user = \Auth::user();
+        if (in_array('admin', $user->role_names) && $request->has('id')){
+            $user = User::find($request->input('id'));
+        }
         $roles = $request->input('role_list');
         $name = $request->input('name');
         $email = $request->input('email');
@@ -78,13 +81,18 @@ class UserController extends Controller
 
         $user->name = $name;
         $user->email = $email;
+
         if ($password !== ""){
+           return "Ova se vrakja: ".$request->input('password');
             $user->password = bcrypt($password);
+        }else{
+            //return "Super ne vleguva";
         }
+
 
         $user->save();
 
-//        return redirect('profile');
+        //return $password;
     }
 
 }

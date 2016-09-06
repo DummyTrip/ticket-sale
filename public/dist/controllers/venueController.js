@@ -5,7 +5,7 @@
 
 app.controller('venueController',['$scope', 'VenueServices', function($scope, VenueServices) {
     var self = this;
-    self.venue = { id:'', name:'', city:'',country:'', img:'', description:'', address:'',blocks:[], block:[
+    self.venue = { id:'', name:'', city:'', manager_id:'', country:'', img:'', description:'', address:'',blocks:[], block:[
         {
             name: '',
             rows: '',
@@ -51,15 +51,6 @@ app.controller('venueController',['$scope', 'VenueServices', function($scope, Ve
     };
     self.createVenue = function(){
         var p = 0;
-        var f = document.getElementById('file').files[0];
-        var r = new FileReader();
-        var data=null;
-        r.onloadend = function(e){
-             data = e.target.result;
-            //send your binary data via $http or $resource or do anything else with it
-        };
-        r.readAsBinaryString(f);
-        self.venue.img = data;
         for(var i = 0; i < self.venue.block.length; i++){
             self.venue.blocks[p++] = self.venue.block[i].name;
             self.venue.blocks[p++] = self.venue.block[i].rows;

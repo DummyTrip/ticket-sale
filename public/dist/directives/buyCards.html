@@ -1,5 +1,6 @@
-<form>
+<form ng-controller="eventController as eventCtrl">
     <div style="align-items: center;">
+        {{eventCtrl.event.cards}}
         <h1><strong>Карти за евентот {{eventCtrl.event.name}}</strong></h1>
         <select ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue.block_names" class="selectpicker" >
         </select>

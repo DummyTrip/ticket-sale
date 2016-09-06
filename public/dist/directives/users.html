@@ -17,7 +17,7 @@
                     <select ng-model="user.role_names[0]" ng-options="tmp for tmp in userCtrl.roles">
                     </select>
                 </td>
-                <td><button type="button" class="btn btn-default btn-sm">
+                <td><button type="button" class="btn btn-default btn-sm" ng-click="userCtrl.sumbitPrivileges(user)">
                     <span class="glyphicon glyphicon-wrench"></span></button></td>
                 <td><button type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>

@@ -20,8 +20,8 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         UserService.fetchAllUsers()
             .then(
                 function(d){
-      //              console.log($localStorage.token);
-        //            console.log(d);
+
+                   console.log(d);
                     self.users = d;
                 },
                 function (errResponse){
@@ -62,6 +62,30 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         }
 
     };
+    self.sumbitPrivileges = function(user){
+        self.user = user;
+        self.user.password="";
+        self.editUserPrivileges();
+    };
+    self.editUserPrivileges = function(){
+        if(self.user.role_names[0]==="organizator"){
+            self.user.role_list[0] = 3;
+        }else if(self.user.role_names[0]==="admin"){
+            self.user.role_list[0] = 1;
+        }else if(self.user.role_names[0]==="menadzer"){
+            self.user.role_list[0] = 2;
+        }
+        console.log(self.user);
+        UserService.editUser(self.user)
+            .then(
+                function (d) {
+                    self.user = d;
+                },
+                function (errResponse) {
+                    console.log('Error while editing user in controller');
+                }
+            )
+    };
     self.createUserSubmit = function(){
         console.log(self.user.name+' '+self.user.email+' '+self.user.password);
         self.createUser(self.user);
@@ -94,6 +118,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
             .then(
                 function (response) {
                     self.user.name = response.user.name;
+                    self.user.id = response.user.id;
                     self.user.email = response.user.email;
                     self.user.role = response.user.role;
                     self.user.role_list = response.user.role_list;
@@ -173,7 +198,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         if(tmp === "http://timska.dev/#/users" && self.user.role_list[0]!=1){
             location.href="/";
         }
-        if((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/addEvent" ||tmp==="http://timska.dev/#/editEvent" ) && (self.user.role_list[0]!=1 && self.user.role_list[i]!=3)){
+        if((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/addEvent" ||tmp==="http://timska.dev/#/editEvent" ) && (self.user.role_list[0]!=1 && self.user.role_list[0]!=3)){
             console.log(self.user.role_list[0]);
             console.log((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/editEvent" || tmp==="http://timska.dev/#/createEvent") && self.user.role_list[0]!=1);
             location.href="/";

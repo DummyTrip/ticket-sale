@@ -5,7 +5,7 @@
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
-    self.event = { name:'', venue_id:'',description:'',img:'',tag_list:[], date:'',venue:'',editing:'',cards:[]};
+    self.event = { name:'', organizer_id:'', venue_id:'',description:'',img:'',tag_list:[], date:'',venue:'',editing:'',cards:[]};
     self.event.choosenblock='';
     self.event.choosenblock_rows=[];
     self.event.chosencard='';
@@ -25,7 +25,10 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     self.venueDet = [];
     self.setEvent = function(event){
         self.event = event;
+        sessionStorage.setItem('event',JSON.stringify(self.event));
     };
+
+
     self.check= function (){
         alert('da');
         var k = 0;
@@ -179,10 +182,12 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             )
     };
     self.getAllCards = function(){
+        console.log("Ovaj log******************");
+        console.log(self.event);
         EventService.getAllCards(self.event)
             .then(
                 function(d){
-                    //console.log(d);
+                    console.log(d);
                     self.event.cards = d;
                 },
                 function(errResponse){
@@ -231,7 +236,23 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             )
 
     };
-    self.fetchAllEvents();
+    self.doThis = function(){
+
+        if(location.href==='http://timska.dev/#/'){
+            sessionStorage.clear();
+        }
+        var tmp = sessionStorage.getItem('event');
+        var temp = $.parseJSON(tmp);
+
+        console.log(temp);
+        if(temp!=null) {
+            self.event = temp;
+            self.getAllCards();
+        }else{
+            self.fetchAllEvents();
+        }
+    };
+    self.doThis();
 
 
     self.fetchAllVenues();

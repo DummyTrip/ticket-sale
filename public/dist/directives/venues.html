@@ -1,6 +1,6 @@
 <div class="span14">
     <div class="row">
-        <table id="table" class="table table-condensed" class="table table-condensed" style="width: 80%; margin-left: 10%">
+        <table id="table" class="table table-condensed" class="table table-condensed" style="width: 90%; margin-left: 5%">
             <tr>
                 <th>Име</th>
                 <th>Држава</th>
@@ -12,13 +12,13 @@
             </tr>
 
             <tr ng-repeat="venue in venueCtrl.venues">
-                <td><input type="text" ng-model="venue.name"/></td>
-                <td><input type="text" ng-model="venue.country"/></td>
-                <td><input type="text" ng-model="venue.city"/></td>
-                <td><input type="text" ng-model="venue.address"/></td>
-                <td><a type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.set(venue)" ng-href="#/editVenue">
+                <td ng-show="userCtrl.user.id===1 || userCtrl.user.id===venue.manager_id || venue.manager_id===1"><input type="text" ng-model="venue.name"/></td>
+                <td ng-show="userCtrl.user.id===1 || userCtrl.user.id===venue.manager_id || venue.manager_id===1"><input type="text" ng-model="venue.country"/></td>
+                <td ng-show="userCtrl.user.id===1 || userCtrl.user.id===venue.manager_id || venue.manager_id===1"><input type="text" ng-model="venue.city"/></td>
+                <td ng-show="userCtrl.user.id===1 || userCtrl.user.id===venue.manager_id || venue.manager_id===1"><input type="text" ng-model="venue.address"/></td>
+                <td><a ng-show="userCtrl.user.id===1 || userCtrl.user.id===venue.manager_id || venue.manager_id===1" type="button" class="btn btn-default btn-sm" ng-click="venueCtrl.set(venue)" ng-href="#/editVenue">
                     <span class="glyphicon glyphicon-wrench"></span></a></td>
-                <td><button type="button" class="btn btn-default btn-sm">
+                <td><button ng-show="userCtrl.user.id===1 || userCtrl.user.id===venue.manager_id || venue.manager_id===1" type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button></td>
                 <td><a href="#/addVenue" type="button" class="btn btn-default btn-sm">

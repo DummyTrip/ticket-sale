@@ -1,0 +1,26 @@
+<div class="span14">
+    <div class="row" ng-repeat="venue in venueCtrl.venues">
+        <fieldset style="width:90%;height: 100%; margin:10px;">
+            <legend>Информации за салата</legend>
+        <div class="col-sm-5" style="margin: 10px;">
+            <input type="text" ng-model="venue.name"/>
+            <input type="text" ng-model="venue.country"/>
+        </div>
+        <div class="col-sm-5">
+            <input type="text" ng-model="venue.city"/>
+            <input type="text" ng-model="venue.address"/>
+        </div>
+        <div class="row" style="margin:10px;">
+            <div class="col-sm-8">
+                <textarea type="text" ng-model="venue.description"/>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <p>dasdsadasdas</p>
+                </div>
+            </div>
+        </div>
+        </fieldset>
+    </div>
+
+</div>
