@@ -153,6 +153,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             .then(
                 function(d){
                     self.venue = d;
+                    location.href="http://timska.dev/#/";
+                    window.location.reload(false);
                 },
                 function(errResponse){
                     console.log('Error while creating event in EventController')
@@ -229,6 +231,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             .then(
                 function(d){
                     self.event = d;
+                    location.href="http://timska.dev/#/";
+                    window.location.reload(false);
                 },
                 function(errResponse){
                     console.log('Error while editing or updating event in EventController');

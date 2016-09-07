@@ -70,7 +70,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.editUserPrivileges = function(){
         if(self.user.role_names[0]==="organizator"){
             self.user.role_list[0] = 3;
-        }else if(self.user.role_names[0]==="admin"){
+            }else if(self.user.role_names[0]==="admin"){
             self.user.role_list[0] = 1;
         }else if(self.user.role_names[0]==="menadzer"){
             self.user.role_list[0] = 2;
@@ -97,12 +97,11 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         UserService.createUser(user)
             .then(
                 function(d){
-                    self.user=d;
-                    console.log(self.user.role_list[0]+" ova e ulogata");
-                    if(self.user.role_list[0]==="admin")
-                        location.href="http://timska.dev/admin";
-                    else
-                        location.href="http://timska.dev/";
+                    /*self.user=d;
+                    self.user.role_list = [];
+                    sessionStorage.setItem('user',JSON.stringify(self.user));
+                    self.tempUsr = self.user;*/
+                    location.href="http://timska.dev/#/login";
                 },
                 function(errResponse){
                     console.log('Error while creating user in controller');
@@ -192,19 +191,20 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
             self.tempUsr = self.user;
         }
         var tmp =location.href;
-        console.log(tmp+" "+self.user.role_list[0]);
-        console.log((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/editEvent" || tmp==="http://timska.dev/#/createEvent") &&(self.user.role_list[0]!=1 ||self.user.role_list[0]!=3));
-
-        if(tmp === "http://timska.dev/#/users" && self.user.role_list[0]!=1){
-            location.href="/";
-        }
-        if((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/addEvent" ||tmp==="http://timska.dev/#/editEvent" ) && (self.user.role_list[0]!=1 && self.user.role_list[0]!=3)){
-            console.log(self.user.role_list[0]);
-            console.log((tmp==="http://timska.dev/#/events" || tmp==="http://timska.dev/#/editEvent" || tmp==="http://timska.dev/#/createEvent") && self.user.role_list[0]!=1);
-            location.href="/";
-        }
-        if((tmp==="http://timska.dev/#/venues" || tmp==="http://timska.dev/#/editVenue" || tmp==="http://timska.dev/#/createVenue") &&(self.user.role_list[0]!=1 && self.user.role_list[0]!=2)){
-            location.href="/";
+        if(self.user.role_list!=null) {
+            if (tmp === "http://timska.dev/#/users" && self.user.role_list[0] != 1) {
+                location.href = "/";
+            }
+            if ((tmp === "http://timska.dev/#/events" || tmp === "http://timska.dev/#/addEvent" || tmp === "http://timska.dev/#/editEvent" ) && (self.user.role_list[0] != 1 && self.user.role_list[0] != 3)) {
+                console.log(self.user.role_list[0]);
+                console.log((tmp === "http://timska.dev/#/events" || tmp === "http://timska.dev/#/editEvent" || tmp === "http://timska.dev/#/createEvent") && self.user.role_list[0] != 1);
+                location.href = "/";
+            }
+            if ((tmp === "http://timska.dev/#/venues" || tmp === "http://timska.dev/#/editVenue" || tmp === "http://timska.dev/#/createVenue") && (self.user.role_list[0] != 1 && self.user.role_list[0] != 2)) {
+                location.href = "/";
+            }
+        }else{
+            location.href="http:timska.dev/#/login";
         }
     };
     self.checkIt=function(tmp){

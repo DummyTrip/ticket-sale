@@ -62,6 +62,8 @@ app.controller('venueController',['$scope', 'VenueServices', function($scope, Ve
             .then(
                 function(){
                     console.log('Kreirana '+self.venue.name);
+                    location.href="http://timska.dev/#/";
+                    window.location.reload(false);
                 },
                 function(errResponse){
                     console.log('Error while creating venue in VenueController')
@@ -92,6 +94,8 @@ app.controller('venueController',['$scope', 'VenueServices', function($scope, Ve
             .then(
                 function(d){
                     self.venue = d;
+                    location.href="http://timska.dev/#/";
+                    window.location.reload(false);
                 },
                 function(errResponse){
                     console.log('Error while editing or updating venue in VenueController');
