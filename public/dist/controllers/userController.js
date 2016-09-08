@@ -169,28 +169,32 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
 
                 },
                 function (errResponse) {
+                    self.user.error =true;
                     console.log('Error while logging user in controller');
                 }
             )
     };
     self.submitLogIn= function(){
-        alert('Yes');
         self.logIn(self.user)
     };
     self.check = function(){
     //    console.log(self.user);
         console.log('Yes');
-        var tmp = sessionStorage.getItem('user');
-        var temp = $.parseJSON(tmp);
-
+        var tmp1 = sessionStorage.getItem('user');
+        var temp = $.parseJSON(tmp1);
+        var tmp =location.href;
         if(temp === null){
-            self.auth();
+            if(tmp==="http://timska.dev/#/profile"){
+                location.href="/";
+            }else {
+                self.auth();
+            }
           //  console.log(self.user + " posle auth()");
         }else{
             self.user = temp;
             self.tempUsr = self.user;
         }
-        var tmp =location.href;
+
         if(self.user.role_list!=null) {
             if (tmp === "http://timska.dev/#/users" && self.user.role_list[0] != 1) {
                 location.href = "/";
@@ -208,7 +212,6 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         }
     };
     self.checkIt=function(tmp){
-        alert(tmp);
         self.user.role_list[0]  = tmp;
     };
 

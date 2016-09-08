@@ -40,6 +40,8 @@
                                 <input class="password" id="Password" name="Password" type="password" ng-model="userCtrl.user.password" required/>
                                 <span style="color:red" ng-show="myForm.Password.$dirty && myForm.Password.$invalid">
                                 <span ng-show="myForm.user.email.$error.required">Username is required.</span></span>
+                                <br/>
+                                <span ng-show="userCtrl.user.error" style="color:red">Погешна лозинка или емаил</span>
                             </div>
                             <div class="inputs reversed">
                                 <input id="RememberMe" name="RememberMe" type="checkbox" value="true" /><input name="RememberMe" type="hidden" value="false" />
@@ -54,19 +56,6 @@
                         </form>                </div>
                 </div>
             </div>
-            <div class="external-authentication">
-
-            </div>
-            <div class="topic-html-content">
-                <div class="topic-html-content-title">
-                    <h2 class="topic-html-content-header">
-                        About login / registration</h2>
-                </div>
-                <div class="topic-html-content-body">
-
-                </div>
-            </div>
-
         </div>
     </div>
 

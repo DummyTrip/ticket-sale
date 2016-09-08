@@ -29,7 +29,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     };
 
     self.filtered = function(tmp){
-        alert(tmp);
+
         var temp = self.events;
         self.events = [];
         for(var i = 0; i < temp.length; i++){
@@ -37,12 +37,11 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                 self.events.push(temp[i]);
             }
         }
-        if(self.events.left===0){
+        if(self.events.length===0){
             self.events = temp;
         }
     };
     self.check= function (){
-        alert('da');
         var k = 0;
         for(var p = 0; p < self.event.cards.length; p++){
             if(self.event.cards[i].block===self.event.choosenblock){
@@ -60,7 +59,6 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         }
     };
     self.getIdVenue = function(){ // Ovaa pri create
-        alert(self.event.venue.name);
         for(var i = 0; i < self.venues.length; i++){
             if(self.tmpevent.venue===self.venues[i].name){
                 self.event.venue_id=self.venues[i].id;
@@ -84,7 +82,6 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         self.event = event;
     };
     self.getIdVenues = function(){  //// Ovaa e pri update
-        alert(self.event.venue);
         for(var i = 0; i < self.venues.length; i++){
             if(self.event.venue===self.venues[i].name){
                 self.event.venue_id=self.venues[i].id;
@@ -116,7 +113,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             )
     };
     self.addValue = function(value){
-        alert('Yes');
+
         var flag = false;
         for(var i = 0; i < self.event.tag_list.length; i++){
             if(self.event.tag_list[i]===value){

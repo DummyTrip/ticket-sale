@@ -136,13 +136,13 @@
 
                 </li>
                 <li>
-                    <a ng-if="userCtrl.user.role_list[0]===1" href="#/users">Корисници</a>
+                    <a ng-show="userCtrl.user.role_list[0]===1" href="#/users">Корисници</a>
                 </li>
                 <li>
-                    <a ng-if="userCtrl.user.role_list[0]===1 || userCtrl.user.role_list[0]===3" href="#/events">Настани</a>
+                    <a ng-show="userCtrl.user.role_list[0]===1 || userCtrl.user.role_list[0]===3" href="#/events">Настани</a>
                 </li>
                 <li>
-                    <a ng-if="userCtrl.user.role_list[0]===1 || userCtrl.user.role_list[0]===2" href="#/venues">Сали</a>
+                    <a ng-show="userCtrl.user.role_list[0]===1 || userCtrl.user.role_list[0]===2" href="#/venues">Сали</a>
                 </li>
                 <li><a href="/t/ProdaznaMreza">Продажна мрежа</a></li>
 
