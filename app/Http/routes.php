@@ -24,6 +24,7 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 Route::get('/users', 'UserController@index');
+Route::get('/users/history', 'UserController@history');
 Route::get('/users/{id}', 'UserController@show');
 //Route::get('/profile', 'UserController@edit');
 Route::post('/profile', 'UserController@update');

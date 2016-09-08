@@ -83,16 +83,29 @@ class UserController extends Controller
         $user->email = $email;
 
         if ($password !== ""){
-           return "Ova se vrakja: ".$request->input('password');
             $user->password = bcrypt($password);
-        }else{
-            //return "Super ne vleguva";
         }
-
 
         $user->save();
 
         //return $password;
+    }
+
+    public function history()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+//        $user = \Auth::user();
+        $tickets = $user->tickets()->get();
+        $events = [];
+
+        foreach ($tickets as $ticket) {
+            $event = $ticket->event()->first();
+            if ($event->date->lt(Carbon::now())) {
+                $events[] = $event;
+            }
+        }
+
+        return $events;
     }
 
 }
