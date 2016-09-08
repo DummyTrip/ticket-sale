@@ -3,9 +3,9 @@
  */
 'use strict';
 
-app.controller('venueController',['$scope', 'VenueServices', function($scope, VenueServices) {
+app.controller('venueController',['$scope', 'VenueServices', 'UploadService', function($scope, VenueServices, UploadService) {
     var self = this;
-    self.venue = { id:'', name:'', city:'', manager_id:'', country:'', img:'', description:'', address:'',blocks:[], block:[
+    self.venue = { id:'', name:'', city:'', manager_id:'', country:'', image:'', description:'', address:'',blocks:[], block:[
         {
             name: '',
             rows: '',
@@ -15,6 +15,28 @@ app.controller('venueController',['$scope', 'VenueServices', function($scope, Ve
     self.number = Number(0);
     self.tmp =[{name:'',row:'',columns:''}];
     self.venues = [];
+    self.img = null;
+
+    $scope.UploadPicture = function(data){
+        console.log(data);
+        VenueServices.uploadPicture(data)
+            .then(
+                function (d) {
+                    console.log("Success");
+                    console.log(d);
+                    self.uploaded = true;
+                    self.venue.image = d;
+                },
+                function (errResponse) {
+                    console.log("Fail to upload!");
+                }
+            );
+    };
+
+    self.testFn = function (e) {
+        console.log(self.img);
+        console.log('test: ', e);
+    };
 
     self.set = function(venue){
         sessionStorage.setItem('sala', venue);

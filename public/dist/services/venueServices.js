@@ -16,6 +16,30 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                     }
                 )
         },
+        uploadPicture:function(data) {
+            var fd = new FormData();
+            console.log(data);
+            fd.append('file', data);
+            angular.forEach(data, function (elem) {
+                fd.append('file', elem);
+            });
+            console.log("Service log HERE");
+            return $http.post('http://api.timska.dev/test', fd,
+                {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }
+            )
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while uploading');
+                        return $q.reject(errResponse);
+                    }
+                )
+        },
         createVenue:function(venue){
             console.log(venue);
             return $http.post('http://api.timska.dev/venues/create',venue)

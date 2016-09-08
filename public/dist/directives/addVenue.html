@@ -23,7 +23,8 @@
             </tr>
             <tr>
                 <td>Слика: </td>
-                <td><input id="file" type="file" name="img"/></td>
+                <td><input id="file" type="file" ng-model="venue.image" name="image" onchange="angular.element(this).scope().UploadPicture(this.files)"/></td>
+
             </tr>
             <tr ng-repeat="block in venueCtrl.venue.block">
                 <td>

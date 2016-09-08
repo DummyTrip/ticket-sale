@@ -34,7 +34,7 @@ Route::get('test', function(){
 });
 Route::post('test', function(Illuminate\Http\Request $request){
     $input = $request->all();
-    $imageInputFieldName = "image";
+    $imageInputFieldName = "file";
 
     // getting all of the post data
     $file = array($imageInputFieldName => Input::file($imageInputFieldName));
@@ -53,7 +53,8 @@ Route::post('test', function(Illuminate\Http\Request $request){
             $extension = Input::file($imageInputFieldName)->getClientOriginalExtension(); // getting image extension
             $fileName = rand(11111,99999).'.'.$extension; // renaming image
             Storage::disk('images')->put($fileName, File::get($file[$imageInputFieldName]));
-            return view('test')->with("file", 'storage/public/'.$file[$imageInputFieldName]);
+            return $fileName;
+           // return view('test')->with("file", 'storage/public/'.$file[$imageInputFieldName]);
         }
         else {
             // sending back with error message.
