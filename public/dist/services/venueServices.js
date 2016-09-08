@@ -24,7 +24,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 fd.append('file', elem);
             });
             console.log("Service log HERE");
-            return $http.post('http://api.timska.dev/test', fd,
+            return $http.post('http://api.timska.dev/images/upload', fd,
                 {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}

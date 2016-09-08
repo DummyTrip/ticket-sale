@@ -129,11 +129,7 @@ class VenueController extends Controller
         }
 
         if ($request->has('image')) {
-            $response = $this->uploadImage($venue);
-
-            if ($response->getStatusCode() !== 200){
-                return $response;
-            }
+            $venue->image = $input['image'];
         }
 
         $venue->save();

@@ -151,12 +151,9 @@ class EventController extends Controller
             $event->description = $input['description'];
         }
 
-        if ($request->has('image')) {
-            $response = $this->uploadImage($event);
 
-            if ($response->getStatusCode() !== 200){
-                return $response;
-            }
+        if ($request->has('image')) {
+            $event->image = $input['image'];
         }
 
         $event->save();
