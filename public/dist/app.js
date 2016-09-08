@@ -71,7 +71,10 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
         .when("/users",{
             templateUrl:"directives/users.html",
             controller: "UserController as userCtrl"
-        });
+        }).otherwise({
+         redirectTo: "/"
+
+    });
 
     // dodava Authorization header na sekoj http request
     // izgleda vaka: Bearer: tokenot-zapishan-vo-localStorage

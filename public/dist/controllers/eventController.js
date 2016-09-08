@@ -28,7 +28,19 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         sessionStorage.setItem('event',JSON.stringify(self.event));
     };
 
-
+    self.filtered = function(tmp){
+        alert(tmp);
+        var temp = self.events;
+        self.events = [];
+        for(var i = 0; i < temp.length; i++){
+            if(temp[i].tag_list[0]===tmp){
+                self.events.push(temp[i]);
+            }
+        }
+        if(self.events.left===0){
+            self.events = temp;
+        }
+    };
     self.check= function (){
         alert('da');
         var k = 0;
