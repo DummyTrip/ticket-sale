@@ -5,15 +5,13 @@
     <div class="page product-details-page">
         <div class="page-body">
 
-            <form action="/fk_shkendija-fk_gent" id="product-details-form" method="post">
-                <div itemscope itemtype="http://schema.org/Product" data-productid="1105">
+            <form id="product-details-form" method="post">
+                <div>
                 <div class="product-essential">
-
                     <!--product pictures-->
-
                     <div class="gallery">
                         <div class="picture">
-                            <img src="http://api.timska.dev/storage/public/17705.jpg" title="Picture of eventCtrl.event.name" itemprop="image"/>
+                            <img style="width:550px; height: 200px" src="http://api.timska.dev/storage/public/{{eventCtrl.event.venue.image}}" title="Picture of eventCtrl.event.name" itemprop="image"/>
                         </div>
                     </div>
 

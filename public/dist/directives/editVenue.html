@@ -25,8 +25,9 @@
                 </tr>
                 <tr>
                     <td>Слика</td>
-                    <td><input type="file" name="img"/></td>
+                    <td><input type="file" ng-model="venueCtrl.venue.image" onchange="angular.element(this).scope().UploadPicture(this.files)" name="img"/></td>
                 </tr>
+                {{venueCtrl.venue.blockInfo}}
                 <tr ng-repeat="block in venueCtrl.venue.blockInfo">
                     <td>Име на Блок: <input type="text" ng-model="block.block_name"/></td>
                     <td>Редови: <input type="text" ng-model="block.rows"/></td>

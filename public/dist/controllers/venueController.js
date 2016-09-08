@@ -33,14 +33,28 @@ app.controller('venueController',['$scope', 'VenueServices', 'UploadService', fu
             );
     };
 
+
+    self.doThisFirst = function () {
+        var tmp = sessionStorage.getItem('sala');
+        var temp = $.parseJSON(tmp);
+        console.log("Da tukaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        if( temp != null){
+            console.log(temp);
+            self.venue = temp;
+        }
+    };
+
+    self.doThisFirst();
+
+
     self.testFn = function (e) {
         console.log(self.img);
         console.log('test: ', e);
     };
 
     self.set = function(venue){
-        sessionStorage.setItem('sala', venue);
         self.venue = venue;
+        sessionStorage.setItem('sala',JSON.stringify(self.venue));
         self.showVenue(venue);
     };
     self.addNewBlock = function () { // za vo create

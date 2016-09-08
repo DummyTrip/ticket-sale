@@ -41,6 +41,7 @@ class Venue extends Model
         return DB::table('venues')
             ->join('seat_venue', 'seat_venue.venue_id', '=', 'venues.id')
             ->join('seats', 'seat_venue.seat_id', '=', 'seats.id')
+            ->where('venues.id', '=', $this->id)
             ->select('block_name', DB::raw("count(distinct(seats.column)) as columns"), DB::raw('count(distinct(row)) as rows'))
             ->groupBy('block_name')
             ->get();

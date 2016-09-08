@@ -28,7 +28,7 @@
                 <td><button ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button></td>
-                <td><a href="#/addEvent" type="button" class="btn btn-default btn-sm">
+                <td><a href="#/addEvent" ng-show="userCtrl.user.id===1 || userCtrl.user.id===event.organizer_id || event.organizer_id===1" type="button" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a></td>
             </tr>

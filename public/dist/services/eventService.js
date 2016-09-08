@@ -64,6 +64,30 @@ app.factory('EventService', ['$http', '$q', 'api_url', function($http, $q, api_u
                     }
                 )
         },
+        uploadPicture:function(data) {
+            var fd = new FormData();
+            console.log(data);
+            fd.append('file', data);
+            angular.forEach(data, function (elem) {
+                fd.append('file', elem);
+            });
+            console.log("Service log HERE");
+            return $http.post(api_url + '/images/upload', fd,
+                {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                }
+            )
+                .then(
+                    function (response) {
+                        return response.data;
+                    },
+                    function (errResponse) {
+                        console.error('Error while uploading');
+                        return $q.reject(errResponse);
+                    }
+                )
+        },
         editOrUpdateEvent:function(events){
             return $http.patch(api_url + '/events/'+events.id,events)
                 .then(

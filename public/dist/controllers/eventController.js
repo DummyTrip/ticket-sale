@@ -5,7 +5,7 @@
 
 app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
     var self = this;
-    self.event = { name:'', organizer_id:'', venue_id:'',description:'',img:'',tag_list:[], date:'',venue:'',editing:'',cards:[]};
+    self.event = { name:'', organizer_id:'',image:'', venue_id:'',description:'',img:'',tag_list:[], date:'',venue:'',editing:'',cards:[]};
     self.event.choosenblock='';
     self.event.choosenblock_rows=[];
     self.event.chosencard='';
@@ -189,7 +189,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         EventService.getAllCards(self.event)
             .then(
                 function(d){
-                    console.log(d);
+                   // console.log(d);
                     self.event.cards = d;
                 },
                 function(errResponse){
@@ -218,6 +218,21 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
               break;
           }
       }
+    };
+    $scope.Upload_Picture = function(data){
+        console.log(data);
+        EventService.uploadPicture(data)
+            .then(
+                function (d) {
+                    console.log("Success");
+                    console.log(d);
+                    self.uploaded = true;
+                    self.event.image = d;
+                },
+                function (errResponse) {
+                    console.log("Fail to upload!");
+                }
+            );
     };
     self.editUpdate = function(){
         self.findId();

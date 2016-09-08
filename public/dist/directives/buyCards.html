@@ -1,11 +1,12 @@
 <form ng-controller="eventController as eventCtrl">
-    <div style="align-items: center;">
-        {{eventCtrl.event.cards}}
-        <h1><strong>Карти за евентот {{eventCtrl.event.name}}</strong></h1>
-        <select ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue.block_names" class="selectpicker" >
+    <div class="form-group">
+        <br/>
+        <h1 style="margin-left: 32%"><strong style="font-size: x-large">Карти за евентот {{eventCtrl.event.name}}</strong></h1>
+        <select style="width:400px; margin-left:30%; margin-top:2%;"  class="form-control" ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue.block_names" class="selectpicker" >
         </select>
     </div>
-       <table class="table table-bordered">
+    <div class="table-responsive">
+       <table id="table" class="table table-bordered">
         <tr>
             <th>Ред</th>
             <th>Седиште</th>
@@ -19,4 +20,15 @@
             <td ng-if="tmp.block_name===eventCtrl.event.choosenblock"><input type="button" class="submit" ng-click="eventCtrl.buyCards(tmp.id)" value="Купу"/></td>
         </tr>
     </table>
+    </div>
 </form>
+
+<script>
+    $( document ).ready(function() {
+        $('#table tr').hover(function() {
+            $(this).addClass('danger');
+        }, function() {
+            $(this).removeClass('danger');
+        });
+    });
+</script>

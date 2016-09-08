@@ -26,6 +26,14 @@
                     <option ng-repeat="venue in venueCtrl.venues">{{venue.name}}</option>
                 </select> </td>
             </tr>
+            <tr>
+                <td>Опис:</td>
+                <td><textarea ng-model="eventCtrl.event.description"></textarea></td>
+            </tr>
+            <tr>
+                <td>Слика:</td>
+                <td><input id="file" type="file" ng-model="eventCtrl.event.image" name="image" onchange="angular.element(this).scope().Upload_Picture(this.files)"/></td>
+            </tr>
             <tr ng-repeat="tmp in eventCtrl.venue1.block">
                 <td>Блок: <input type="text" ng-model="tmp.name" readonly/></td>
                 <td>Цена: <input type="number" ng-model="tmp.price"/></td>
