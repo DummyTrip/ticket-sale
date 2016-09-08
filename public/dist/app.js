@@ -3,7 +3,7 @@
  */
 //Angular stuff.
 
-var app = angular.module('saleAndEvent', ['ngRoute', 'ngStorage','angular.filter']); // Creating object app with name saleAndEvent with no dependencies for now ( the empty brackets )
+var app = angular.module('saleAndEvent', ['ngRoute', 'ngStorage','angular.filter']).constant('api_url', 'http://api.timska.dev'); // Creating object app with name saleAndEvent with no dependencies for now ( the empty brackets )
 
 app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider){
     $routeProvider

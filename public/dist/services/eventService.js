@@ -2,10 +2,10 @@
  * Created by Muttley on 8/5/2016.
  */
 'use strict';
-app.factory('EventService', ['$http', '$q', function($http, $q){
+app.factory('EventService', ['$http', '$q', 'api_url', function($http, $q, api_url){
     return{
         fetchAllEvents:function(){
-            return $http.get('http://api.timska.dev/events')
+            return $http.get(api_url + '/events')
                 .then(
                     function (response) {
                         return response.data;
@@ -17,7 +17,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         createEvent:function(event){
-            return $http.post('http://api.timska.dev/events/create',event)
+            return $http.post(api_url + '/events/create',event)
                 .then(
                     function(response){
                         return response.data;
@@ -29,7 +29,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         showEvents:function(event){
-            return $http.get('http://api.timska.dev/events/'+event)
+            return $http.get(api_url + '/events/'+event)
                 .then(
                     function(response){
                         return response.data;
@@ -41,7 +41,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         getAllCards:function(event){
-            return $http.get('http://api.timska.dev/events/'+event.id+"/tickets")
+            return $http.get(api_url + '/events/'+event.id+"/tickets")
                 .then(
                     function(response){
                         return response.data;
@@ -53,7 +53,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         buyCards:function(event){
-            return $http.post('http://api.timska.dev/events/'+event.id+'/tickets/'+event.cards.id+'/buy',event)
+            return $http.post(api_url + '/events/'+event.id+'/tickets/'+event.cards.id+'/buy',event)
                 .then(
                     function (response) {
                         console.log(response.data);
@@ -65,7 +65,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         editOrUpdateEvent:function(events){
-            return $http.patch('http://api.timska.dev/events/'+events.id,events)
+            return $http.patch(api_url + '/events/'+events.id,events)
                 .then(
                     function(response){
                         return response.data;
@@ -77,7 +77,7 @@ app.factory('EventService', ['$http', '$q', function($http, $q){
                 )
         },
         getBlockaAndRow: function(event){
-            return $http.get('http://api.timska.dev/events/'+event.id+'/blocktickets/',event.id)
+            return $http.get(api_url + '/events/'+event.id+'/blocktickets/',event.id)
                 .then(
                     function(response){
                         return response.data;

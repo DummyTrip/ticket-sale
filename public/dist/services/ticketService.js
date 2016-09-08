@@ -2,10 +2,10 @@
  * Created by Muttley on 8/7/2016.
  */
 'use strict';
-app.factory('TicketService', ['$http', '$q', function($http, $q){
+app.factory('TicketService', ['$http', '$q', 'api_url', function($http, $q, api_url){
     return{
         fetchAllTicket:function(Event){
-            return $http.get('http://api.timska.dev/events/'+Event+'/tickets')
+            return $http.get(api_url + '/events/'+Event+'/tickets')
                 .then(
                     function (response) {
                         return response.data;
@@ -17,7 +17,7 @@ app.factory('TicketService', ['$http', '$q', function($http, $q){
                 )
         },
         reserveTicket:function (Event,ticket) {
-            return $http.post('http://api.timska.dev/events/'+Event+'/tickets/'+ticket+'/buy')
+            return $http.post(api_url + '/events/'+Event+'/tickets/'+ticket+'/buy')
                 .then(
                     function (response) {
                         return response.data;

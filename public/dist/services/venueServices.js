@@ -2,10 +2,10 @@
  * Created by Muttley on 8/5/2016.
  */
 'use strict';
-app.factory('VenueServices', ['$http', '$q', function($http, $q){
+app.factory('VenueServices', ['$http', '$q', 'api_url', function($http, $q, api_url){
     return{
         fetchAllVenues:function(){
-            return $http.get('http://api.timska.dev/venues')
+            return $http.get(api_url + '/venues')
                 .then(
                     function (response) {
                         return response.data;
@@ -24,7 +24,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 fd.append('file', elem);
             });
             console.log("Service log HERE");
-            return $http.post('http://api.timska.dev/images/upload', fd,
+            return $http.post(api_url + '/images/upload', fd,
                 {
                     transformRequest: angular.identity,
                     headers: {'Content-Type': undefined}
@@ -42,7 +42,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
         },
         createVenue:function(venue){
             console.log(venue);
-            return $http.post('http://api.timska.dev/venues/create',venue)
+            return $http.post(api_url + '/venues/create',venue)
                 .then(
                     function(response){
                         console.log(response.data);
@@ -55,7 +55,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 )
         },
         showVenue:function(venues){
-            return $http.get('http://api.timska.dev/venues/'+venues)
+            return $http.get(api_url + '/venues/'+venues)
                 .then(
                     function(response){
                         return response.data;
@@ -67,7 +67,7 @@ app.factory('VenueServices', ['$http', '$q', function($http, $q){
                 )
         },
         editOrUpdate:function(venues){
-            return $http.patch('http://api.timska.dev/venues/'+venues.id,venues)
+            return $http.patch(api_url + '/venues/'+venues.id,venues)
                 .then(
                     function(response){
                         console.log('Da ushesno e update vo venue');

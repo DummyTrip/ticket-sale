@@ -2,10 +2,10 @@
  * Created by Muttley on 8/4/2016.
  */
 'use strict';
-app.factory('UserService', ['$http', '$q', function($http, $q){
+app.factory('UserService', ['$http', '$q' , 'api_url', function($http, $q, api_url){
     return{
         fetchAllUsers: function () {
-            return $http.get('http://api.timska.dev/users')
+            return $http.get(api_url + '/users')
                 .then(
                     function (response) {
                         return response.data;
@@ -17,7 +17,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         fetchUserByName: function(user){
-            return $http.get('http://api.timska.dev/users/'+user)
+            return $http.get(api_url + '/users/'+user)
                 .then(
                     function(response){
                         return response.data;
@@ -29,7 +29,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         editUser:function(user){ // same function for update
-            return $http.post('http://api.timska.dev/profile',user)
+            return $http.post(api_url + '/profile',user)
                 .then(
                     function(response){
                         console.log(response.data);
@@ -42,7 +42,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         createUser:function(user){
-            return $http.post('http://api.timska.dev/singUp',user)
+            return $http.post(api_url + '/singUp',user)
                 .then(
                     function(response){
                         return response.data;
@@ -54,7 +54,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
                 )
         },
         checkLogIn: function (user) {
-            return $http.post('http://api.timska.dev/logIn',user)
+            return $http.post(api_url + '/logIn',user)
                 .then(
                     function(response){
                         return response.data;
@@ -67,7 +67,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
 
         },
         authUser: function () {
-            return $http.get('http://api.timska.dev/auth')
+            return $http.get(api_url + '/auth')
                 .then(
                     function(response){
                         return response.data;

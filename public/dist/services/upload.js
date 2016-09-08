@@ -27,7 +27,7 @@ app.factory('UploadService', ['$q', function($q){
               console.log('upload is aborted');
             };
 
-            xhr.open('POST', 'http://api.timska.dev/test', true);
+            xhr.open('POST', $rootScope.api_url + '/test', true);
             xhr.send(form);
             return null;
         }
