@@ -7,7 +7,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
     self.tmp ='';
-    self.roles=['admin','organizator','menadzer','kupuvac'];
+    self.roles=['admin','organizer','manager', 'Client'];
     // go zapishuva tokenot vo localStorage.
     // povekje za ova:
     // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
@@ -81,7 +81,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.editUserPrivileges = function(){
         if(self.user.role_names[0]==="organizator"){
             self.user.role_list[0] = 3;
-            }else if(self.user.role_names[0]==="admin"){
+        }else if(self.user.role_names[0]==="admin"){
             self.user.role_list[0] = 1;
         }else if(self.user.role_names[0]==="menadzer"){
             self.user.role_list[0] = 2;

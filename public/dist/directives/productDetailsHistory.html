@@ -1,0 +1,67 @@
+<div class="center-3" ng-controller="eventController as eventCtrl">
+
+    <!--product breadcrumb-->
+
+    <div class="page product-details-page">
+        <div class="page-body">
+
+            <form id="product-details-form" method="post">
+                <div>
+                    <div class="product-essential">
+                        <!--product pictures-->
+                        <div class="gallery">
+                            <div class="picture">
+                                <img style="width:550px; height: 200px" src="http://api.timska.dev/storage/public/{{eventCtrl.event.venue.image}}" title="Picture of eventCtrl.event.name" itemprop="image"/>
+                            </div>
+                        </div>
+
+
+                        <div class="overview">
+                            <div class="product-name">
+                                <h1 itemprop="name">
+                                    {{eventCtrl.event.name}}
+                                </h1>
+                            </div>
+                            <div class="short-description">
+                                <P style="text-align: center;"></p>
+                                <p><span style="font-size: small;">{{eventCtrl.event.description}}</span></p>
+                                <p style="text-align: center;"></p>
+                                <p><span style="font-size: small;">{{eventCtrl.event.date.substring(0,10)}}</span></p>
+
+                                Почеток: {{eventCtrl.event.date.substring(11,16)}} ч.
+
+
+                                {{eventCtrl.event.venue.name}}
+
+
+
+                            </div>
+                            <div class="prices" itemprop="offers">
+                                <div class="product-price">
+
+            <span  itemprop="price"  >
+{{eventCtrl.event.cards[0].price}} ден.            </span>
+                                </div>
+                                <meta itemprop="priceCurrency" content="MKD" />
+                            </div>
+
+
+                            <div class="product-share-button">
+                                <!-- AddThis Button BEGIN --><div class="addthis_toolbox addthis_default_style "><a class="addthis_button_preferred_1"></a><a class="addthis_button_preferred_2"></a><a class="addthis_button_preferred_3"></a><a class="addthis_button_preferred_4"></a><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></div><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=nopsolutions"></script><!-- AddThis Button END -->
+                            </div>
+
+
+                        </div>
+                        <div class="full-description" itemprop="description">
+                            <p style="text-align: left;"></p>
+                            <h1 style="text-align: center; font-size: 20px; margin-bottom: 10%"><strong>Детали за настанот: {{eventCtrl.event.name}}</strong></h1>
+                            <p><span style="font-size: small;">{{eventCtrl.event.description}}</span></p>
+                            <p><span style="font-size: small;">Во {{eventCtrl.event.venue.name}} | {{eventCtrl.event.date.substring(0,10)}} - {{eventCtrl.event.date.substring(11,16)}} ч. </span></p>
+                            <p style="text-align: left;"><br /><br /><strong><span style="font-size: small;">Цена на билет: {{eventCtrl.event.cards[0].price}} МКД</span></strong><br /><br /><strong><span style="font-size: small;">Продажни места:</span></strong><br /><span style="font-size: small;"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

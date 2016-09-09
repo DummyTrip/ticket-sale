@@ -60,6 +60,10 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
             templateUrl:"directives/editEvent.html",
             controller: "UserController as userCtrl"
         })
+        .when('/productDetailsHistory',{
+            templateUrl:"directives/productDetailsHistory.html",
+            controller: "UserController as userCtrl"
+        })
         .when('/productDetails',{
             templateUrl:"directives/productDetails.html",
             controller: "UserController as userCtrl"
