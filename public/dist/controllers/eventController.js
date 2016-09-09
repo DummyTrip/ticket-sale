@@ -27,7 +27,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         self.event = event;
         sessionStorage.setItem('event',JSON.stringify(self.event));
     };
-
+    self.events1 = [];
     self.filtered = function(tmp){
 
         var temp = self.events;
@@ -126,6 +126,17 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             self.event.tags.push(value);
         }
     };
+    self.this = function(id){
+        console.log(self.events);
+        /*for(var i = 0; i < self.events.length; i++){
+            for(var k =0; k < self.events[i].cards.length; k++){
+                if(self.events[i].cards[k].user_id===id){
+                    self.events1.push(self.events[i]);
+                }
+            }
+        }
+        console.log(self.events1);*/
+    };
     self.fetchAllEvents = function(){
         EventService.fetchAllEvents()
             .then(
@@ -133,12 +144,11 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
                     self.events = d;
                     for(var i = 0; i < self.events.length; i++){
                         self.event = self.events[i];
-                        self.getAllCards();
                         self.getVenueByID();
                         self.getBlockaAndRow();
+                        self.getAllCards();
                         //console.log(JSON.stringify(self.event.tag_list)+" pri fetching");
                     }
-
                 },
                 function (errResponse){
                     console.log('Error while fetching all events in EventController');
@@ -151,7 +161,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
 
 
         for(var q = 0; q < self.venue1.block.length; q++){
-            console.log(JSON.stringify(self.venue1.block[q].name)+" "+JSON.stringify(self.venue1.block[q].price));
+           // console.log(JSON.stringify(self.venue1.block[q].name)+" "+JSON.stringify(self.venue1.block[q].price));
             self.event.blocks.push(self.venue1.block[q].name);
             self.event.blocks.push(self.venue1.block[q].price);
         }
@@ -193,13 +203,14 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             )
     };
     self.getAllCards = function(){
-        console.log("Ovaj log******************");
-        console.log(self.event);
+        //console.log("Ovaj log******************");
+        //console.log(self.event);
         EventService.getAllCards(self.event)
             .then(
                 function(d){
                    // console.log(d);
                     self.event.cards = d;
+          //          console.log(self.event.cards);
                 },
                 function(errResponse){
                     console.log('Error while showing events in EventController')
@@ -212,7 +223,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         EventService.buyCards(self.event)
             .then(
                 function(d){
-                    console.log(d);
+            //        console.log(d);
+                    window.location.reload(false);
                 },
                 function(errResponse){
                     console.log('Error while buying cards in EventController')
@@ -233,8 +245,8 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
         EventService.uploadPicture(data)
             .then(
                 function (d) {
-                    console.log("Success");
-                    console.log(d);
+              //      console.log("Success");
+              //      console.log(d);
                     self.uploaded = true;
                     self.event.image = d;
                 },

@@ -1,7 +1,8 @@
 app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '$localStorage', 'UserService' , function($http, $rootScope, $scope, $location, $localStorage, UserService){
     var self = this;
-    self.user = { id:'', name:'', email:'', password:''};
+    self.user = { id:'', name:'', email:'', password:'',history:[]};
     self.user.role_list=[];
+    self.history = [];
     self.userPass ={oldPass:'',newPass:'',confirmPass:''};
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
@@ -20,7 +21,6 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         UserService.fetchAllUsers()
             .then(
                 function(d){
-
                    console.log(d);
                     self.users = d;
                 },
@@ -28,6 +28,17 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                     console.log('Error while fetching all users in UserController');
                 }
             );
+    };
+    self.History = function(){
+        UserService.History()
+            .then(
+                function(d){
+                    self.history = d;
+                    console.log(self.history);
+                },function (err) {
+                    console.log('Error while fetching the history');
+                }
+            )
     };
     self.fetcUserByName = function(user){
         UserService.fetchUserByName(user)
@@ -183,6 +194,9 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         var tmp1 = sessionStorage.getItem('user');
         var temp = $.parseJSON(tmp1);
         var tmp =location.href;
+        if(tmp=="http://timska.dev/#/history"){
+            self.History();
+        }
         if(temp === null){
             if(tmp==="http://timska.dev/#/profile"){
                 location.href="/";

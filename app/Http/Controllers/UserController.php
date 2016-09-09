@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
-
+use Carbon\Carbon;
 use App\Http\Requests;
 use App\Role;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $users = User::all();
         return $users;
-       // return view('users.index', compact('users'));
+        // return view('users.index', compact('users'));
     }
 
     public function show($user)
@@ -83,16 +83,29 @@ class UserController extends Controller
         $user->email = $email;
 
         if ($password !== ""){
-           return "Ova se vrakja: ".$request->input('password');
             $user->password = bcrypt($password);
-        }else{
-            //return "Super ne vleguva";
         }
-
 
         $user->save();
 
         //return $password;
+    }
+
+    public function history()
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+//        $user = \Auth::user();
+        $tickets = $user->tickets()->get();
+        $events = [];
+
+        foreach ($tickets as $ticket) {
+            $event = $ticket->event()->first();
+            if ($event->date->lt(Carbon::now())) {
+                $events[$event->id] = $event;
+            }
+        }
+
+        return $events;
     }
 
 }

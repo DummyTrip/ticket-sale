@@ -3,18 +3,18 @@
         <div class="page-body">
             <div class="product-grid home-page-product-grid">
                 <div class="title">
-                    <strong>Настани</strong>
+                    <strong>Историја на корсиникот</strong>
                 </div>
-                <div class="item-box" ng-repeat="event in eventCtrl.events">
+                <div class="item-box" ng-repeat="history in userCtrl.history">
                     <div class="product-item" data-productid="1099" >
                         <div class="picture">
                             <a href="#">
-                                <img alt="{{event.description}}" src="http://api.timska.dev/storage/public/{{event.image}}" title="Прикажи детали за  СЛАТКАРИСТИКА @ CENTRAL PARK SUMMER CLUB" />
+                                <img alt="{{history.description}}" src="http://api.timska.dev/storage/public/{{history.image}}" title="Прикажи детали за  СЛАТКАРИСТИКА @ CENTRAL PARK SUMMER CLUB" />
                             </a>
                         </div>
                         <div class="details">
                             <h2 class="product-title">
-                                <a href="#/">{{event.name}}</a>
+                                <a href="#/">{{history.name}}</a>
                             </h2>
                             <div class="description">
                                 <p style="text-align: center;"></p>
@@ -27,10 +27,10 @@
                             </div>
                             <div class="add-info">
                                 <div class="prices">
-                                    <span class="price actual-price">Локација: {{event.venue.name}}</span>
+                                    <span class="price actual-price">Сала: {{history.venue[0].name}}</span>
                                 </div>
                                 <div class="buttons">
-                                    <a type="button" class="button-1 product-box-detail-button" ng-click="eventCtrl.setEvent(event)" href="#/productDetails">Детали</a>
+                                    <a type="button" class="button-1 product-box-detail-button" ng-click="eventCtrl.setEvent(history)" href="#/productDetails">Детали</a>
                                 </div>
 
                             </div>

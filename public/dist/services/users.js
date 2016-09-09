@@ -16,6 +16,18 @@ app.factory('UserService', ['$http', '$q' , 'api_url', function($http, $q, api_u
                     }
                 )
         },
+        History: function () {
+            return $http.get(api_url+'/users/history')
+                .then(
+                    function(response){
+                        return response.data;
+                    },
+                    function(errResponse){
+                        console.log('Error while fetching users');
+                        return $q.reject(errResponse);
+                    }
+                )
+        },
         fetchUserByName: function(user){
             return $http.get(api_url + '/users/'+user)
                 .then(

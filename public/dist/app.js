@@ -20,6 +20,10 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
             templateUrl:"directives/login.html",
             controller: "UserController as userCtrl"
         })
+        .when("/history",{
+            templateUrl:"directives/history.html",
+            controller:"UserController as userCtrl"
+        })
         .when("/contactus",{
             templateUrl:"directives/contact.html",
             controller: "UserController as userCtrl"
