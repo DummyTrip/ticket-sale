@@ -101,7 +101,7 @@ app.factory('EventService', ['$http', '$q', 'api_url', function($http, $q, api_u
                 )
         },
         getBlockaAndRow: function(event){
-            return $http.get(api_url + '/events/'+event.id+'/blocktickets/',event.id)
+            return $http.get(api_url + '/events/'+event.id+'/blocktickets',event.id)
                 .then(
                     function(response){
                         return response.data;
