@@ -9,7 +9,7 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
     $routeProvider
         .when("/",{
             templateUrl: "directives/index.html",
-            controller: "UserController as userCtrl"
+            controller: "eventController as eventCtrl"
         })
         .when("/register",{
             templateUrl: "directives/register.html",
