@@ -1,4 +1,4 @@
-app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '$localStorage', 'UserService' , function($http, $rootScope, $scope, $location, $localStorage, UserService){
+app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '$localStorage', 'UserService', 'api_url', 'url', function($http, $rootScope, $scope, $location, $localStorage, UserService, api_url, url){
     var self = this;
     self.user = { id:'', name:'', email:'', password:'',history:[]};
     self.user.role_list=[];
@@ -7,7 +7,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.users = [];
     self.tempUsr={id:'', name:'',email:'',password:''};
     self.tmp ='';
-    self.roles=['admin','organizator','menadzer','kupuvac'];
+    self.roles=['admin','organizer','manager', 'Client'];
     // go zapishuva tokenot vo localStorage.
     // povekje za ova:
     // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API
@@ -81,7 +81,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
     self.editUserPrivileges = function(){
         if(self.user.role_names[0]==="organizator"){
             self.user.role_list[0] = 3;
-            }else if(self.user.role_names[0]==="admin"){
+        }else if(self.user.role_names[0]==="admin"){
             self.user.role_list[0] = 1;
         }else if(self.user.role_names[0]==="menadzer"){
             self.user.role_list[0] = 2;
@@ -112,7 +112,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                     self.user.role_list = [];
                     sessionStorage.setItem('user',JSON.stringify(self.user));
                     self.tempUsr = self.user;*/
-                    location.href="http://timska.dev/#/login";
+                    location.href=url + "/#/login";
                 },
                 function(errResponse){
                     console.log('Error while creating user in controller');
@@ -163,7 +163,7 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                 function(){
                     // Prakja post do api.timska.dev
                     // api.timska.dev vrakja token i successAuth (gore e definirano) go zapishuva tokenot vo localStorage
-                    $http.post('http://api.timska.dev/logIn', self.user).success(successAuth).error(function () {
+                    $http.post(api_url + '/logIn', self.user).success(successAuth).error(function () {
                         $rootScope.error = 'Invalid credentials.';
                     });
 
@@ -173,9 +173,9 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
                         // ova e stariot kod. go ostaviv za sekoj sluchaj
                         //console.log(self.user.roles[0].role + " Ova e ulogata");
                         /*if (self.user.roles[0].role === "admin")
-                            location.href = "http://timska.dev/admin";
+                            location.href = url + "/admin";
                         else
-                            location.href = "http://timska.dev/";*/
+                            location.href = url + "/";*/
                         console.log('Uspeshno!!! '+ self.user.name+" "+self.user.email);
 
                 },
@@ -194,11 +194,11 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         var tmp1 = sessionStorage.getItem('user');
         var temp = $.parseJSON(tmp1);
         var tmp =location.href;
-        if(tmp=="http://timska.dev/#/history"){
+        if(tmp==url + "/#/history"){
             self.History();
         }
         if(temp === null){
-            if(tmp==="http://timska.dev/#/profile"){
+            if(tmp===url + "/#/profile"){
                 location.href="/";
             }else {
                 self.auth();
@@ -210,19 +210,19 @@ app.controller('UserController',['$http', '$rootScope', '$scope', '$location', '
         }
 
         if(self.user.role_list!=null) {
-            if (tmp === "http://timska.dev/#/users" && self.user.role_list[0] != 1) {
+            if (tmp === url + "/#/users" && self.user.role_list[0] != 1) {
                 location.href = "/";
             }
-            if ((tmp === "http://timska.dev/#/events" || tmp === "http://timska.dev/#/addEvent" || tmp === "http://timska.dev/#/editEvent" ) && (self.user.role_list[0] != 1 && self.user.role_list[0] != 3)) {
+            if ((tmp === url + "/#/events" || tmp === url + "/#/addEvent" || tmp === url + "/#/editEvent" ) && (self.user.role_list[0] != 1 && self.user.role_list[0] != 3)) {
                 console.log(self.user.role_list[0]);
-                console.log((tmp === "http://timska.dev/#/events" || tmp === "http://timska.dev/#/editEvent" || tmp === "http://timska.dev/#/createEvent") && self.user.role_list[0] != 1);
+                console.log((tmp === url + "/#/events" || tmp === url + "/#/editEvent" || tmp === url + "/#/createEvent") && self.user.role_list[0] != 1);
                 location.href = "/";
             }
-            if ((tmp === "http://timska.dev/#/venues" || tmp === "http://timska.dev/#/editVenue" || tmp === "http://timska.dev/#/createVenue") && (self.user.role_list[0] != 1 && self.user.role_list[0] != 2)) {
+            if ((tmp === url + "/#/venues" || tmp === url + "/#/editVenue" || tmp === url + "/#/createVenue") && (self.user.role_list[0] != 1 && self.user.role_list[0] != 2)) {
                 location.href = "/";
             }
         }else{
-            location.href="http:timska.dev/#/login";
+            location.href=url + "/#/login";
         }
     };
     self.checkIt=function(tmp){

@@ -9,7 +9,7 @@
                     <div class="product-item" data-productid="1099" >
                         <div class="picture">
                             <a href="#">
-                                <img alt="{{history.description}}" src="http://api.timska.dev/storage/public/{{history.image}}" title="Прикажи детали за  СЛАТКАРИСТИКА @ CENTRAL PARK SUMMER CLUB" />
+                                <img alt="{{history.description}}" ng-src="{{ api_url }}/storage/public/{{history.image}}" title="Прикажи детали за  СЛАТКАРИСТИКА @ CENTRAL PARK SUMMER CLUB" />
                             </a>
                         </div>
                         <div class="details">
@@ -30,7 +30,7 @@
                                     <span class="price actual-price">Сала: {{history.venue[0].name}}</span>
                                 </div>
                                 <div class="buttons">
-                                    <a type="button" class="button-1 product-box-detail-button" ng-click="eventCtrl.setEvent(history)" href="#/productDetails">Детали</a>
+                                    <a type="button" class="button-1 product-box-detail-button" ng-click="eventCtrl.setEvent(history)" href="#/productDetailsHistory">Детали</a>
                                 </div>
 
                             </div>

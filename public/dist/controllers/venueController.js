@@ -3,7 +3,7 @@
  */
 'use strict';
 
-app.controller('venueController',['$scope', 'VenueServices', 'UploadService', function($scope, VenueServices, UploadService) {
+app.controller('venueController',['$scope', 'VenueServices', 'UploadService', 'api_url', 'url', function($scope, VenueServices, UploadService, api_url, url) {
     var self = this;
     self.venue = { id:'', name:'', city:'', manager_id:'', country:'', image:'', description:'', address:'',blocks:[], block:[
         {
@@ -98,7 +98,7 @@ app.controller('venueController',['$scope', 'VenueServices', 'UploadService', fu
             .then(
                 function(){
                     console.log('Kreirana '+self.venue.name);
-                    location.href="http://timska.dev/#/";
+                    location.href=url + "/#/";
                     window.location.reload(false);
                 },
                 function(errResponse){
@@ -130,7 +130,7 @@ app.controller('venueController',['$scope', 'VenueServices', 'UploadService', fu
             .then(
                 function(d){
                     self.venue = d;
-                    location.href="http://timska.dev/#/";
+                    location.href=url + "/#/";
                     window.location.reload(false);
                 },
                 function(errResponse){

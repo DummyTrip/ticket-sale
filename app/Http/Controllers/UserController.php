@@ -100,9 +100,9 @@ class UserController extends Controller
 
         foreach ($tickets as $ticket) {
             $event = $ticket->event()->first();
-            if ($event->date->lt(Carbon::now())) {
+//            if ($event->date->lt(Carbon::now())) {
                 $events[$event->id] = $event;
-            }
+//            }
         }
 
         return $events;

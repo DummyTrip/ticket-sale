@@ -3,7 +3,7 @@
 
 'use strict';*/
 
-app.controller('eventController',['$scope', 'EventService', 'VenueServices', function($scope, EventService,VenueServices) {
+app.controller('eventController',['$scope', 'EventService', 'VenueServices', 'url', function($scope, EventService,VenueServices, url) {
     var self = this;
     self.event = { name:'', organizer_id:'',image:'', venue_id:'',description:'',img:'',tag_list:[], date:'',venue:'',editing:'',cards:[]};
     self.event.choosenblock='';
@@ -172,7 +172,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             .then(
                 function(d){
                     self.venue = d;
-                    location.href="http://timska.dev/#/";
+                    location.href=url + "/#/";
                     window.location.reload(false);
                 },
                 function(errResponse){
@@ -267,7 +267,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
             .then(
                 function(d){
                     self.event = d;
-                    location.href="http://timska.dev";
+                    location.href=url;
                     //window.location.reload(false);
                 },
                 function(errResponse){
@@ -278,7 +278,7 @@ app.controller('eventController',['$scope', 'EventService', 'VenueServices', fun
     };
     self.doThis = function(){
 
-        if(location.href==='http://timska.dev/#/'){
+        if(location.href===url + '/#/'){
             sessionStorage.clear();
         }
         var tmp = sessionStorage.getItem('event');

@@ -1,7 +1,6 @@
 <form ng-controller="eventController as eventCtrl">
     <div class="form-group">
         <br/>
-        {{eventCtrl.event.venue}}
         <h1 style="margin-left: 32%"><strong style="font-size: x-large">Карти за евентот {{eventCtrl.event.name}}</strong></h1>
         <select style="width:400px; margin-left:30%; margin-top:2%;"  class="form-control" ng-model="eventCtrl.event.choosenblock" ng-options="tmp for tmp in eventCtrl.event.venue.block_names" class="selectpicker" >
         </select>
